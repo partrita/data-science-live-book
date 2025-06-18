@@ -1,81 +1,72 @@
-## Data Science Live Book
+# 데이터 과학 라이브 북
 
 <img src="https://datascienceheroes.com/img/blog/data-science-live-book-cover-2.png" alt="Data Science Live Book" width="400px">
 
+**한눈에 보기**: 안녕하세요! 이책은 온라인으로 읽어보시거나 또는 여기서 다운로드하실 수 있습니다. 감사합니다. 즐거운 하루 되세요! :)
 
- 
-<font size="+2">**`tl;dr`**</font>: Hi there! I invite you to <a href="https://livebook.datascienceheroes.com" target="blank">read the book online</a> and/or <a href="https://livebook.datascienceheroes.com/download-book.html" target="blank">download here</a>. Thanks and have a nice day :)
+## 아마존 페이퍼백 & 킨들
 
-#### Paperback & Kindle at Amazon
+이 책은 현재 아마존에서 [킨들](http://a.co/d/dIj1XwD), [흑백](https://www.amazon.com/dp/9874269049), 그리고 [컬러](https://www.amazon.com/dp/9874273666) 버전으로 만나보실 수 있습니다 📗 🚀.
 
-This book is now available at Amazon in [Kindle]( Link: http://a.co/d/dIj1XwD) [Black & White](https://www.amazon.com/dp/9874269049) and [color](https://www.amazon.com/dp/9874273666) 📗 🚀.
+전 세계 100개국 이상으로 배송 가능합니다. 🌎
 
-LiIt can be shipped to over 100 countries. 🌎
+[PDF](https://gumroad.com/l/tORBv)로도 구매하실 수 있습니다 :)
 
-Also available in P[PDF](https://gumroad.com/l/tORBv) :)
-### `!(tl;dr)`: An overview...
+-----
 
-It's a book to learn data science, machine learning, data analysis with tons of examples and explanations around several topics like:
- 
-- Exploratory data analysis
-- Data preparation
-- Selecting best variables
-- Model performance
+## 자세히 알아보기: 개요
+
+이 책은 데이터 과학, 머신러닝, 데이터 분석을 배우기 위한 책으로, 다음과 같은 다양한 주제에 대한 풍부한 예시와 설명을 담고 있습니다:
+
+  - 탐색적 데이터 분석
+  - 데이터 준비
+  - 최적 변수 선택
+  - 모델 성능
+
+대부분의 R 코드는 실제 시나리오에서 바로 활용할 수 있습니다! 저는 `funModeling` R 패키지를 동시에 개발했기 때문에, 이 책에서 해당 패키지가 자주 사용됩니다.
 
 
-Most of the written R code can be used in real scenarios! I worked on the `funModeling` R package at the same time, so it is used many times in the book.
+### 몇 가지 예시를 들어볼까요?
 
-<br>
+데이터 준비에 대한 완벽한 지침서라고 할 수 있습니다.
 
-#### How about some examples?
+예를 들어, 결측치 장에서는 이 값들을 분석 및 예측 모델링에 유용하게 활용할 수 있도록 입력하고 변환하는 방법을 찾을 수 있습니다.
 
-It's a playbook with full of data preparation receipts.
+또 다른 예시로, 이상치(아웃라이어) 장에서는 다양한 기준에 따라 이상치를 찾아내는 몇 가지 방법을 알게 될 것입니다. `funModeling`에는 모든 데이터를 한 번에 처리하는 데 도움이 되는 함수가 포함되어 있습니다.
 
-I.e. in the missing values chapter you'll find how to input and convert these values into something useful for both, analysis and predictive modeling.
-
-Other example, in the outliers chapter you'll get to know to some methods that spot outliers based on different criteria; `funModeling` contains a function that can help to process all data at once... 
-
-Or more conceptually, we have a numeric variable and we need to convert it into categorical, or vice-versa, do we have to convert or just leave it as it comes? 
+혹은 좀 더 개념적으로, 수치형 변수가 있는데 이를 범주형으로 변환해야 하거나, 그 반대의 경우도 있습니다. 변환해야 할까요, 아니면 있는 그대로 두어야 할까요?
 
 <img src="https://datascienceheroes.com/img/blog/coyote_book2.gif" width="30%">
 
-And so on and so on... 
+이 외에도 다양한 내용들이 담겨 있습니다...
 
-<br>
+### 책의 철학
 
-#### Book's philosophy
+이 책의 모든 장은 서로 연관되어 있어, 어느 장부터 시작해도 좋습니다. 링크가 너무 많아 독서에 방해가 된다면 사과드립니다. 저는 머신러닝의 모든 개념이 어떻게든 연결되어 있음을 보여주기 위해 의도적으로 이렇게 구성했습니다.
 
-The book has all of its chapters interrelated, so you can start by any of them. My apologies if the number of links distracts from the reading. I wanted it that way just to show how all the machine learning concepts are somehow related.
+책에서 제시하는 내용을 정당화하기 위해 많은 노력을 기울였습니다. 하지만 이것만으로는 부족하며, 독자는 예제를 직접 따라하고 개선하여 자신만의 지식을 생성할 수 있습니다.
 
-There is a lot of effort in justifying what the book states. Yet, this is not enough, the reader can replicate and improve the examples, and thus generate their own knowledge.
+"진정한 진리"로 어떤 주장도 받아들이지 않고 비판적 사고를 기르는 것은 수많은 책, 강좌, 비디오 및 모든 종류의 기술 자료가 넘쳐나는 이 바다에서 정말 중요합니다. 이 책은 데이터 과학에 대한 또 다른 관점을 제시할 뿐입니다.
 
-To develop a critical thinking, without taking any statement as the "truly truth", it?s really important in this sea of books, courses, videos and any kind of technical material to learn. This book is just another view in the data science perspective.
 
-<br>
+### 제가 일부러 오류를 넣어두었습니다...
 
-### I put some random errors...
-
-... both technical and grammatical, the problem is **I don't know where!** So if you want to raise your hand and shout: `"That's not correct! I think the correct form is... {replace-with-your-detailed-answer-here}"`, I invite you to report on the github repository, or email me at pcasas.biz -at- gmail.com
+기술적인 오류와 문법적인 오류 모두요. 문제는 **어디에 있는지 저도 모른다는 겁니다!** 그러니 혹시 "그건 틀렸습니다! 제 생각에는 올바른 형태는. {자세한 답변을 여기에 기입하세요}"라고 손을 들고 외치고 싶으시다면, GitHub 저장소에 제보하시거나 pcasas.biz@gmail.com으로 이메일을 보내주세요.
 
 <img src="https://s3.amazonaws.com/datascienceheroes.com/img/blog/+coyote2.gif" width="30%">
 
+### PDF, EPUB, 킨들 버전을 다운로드하세요!
 
-<br>
+이 책을 통해 새로운 것을 배우셨거나, 업무 시간 절약에 도움이 되셨다면 휴대용 버전을 구매하여 프로젝트를 후원해주실 수 있습니다. (가격은 US$ 5부터 자유롭게 정해주세요)
 
-### Download the PDF, epub and Kindle version!
+휴대용 버전과 웹 버전의 내용은 동일합니다 :)
 
-If you learn anything new with this book, or it helped you somehow to saving time at your work, you can support the project by acquiring the portable version. (name your price starting at US$ 5) 
+구매하시면 세 가지 형식으로 다운로드할 수 있는 이메일을 받게 됩니다.
 
-There is no difference between the portable and web versions :)
+<a href="[https://gumroad.com/l/tORBv](https://gumroad.com/l/tORBv)" target="blank"\>여기서 다운로드하세요!</a>
 
-After the purchase you'll will receive an email to download it in the three formats.
+----
 
-<font size="+2"><b><a href="https://gumroad.com/l/tORBv" target="blank">Download here!</a> </b></font>
+연락처: <a href="https://twitter.com/pabloc_ds" target="blank">@pabloc_ds</a>.
 
-<br>
-
----
-
-`Keep in touch:`  <a href="https://twitter.com/pabloc_ds" target="blank">@pabloc_ds</a>.
-
-~ Thanks for reading !. 
+읽어주셔서 감사합니다!
