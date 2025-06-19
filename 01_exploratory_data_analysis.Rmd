@@ -7,60 +7,57 @@ if(!knitr:::is_html_output())
 }
 ```
 
-# Exploratory Data Analysis {#exploratory_data_analysis}
+# 탐색적 데이터 분석 {#exploratory_data_analysis}
 
-Listening to the numbers :)
+숫자들의 소리에 귀 기울이기 :)
 
-## Profiling, The voice of the numbers {#profiling}
-
+## 프로파일링: 숫자의 목소리 {#profiling}
 
 ```{r echo=FALSE, out.width="100px"}
 knitr::include_graphics("exploratory_data_analysis/Galeano.jpg")
 ```
 
-> "The voice of the numbers" -- a metaphor by [Eduardo Galeano](https://en.wikipedia.org/wiki/Eduardo_Galeano). Writer and novelist.
+> "숫자의 목소리" -- [에두아르도 갈레아노](https://en.wikipedia.org/wiki/Eduardo_Galeano), 작가이자 소설가의 비유.
 
-The data we explore could be like Egyptian hieroglyphs without a correct interpretation. Profiling is the very first step in a series of iterative stages in the pursuit of finding what the data want to tell us, if we are patient enough to listen. 
+우리가 탐색하는 데이터는 제대로 해석하지 못하면 이집트 상형문자와 같을 수 있습니다. 프로파일링은 데이터가 우리에게 무엇을 말하고 싶어 하는지, 우리가 충분히 인내심을 갖고 귀 기울인다면, 그 메시지를 찾는 일련의 반복적인 단계 중 첫걸음입니다.
 
-This chapter will cover, with a few functions, a complete data profiling. This should be the entry step in a data project, where we start by knowing the correct data types and exploring distributions in numerical and categorical variables.
+이 장에서는 몇 가지 함수를 사용하여 완벽한 데이터 프로파일링을 다룰 것입니다. 이는 데이터 프로젝트의 첫 단계가 되어야 하며, 올바른 데이터 유형을 파악하고 수치형 및 범주형 변수의 분포를 탐색하는 것부터 시작합니다.
 
-It also focuses on the extraction of semantic conclusions, which is useful when writing a report for non-technical people. 
+또한 비전문가에게 보고서를 작성할 때 유용한 **의미론적 결론을 도출**하는 데 중점을 둡니다.
 
-**What are we going to review in this chapter?**
+**이 장에서 무엇을 살펴볼까요?**
 
-* **Dataset health status**:  
-    + Getting metrics like total rows, columns, data types, zeros, and missing values
-    + How each of the previous items impacts on different analysis
-    + How to quickly filter and operate on (and with) them, to clean the data
-* **Univariate analysis in categorical variable**: 
-    + Frequency, percentage, cumulative value, and colorful plots 
-* **Univariate analysis with numerical variables**: 
-    + Percentile, dispersion, standard deviation, mean, top and bottom values
-    + Percentile vs. quantile vs. quartile
-    + Kurtosis, skewness, inter-quartile range, variation coefficient
-    + Plotting distributions 
-    + Complete **case study** based on _"Data World"_, data preparation, and data analysis
-
-<br>
-
-Functions summary review in the chapter:
-
-* `df_status(data)`: Profiling dataset structure
-* `describe(data)`:  Numerical and categorical profiling (quantitative)
-* `freq(data)`: Categorical profiling (quantitative and plot).
-* `profiling_num(data)`: Profiling for numerical variables (quantitative)
-* `plot_num(data)`: Profiling for numerical variables (plots)
-
-Note: `describe` is in the `Hmisc` package while remaining functions are in `funModeling.`
+  * **데이터셋 상태**:
+      * 총 행, 열, 데이터 유형, 0 값, 결측치와 같은 **지표** 얻기
+      * 각 항목이 다양한 분석에 미치는 영향
+      * 데이터를 정리하기 위해 이를 **빠르게 필터링**하고 **조작**하는 방법
+  * **범주형 변수의 단변량 분석**:
+      * **빈도**, 백분율, 누적 값, 시각적으로 매력적인 플롯
+  * **수치형 변수의 단변량 분석**:
+      * **백분위수**, 분산, 표준 편차, 평균, 상위 및 하위 값
+      * **백분위수 vs. 분위수 vs. 사분위수**
+      * 왜도, 첨도, 사분위 범위, 변동 계수
+      * **분포 플로팅**
+      * "데이터 월드"를 기반으로 한 데이터 준비 및 데이터 분석의 완벽한 **사례 연구**
 
 
-<br>
+이 장에서 다룰 함수 요약:
 
-### Dataset health status {#dataset-health-status}
+  * `df_status(data)`: 데이터셋 구조 프로파일링
+  * `describe(data)`: 수치형 및 범주형 프로파일링 (정량적)
+  * `freq(data)`: 범주형 프로파일링 (정량적 및 플롯).
+  * `profiling_num(data)`: 수치형 변수 프로파일링 (정량적)
+  * `plot_num(data)`: 수치형 변수 프로파일링 (플롯)
 
-The quantity of zeros, NA, Inf, unique values as well as the data type may lead to a good or bad model. Here's an approach to cover the very first step in data modeling. 
+참고: `describe`는 `Hmisc` 패키지에 있으며, 나머지 함수는 `funModeling`에 있습니다.
 
-First, we load the `funModeling` and `dplyr` libraries.
+--
+
+### 데이터셋 상태 {\#dataset-health-status}
+
+0, NA, Inf, 고유 값의 양과 데이터 유형은 모델의 좋고 나쁨에 영향을 미칠 수 있습니다. 다음은 데이터 모델링의 첫 단계를 다루는 접근 방식입니다.
+
+먼저, `funModeling` 및 `dplyr` 라이브러리를 로드합니다.
 
 ```{r, results="hide", message=FALSE, warning=FALSE}
 # Loading funModeling!
@@ -69,12 +66,11 @@ library(dplyr)
 data(heart_disease)
 ```
 
-#### Checking missing values, zeros, data type, and unique values
+#### 결측치, 0 값, 데이터 유형 및 고유 값 확인
 
-Probably one of the first steps, when we get a new dataset to analyze, is to know if there are missing values (`NA` in **R**) and the data type.
+새로운 데이터셋을 분석할 때 가장 먼저 해야 할 일 중 하나는 **결측치**(`R`에서는 `NA`)가 있는지와 **데이터 유형**을 파악하는 것입니다.
 
-The `df_status` function coming in `funModeling` can help us by showing these numbers in relative and percentage values. It also retrieves the infinite and zeros statistics.
-
+`funModeling`에 포함된 `df_status` 함수는 상대적 값과 백분율로 이러한 수치를 보여주는 데 도움이 됩니다. 또한 무한대 값과 0 값에 대한 통계도 검색합니다.
 
 ```{r df-status, eval=FALSE}
 # Profiling the data input
@@ -85,32 +81,26 @@ df_status(heart_disease)
 knitr::include_graphics("exploratory_data_analysis/dataset_profiling.png")
 ```
 
+  * `q_zeros`: 0 값의 수 (`p_zeros`: 백분율)
+  * `q_inf`: 무한대 값의 수 (`p_inf`: 백분율)
+  * `q_na`: NA 값의 수 (`p_na`: 백분율)
+  * `type`: factor 또는 numeric
+  * `unique`: 고유 값의 수
+
+#### 이러한 지표가 왜 중요할까요?
+
+  * **0 값**: **0 값이 많은** 변수는 모델링에 유용하지 않을 수 있으며, 어떤 경우에는 모델을 심각하게 편향시킬 수 있습니다.
+  * **NA**: 여러 모델은 NA가 있는 행을 자동으로 제외합니다(예: **랜덤 포레스트**). 결과적으로 단 하나의 변수 때문에 여러 행이 누락되어 최종 모델이 편향될 수 있습니다. 예를 들어, 데이터에 100개 변수 중 90%가 NA인 변수가 하나만 있다면, 모델은 원본 행의 10%만으로 학습하게 될 것입니다.
+  * **Inf**: 무한대 값은 R의 일부 함수에서 예상치 못한 동작을 유발할 수 있습니다.
+  * **Type**: 일부 변수는 숫자로 인코딩되어 있지만, 코드나 범주이며 모델이 이를 동일한 방식으로 **처리하지 않습니다**.
+  * **Unique**: 고유 값의 수가 많은(약 30개) Factor/범주형 변수는 범주의 카디널리티가 낮으면 **과적합**되는 경향이 있습니다(예: **의사결정 트리**).
 
 
-* `q_zeros`: quantity of zeros (`p_zeros`: in percent)
-* `q_inf`:  quantity of infinite values (`p_inf`: in percent)
-* `q_na`:  quantity of NA (`p_na`: in percent)
-* `type`: factor or numeric
-* `unique`: quantity of unique values
+#### 불필요한 사례 필터링
 
-#### Why are these metrics important?
+`df_status` 함수는 데이터 프레임을 받아 앞 섹션에서 설명한 모든 지표를 기반으로 피처(또는 변수)를 빠르게 제거하는 데 도움이 되는 *상태 테이블*을 반환합니다. 예를 들어:
 
-* **Zeros**: Variables with **lots of zeros** may not be useful for modeling and, in some cases, they may dramatically bias the model.
-* **NA**: Several models automatically exclude rows with NA (**random forest** for example). As a result, the final model can be biased due to several missing rows because of only one variable. For example, if the data contains only one out of 100 variables with 90% of NAs, the model will be training with only 10% of the original rows.
-* **Inf**: Infinite values may lead to an unexpected behavior in some functions in R.
-* **Type**: Some variables are encoded as numbers, but they are codes or categories and the models **don't handle them** in the same way.
-* **Unique**: Factor/categorical variables with a high number of different values (~30) tend to do overfitting if the categories have low cardinality (**decision trees,** for example).
-
-
-<br>
-
-
-#### Filtering unwanted cases
-
-The function `df_status` takes a data frame and returns a _status table_ that can help us quickly remove features (or variables) based on all the metrics described in the last section. For example:
-
-
-**Removing variables with a _high number_ of zeros**
+**0 값이 *많은* 변수 제거**
 
 ```{r profiling-data}
 # Profiling the Data Input
@@ -124,32 +114,28 @@ vars_to_remove
 heart_disease_2=select(heart_disease, -one_of(vars_to_remove))
 ```
 
-
-**Ordering data by percentage of zeros**
+**0 값 백분율에 따라 데이터 정렬**
 
 ```{r profiling-data-2}
 arrange(my_data_status, -p_zeros) %>% select(variable, q_zeros, p_zeros)
 ```
 
-<br>
 
-The same reasoning applies when we want to remove (or keep) those variables above or below a certain threshold. Please check the missing values chapter to get more information about the implications when dealing with variables containing missing values.
+동일한 논리가 특정 임계값 이상 또는 이하의 변수를 제거(또는 유지)하려는 경우에도 적용됩니다. 결측치가 포함된 변수를 다룰 때의 함의에 대한 자세한 정보는 결측치 장을 참조하십시오.
 
-<br>
 
-#### Going deep into these topics
+#### 이러한 주제에 대해 더 깊이 알아보기
 
-Values returned by `df_status` are deeply covered in other chapters:
+`df_status`가 반환하는 값은 다른 장에서 심층적으로 다루고 있습니다:
 
-* **Missing values** (NA) treatment, analysis, and imputation are deeply covered in the [Missing Data](#missing_data) chapter.
-* **Data type**, its conversions and implications when handling different data types and more are covered in the [Data Types](#data_types) chapter.
-* A high number of **unique values** is synonymous for  high-cardinality variables. This situation is studied in both chapters:
-    + [High Cardinality Variable in Descriptive Stats](#high_cardinality_descriptive_stats)
-    + [High Cardinality Variable in Predictive Modeling](#high_cardinality_predictive_modeling)
-    
-<br>
+  * **결측치**(NA) 처리, 분석 및 결측치 대치는 [결측치](https://www.google.com/search?q=%23missing_data) 장에서 심층적으로 다룹니다.
+  * **데이터 유형**, 그 변환 및 다양한 데이터 유형을 다룰 때의 함의 등은 [데이터 유형](https://www.google.com/search?q=%23data_types) 장에서 다룹니다.
+  * 높은 수의 **고유 값**은 **고카디널리티 변수**와 동의어입니다. 이 상황은 다음 두 장에서 연구됩니다:
+      * [기술 통계에서의 고카디널리티 변수](https://www.google.com/search?q=%23high_cardinality_descriptive_stats)
+      * [예측 모델링에서의 고카디널리티 변수](https://www.google.com/search?q=%23high_cardinality_predictive_modeling)
 
-#### Getting other common statistics: **total rows**, **total columns** and **column names**:
+
+#### 기타 일반적인 통계 얻기: **총 행 수**, **총 열 수** 및 **열 이름**:
 
 ```{r}
 # Total rows
@@ -162,70 +148,65 @@ ncol(heart_disease)
 colnames(heart_disease)
 ```
 
-<br>
 
----
+--
 
-### Profiling categorical variables {#profiling-categorical-variables}
+### 범주형 변수 프로파일링 {\#profiling-categorical-variables}
 
-_Make sure you have the latest 'funModeling' version (>= 1.6)._
+*최신 'funModeling' 버전(\>= 1.6)을 사용하고 있는지 확인하십시오.*
 
-Frequency or distribution analysis is made simple by the `freq` function. This retrieves the distribution in a table and a plot (by default) and shows the distribution of absolute and relative numbers.
+`freq` 함수는 빈도 또는 분포 분석을 간편하게 만듭니다. 이 함수는 분포를 테이블과 플롯(기본값)으로 검색하고 절대 및 상대 숫자의 분포를 보여줍니다.
 
-If you want the distribution for two variables: 
+두 변수에 대한 분포를 원한다면:
 
 ```{r frequency-analysis-r, fig.height=3, fig.width=5, fig.cap=c('Frequency analysis 1','Frequency analysis 2'), out.extra = ""}
 freq(data=heart_disease, input = c('thal','chest_pain'))
 ```
 
-As well as in the remaining `funModeling` functions, if `input` is missing, then it will run for all factor or character variables present in a given data frame:
+나머지 `funModeling` 함수와 마찬가지로 `input`이 없으면 주어진 데이터 프레임에 있는 모든 factor 또는 character 변수에 대해 실행됩니다.
 
 ```{r profiling-categorical-variable-4, eval=F}
 freq(data=heart_disease)
 ```
- 
 
-If we only want to print the table excluding the plot, then we set the `plot` parameter to `FALSE`.
-The `freq` example can also handle a **single variable** as an input. 
-By _default_, `NA` values **are considered** in both the table and the plot. If it is needed to exclude the `NA` then set `na.rm = TRUE`.
-Both examples in the following line: 
+플롯을 제외하고 테이블만 출력하려면 `plot` 매개변수를 `FALSE`로 설정합니다.
+`freq` 예시는 **단일 변수**를 입력으로 처리할 수도 있습니다.
+*기본적으로* `NA` 값은 테이블과 플롯 모두에서 **고려됩니다**. `NA`를 제외해야 한다면 `na.rm = TRUE`로 설정하십시오.
+다음 줄에 있는 두 가지 예시:
 
 ```{r profiling-categorical-variable-5, eval=F}
 freq(data=heart_disease$thal, plot = FALSE, na.rm = TRUE)
 ```
 
-If only one variable is provided, then `freq` returns the printed table; thus, it is easy to perform some calculations based on the variables it provides. 
+하나의 변수만 제공되면 `freq`는 출력된 테이블을 반환하므로, 제공되는 변수를 기반으로 일부 계산을 쉽게 수행할 수 있습니다.
 
-* For example, to print the categories that represent most of the 80% of the share (based on `cumulative_perc < 80`). 
-* To get the categories belonging to the **long tail**, i.e., filtering by `percentage < 1` by retrieving those categories appearing less than 1% of the time.
+  * 예를 들어, **공유의 80% 이상을 차지하는 범주**를 출력하는 것(`cumulative_perc < 80`을 기반으로).
+  * **긴 꼬리**에 속하는 범주를 얻는 것, 즉 `percentage < 1`로 필터링하여 1% 미만으로 나타나는 범주를 검색하는 것.
 
-In addition, as with the other plot functions in the package, if there is a need to export plots, then add the `path_out` parameter, which will create the folder if it's not yet created.
+또한, 패키지의 다른 플롯 함수와 마찬가지로 플롯을 내보내야 하는 경우 `path_out` 매개변수를 추가하면 폴더가 아직 생성되지 않았다면 생성됩니다.
 
 ```{r, eval=F}
 freq(data=heart_disease, path_out='my_folder')
 ```
 
-##### Analysis
+##### 분석
 
-The output is ordered by the `frequency` variable, which quickly analyzes the most frequent categories and how many shares they represent (`cummulative_perc` variable). In general terms, we as human beings like order. If the variables are not ordered, then our eyes start moving over all the bars to do the comparison and our brains place each bar in relation to the other bars.
+출력은 `frequency` 변수에 따라 정렬되므로, 가장 빈번한 범주와 이들이 차지하는 비중(`cummulative_perc` 변수)을 빠르게 분석할 수 있습니다. 일반적으로 우리는 인간으로서 질서를 좋아합니다. 변수가 정렬되어 있지 않으면 우리의 눈은 모든 막대를 비교하기 위해 움직이고, 우리의 뇌는 각 막대를 다른 막대와 관련하여 배치합니다.
 
-Check the difference for the same data input, first without order and then with order:
-
+동일한 데이터 입력에 대해 정렬되지 않은 경우와 정렬된 경우의 차이를 확인해 보세요:
 
 ```{r univariate-analysis, echo=FALSE, fig.cap="Order and beauty", out.extra = ''}
 knitr::include_graphics("exploratory_data_analysis/profiling_text_variable-bw.png")
 ```
 
-Generally, there are just a few categories that appear most of the time. 
+일반적으로 대부분의 경우에 나타나는 범주는 소수에 불과합니다.
 
-A more complete analysis is in [High Cardinality Variable in Descriptive Stats](#high_cardinality_descriptive_stats)
+더 자세한 분석은 [기술 통계에서의 고카디널리티 변수](https://www.google.com/search?q=%23high_cardinality_descriptive_stats)에서 확인하세요.
 
 
-<br>
+#### `describe` 함수 소개
 
-#### Introducing the `describe` function
-
-This function comes in the `Hmisc` package and allows us to quickly profile a complete dataset for both numerical and categorical variables. In this case, we'll select only two variables and we will analyze the result.
+이 함수는 `Hmisc` 패키지에 포함되어 있으며, 수치형 및 범주형 변수 모두에 대해 전체 데이터셋을 빠르게 프로파일링할 수 있게 해줍니다. 이 경우, 우리는 두 개의 변수만 선택하고 결과를 분석할 것입니다.
 
 ```{r}
 # Just keeping two variables to use in this example
@@ -235,34 +216,33 @@ heart_disease_3=select(heart_disease, thal, chest_pain)
 describe(heart_disease_3)
 ```
 
-Where: 
+여기서:
 
-* `n`: quantity of non-`NA` rows. In this case, it indicates there are `301` patients containing a number.
-* `missing`: number of missing values. Summing this indicator to `n` gives us the total number of rows.
-* `unique`: number of unique (or distinct) values.
+  * `n`: `NA`가 아닌 행의 수. 이 경우, 숫자를 포함하는 환자가 `301명` 있음을 나타냅니다.
+  * `missing`: 결측치의 수. 이 지표를 `n`에 더하면 총 행 수가 됩니다.
+  * `unique`: 고유(또는 구별되는) 값의 수.
 
-The other information is pretty similar to the `freq` function and returns between parentheses the total number in relative and absolute values for each different category.
+다른 정보는 `freq` 함수와 매우 유사하며, 각기 다른 범주에 대해 상대적 및 절대적 값으로 총 수를 괄호 안에 반환합니다.
 
-<br>
 
----
+--
 
-### Profiling numerical variables
+### 수치형 변수 프로파일링
 
-This section is separated into two parts:
+이 섹션은 두 부분으로 나뉩니다:
 
-* Part 1: Introducing the “World Data” case study
-* Part 2: Doing the numerical profiling in R
+  * 파트 1: "월드 데이터" 사례 연구 소개
+  * 파트 2: R에서 수치형 프로파일링 수행
 
-If you don’t want to know how the data preparation stage from Data World is calculated, then you can jump to "Part 2: Doing the numerical profiling in R", when the profiling started.
+데이터 월드의 데이터 준비 단계가 어떻게 계산되는지 알고 싶지 않다면, 프로파일링이 시작되는 "파트 2: R에서 수치형 프로파일링 수행"으로 건너뛰셔도 좋습니다.
 
-#### Part 1: Introducing the World Data case study
+#### 파트 1: 월드 데이터 사례 연구 소개
 
-This contains many indicators regarding world development. Regardless the profiling example, the idea is to provide a ready-to-use table for sociologists, researchers, etc. interested in analyzing this kind of data.
+이 데이터에는 세계 개발과 관련된 많은 지표가 포함되어 있습니다. 프로파일링 예제와는 별개로, 이 종류의 데이터 분석에 관심이 있는 사회학자, 연구원 등을 위해 바로 사용할 수 있는 테이블을 제공하는 것이 목적입니다.
 
-The original data source is: [http://databank.worldbank.org](http://databank.worldbank.org/data/reports.aspx?source=2&Topic=11#). There you will find a data dictionary that explains all the variables.
+원본 데이터 출처는 다음과 같습니다: [http://databank.worldbank.org](http://databank.worldbank.org/data/reports.aspx?source=2&Topic=11#). 거기서 모든 변수를 설명하는 데이터 사전을 찾을 수 있습니다.
 
-First, we have to do some data wrangling. We are going to keep with the newest value per indicator.
+먼저, 데이터 정리가 필요합니다. 각 지표별로 가장 최신 값을 유지할 것입니다.
 
 ```{r}
 library(Hmisc)
@@ -287,28 +267,26 @@ data_world$newest_value=apply(data_world[,5:ncol(data_world)], 1, FUN=max_ix)
 head(data_world, 3)
 ```
 
-The columns `Series.Name` and `Series.Code` are the indicators to be analyzed. 
-`Country.Name` and `Country.Code` are the countries. Each row represents a unique combination of country and indicator. 
-Remaining columns, `X1990..YR1990.` (year 1990),`X2000..YR2000.` (year 2000), `X2007..YR2007.` (year 2007), and so on indicate the metric value for that year, thus each column is a year. 
-
-<br>
+`Series.Name`과 `Series.Code` 열은 분석할 지표입니다.
+`Country.Name`과 `Country.Code`는 국가입니다. 각 행은 국가와 지표의 고유한 조합을 나타냅니다.
+나머지 열인 `X1990..YR1990.` (1990년), `X2000..YR2000.` (2000년), `X2007..YR2007.` (2007년) 등은 해당 연도의 지표 값을 나타내며, 각 열은 연도입니다.
 
 
-#### Making a data scientist decision
+#### 데이터 과학자의 의사결정
 
-There are many `NAs` because some countries don't have the measure of the indicator in those years. At this point, we need to **make a decision** as a data scientist. Probably no the optimal if we don’t ask to an expert, e.g., a sociologist.
+일부 국가에서는 해당 연도에 지표 측정이 없어 `NA` 값이 많습니다. 이 시점에서 우리는 데이터 과학자로서 **결정을 내려야 합니다**. 전문가(예: 사회학자)에게 묻지 않는다면 최적의 결정은 아닐 것입니다.
 
-What to do with the `NA` values? In this case, we are going to to keep with the **newest value** for all the indicators. Perhaps this is not the best way to extract conclusions for a paper as we are going to compare some countries with information up to 2016 while other countries will be updated only to 2009. To compare all the indicators with the newest data is a valid approach for the first analysis.
+`NA` 값은 어떻게 처리할까요? 이 경우, 모든 지표에 대해 **가장 최신 값**을 유지할 것입니다. 아마도 어떤 국가의 정보는 2016년까지 업데이트되어 있고, 다른 국가는 2009년까지만 업데이트되어 있을 것이므로, 논문 결론을 도출하는 데 최선의 방법은 아닐 수 있습니다. 하지만 첫 번째 분석을 위해 모든 지표를 최신 데이터와 비교하는 것은 유효한 접근 방식입니다.
 
-Another solution could have been to keep with the newest value, but only if this number belongs to the last five years. This would reduce the number of countries to analyze. 
+다른 해결책은 가장 최신 값을 유지하되, 이 숫자가 지난 5년 이내의 값인 경우에만 유지하는 것이었을 수 있습니다. 이렇게 하면 분석할 국가의 수가 줄어들 것입니다.
 
-These questions are impossible to answer for an _artificial intelligence system_, yet the decision can change the results dramatically.
+이러한 질문들은 **인공지능 시스템**이 답하기 불가능하지만, 이 결정은 결과에 극적인 영향을 미칠 수 있습니다.
 
-**The last transformation**
+**마지막 변환**
 
-The next step will convert the last table from _long_ to _wide_ format. In other words, each row will represent a country and each column an indicator (thanks to the last transformation that has the _newest value_ for each combination of indicator-country).
+다음 단계는 마지막 테이블을 '롱(long)' 형식에서 **'와이드(wide)' 형식**으로 변환하는 것입니다. 즉, 각 행은 국가를 나타내고 각 열은 지표를 나타냅니다(지표-국가 조합별 '최신 값'을 포함하는 이전 변환 덕분입니다).
 
-The indicator names are unclear, so we will "translate" a few of them.
+지표 이름이 명확하지 않으므로, 그중 몇 가지를 "번역"할 것입니다.
 
 ```{r, tidy=FALSE}
 # Get the list of indicator descriptions.
@@ -340,40 +318,37 @@ data_world_2 =
            ifelse(!is.na(new_name), 
                   as.character(data_world_2$new_name), 
                   data_world_2$Series.Code)
-         )
+          )
 ```
 
-Any indicator meaning can be checked in data.worldbank.org. For example, if we want to know what `EN.POP.SLUM.UR.ZS` means, then we type: http://data.worldbank.org/indicator/EN.POP.SLUM.UR.ZS
-
+모든 지표의 의미는 data.worldbank.org에서 확인할 수 있습니다. 예를 들어, `EN.POP.SLUM.UR.ZS`가 무엇을 의미하는지 알고 싶다면, [http://data.worldbank.org/indicator/EN.POP.SLUM.UR.ZS를](https://www.google.com/search?q=http://data.worldbank.org/indicator/EN.POP.SLUM.UR.ZS%EB%A5%BC) 입력하면 됩니다.
 
 ```{r, warning=FALSE}
 # The package 'reshape2' contains both 'dcast' and 'melt' functions
 library(reshape2)
 
-data_world_wide=dcast(data_world_2, Country.Name  ~ Series.Code_2, value.var = "newest_value")
+data_world_wide=dcast(data_world_2, Country.Name ~ Series.Code_2, value.var = "newest_value")
 ```
 
-Note: To understand more about `long` and `wide` format using `reshape2` package, and how to convert from one to another, please go to http://seananderson.ca/2013/10/19/reshape.html.
+참고: `reshape2` 패키지를 사용하여 **`long` 및 `wide` 형식**에 대해 더 자세히 이해하고, 이들 간에 변환하는 방법에 대해 알아보려면 [http://seananderson.ca/2013/10/19/reshape.html을](https://www.google.com/search?q=http://seananderson.ca/2013/10/19/reshape.html%EC%9D%84) 참조하십시오.
 
-Now we have the final table to analyze:
+이제 분석할 최종 테이블이 준비되었습니다:
 
 ```{r}
 # Printing the first three rows
 head(data_world_wide, 3)
 ```
 
+--
 
-<br>
+#### 파트 2: R에서 수치형 프로파일링 수행 {\#numerical-profiling-in-r}
 
-#### Part 2: Doing the numerical profiling in R {#numerical-profiling-in-r}
+다음 함수들을 살펴볼 것입니다:
 
-We will see the following functions:
+  * `Hmisc` 패키지의 **`describe`**
+  * `funModeling` 패키지의 **`profiling_num`** (전체 단변량 분석) 및 **`plot_num`** (히스토그램)
 
-* `describe` from `Hmisc`
-* `profiling_num` (full univariate analysis), and `plot_num` (hisotgrams) from `funModeling`
-
-
-We'll pick up only two variables as an example:
+예시로 두 변수만 선택할 것입니다:
 
 ```{r}
 library(Hmisc) # contains the `describe` function
@@ -386,34 +361,28 @@ data_subset=select(data_world_wide, one_of(vars_to_profile))
 describe(data_subset)
 ```
 
+`poverty_headcount_1.9` (`2011년 국제 가격 기준 하루 1.90달러 미만으로 생활하는 인구의 비율`)를 다음과 같이 설명할 수 있습니다:
 
-Taking `poverty_headcount_1.9` (_Poverty headcount ratio at $1.90 a day is the percentage of the population living on less than $1.90 a day at 2011 international prices._), we can describe it as:
+  * `n`: **결측치가 없는 행의 수**. 이 경우, 숫자를 포함하는 국가가 `116개`임을 나타냅니다.
+  * `missing`: **결측치 수**. 이 지표를 `n`에 더하면 총 행 수가 됩니다. 거의 절반의 국가에 데이터가 없습니다.
+  * `unique`: **고유(또는 구분되는) 값의 수**.
+  * `Info`: 변수에 존재하는 정보량의 추정치이며 이 시점에서는 중요하지 않습니다.
+  * `Mean`: **고전적인 평균**.
+  * Numbers: `.05`, `.10`, `.25`, `.50`, `.75`, `.90`, `.95`는 **백분위수**를 나타냅니다. 이 값들은 분포를 설명하는 데 매우 유용합니다. 나중에 심층적으로 다룰 것입니다. 예를 들어, `.05`는 5번째 백분위수입니다.
+  * `lowest` 및 `highest`: **가장 낮은/가장 높은 다섯 가지 값**. 여기서 이상치와 데이터 오류를 발견할 수 있습니다. 예를 들어, 변수가 백분율을 나타낸다면 음수 값을 포함할 수 없습니다.
 
-* `n`: quantity of non-`NA` rows. In this case, it indicates `116` countries that contain a number.
-* `missing`: number of missing values. Summing this indicator to `n` gives us the total number of rows. Almost half of the countries have no data.
-* `unique`: number of unique (or distinct) values.
-* `Info`: an estimator of the amount of information present in the variable and not important at this point.
-* `Mean`: the classical mean or average.
-* Numbers: `.05`, `.10`, `.25`, `.50`, `.75`, `.90` and `.95 ` stand for the percentiles. These values are really useful since it helps us to describe the distribution. It will be deeply covered later on, i.e., `.05` is the 5th percentile.
-* `lowest` and `highest`: the five lowest/highest values. Here, we can spot outliers and data errors. For example, if the variable represents a percentage, then it cannot contain negative values.
 
-<br>
-
-The next function is `profiling_num` which takes a data frame and retrieves a _big_ table, easy to get overwhelmed in a _sea of metrics_. This is similar to what we can see in the movie _The Matrix_.
-
+다음 함수는 `profiling_num`이며, 데이터 프레임을 받아들여 **방대한 테이블**을 검색합니다. 이 테이블은 마치 영화 '매트릭스'에서 볼 수 있는 것과 유사하게 **수많은 지표의 바다** 속에서 압도당하기 쉽습니다.
 
 ```{r matrix-movie, out.width="150px", echo=FALSE, fig.cap="The matrix of data", out.extra = ""}
 knitr::include_graphics("exploratory_data_analysis/matrix_movie.png")
 ```
 
-_Picture from the movie: "The Matrix" (1999). The Wachowski Brothers (Directors)._
+*영화 "매트릭스"(1999). 워쇼스키 형제(감독).*
 
+다음 테이블의 목적은 사용자에게 **완벽한 지표 세트**를 제공하여, 연구에 어떤 지표를 선택할지 결정할 수 있도록 하는 것입니다.
 
-
-The idea of the following table is to give to the user a **full set of metrics,**, for then, she or he can decide which ones to pick for the study.
-
-Note: Every metric has a lot of statistical theory behind it. Here we'll be covering just a tiny and **oversimplified** approach to introduce the concepts. 
-
+참고: 모든 지표 뒤에는 많은 통계 이론이 있습니다. 여기서는 개념을 소개하기 위해 작고 **매우 단순화된** 접근 방식을 다룰 것입니다.
 
 ```{r}
 library(funModeling)
@@ -422,45 +391,44 @@ library(funModeling)
 profiling_num(data_world_wide)
 ```
 
-Each indicator has _its raison d'être_:
+각 지표에는 **존재 이유**가 있습니다:
 
-* `variable`: variable name
+  * `variable`: **변수 이름**
 
-* `mean`: the well-known mean or average
+  * `mean`: 잘 알려진 **평균**.
 
-* `std_dev`: standard deviation, a measure of **dispersion** or **spread** around the mean value. A value around `0` means almost no variation (thus, it seems more like a constant); on the other side, it is harder to set what _high_ is, but we can tell that the higher the variation the greater the spread. 
-_Chaos may look like infinite standard variation_. The unit is the same as the mean so that it can be compared.
+  * `std_dev`: **표준 편차**, 평균값을 중심으로 한 **분산** 또는 **퍼짐** 정도를 나타내는 척도입니다. `0`에 가까운 값은 거의 변동이 없음을 의미하며(따라서 상수에 가깝게 보임), 반대로 _높음_의 기준을 정하기는 어렵지만, 변동이 클수록 퍼짐이 더 크다고 말할 수 있습니다.
+    *혼돈은 무한한 표준 편차처럼 보일 수 있습니다*. 단위는 평균과 동일하여 비교 가능합니다.
 
-* `variation_coef`: variation coefficient=`std_dev`/`mean`. Because the `std_dev` is an absolute number, it's good to have an indicator that puts it in a relative number, comparing the `std_dev` against the `mean` A value of `0.22` indicates the `std_dev` is 22% of the `mean` If it were close to `0` then the variable tends to be more centered around the mean. If we compare two classifiers, then we may prefer the one with less `std_dev` and `variation_coef` on its accuracy.
+  * `variation_coef`: **변동 계수**=`std_dev`/`mean`. `std_dev`는 절대값이므로, `std_dev`를 `mean`과 비교하여 상대적인 숫자로 나타내는 지표가 좋습니다. `0.22`는 `std_dev`가 `mean`의 22%임을 나타냅니다. `0`에 가까우면 변수가 평균을 중심으로 더 집중되는 경향이 있습니다. 두 분류기를 비교할 때, 정확도에서 `std_dev`와 `variation_coef`가 더 낮은 분류기를 선호할 수 있습니다.
 
-* `p_01`,    `p_05`,    `p_25`,    `p_50`,    `p_75`,    `p_95`,    `p_99`: **Percentiles** at 1%, 5%, 25%, and so on. Later on in this chapter is a complete review about percentiles.
+  * `p_01`, `p_05`, `p_25`, `p_50`, `p_75`, `p_95`, `p_99`: **백분위수** (1%, 5%, 25% 등). 이 장의 후반부에서 백분위수에 대한 완전한 검토가 있습니다.
 
-For a full explanation about percentiles, please go to: [Annex 1: The magic of percentiles](#appendix-percentiles).
+백분위수에 대한 자세한 설명은 [부록 1: 백분위수의 마법](https://www.google.com/search?q=%23appendix-percentiles)을 참조하십시오.
 
-* `skewness`: is a measure of _asymmetry_. Close to **0** indicates that the distribution is _equally_ distributed (or symmetrical) around its mean. A **positive number** implies a long tail on the right, whereas a **negative number** means the opposite.
-After this section, check the skewness in the plots. The variable `pop_living_slums` is close to 0 ("equally" distributed), `poverty_headcount_1.9` is positive (tail on the right), and `SI.DST.04TH.20` is negative (tail on the left). The further the skewness is from 0 the more likely the distribution is to have **outliers** 
+  * `skewness`: **비대칭성**을 측정하는 척도입니다. **0**에 가까우면 분포가 평균을 중심으로 *동일하게* 분포(또는 대칭)되어 있음을 나타냅니다. **양수**는 오른쪽에 긴 꼬리가 있음을 의미하며, **음수**는 그 반대를 의미합니다.
+    이 섹션 뒤에 플롯에서 왜도를 확인하십시오. 변수 `pop_living_slums`는 0에 가깝고("균등하게" 분포), `poverty_headcount_1.9`는 양수(오른쪽에 꼬리), `SI.DST.04TH.20`은 음수(왼쪽에 꼬리)입니다. 왜도가 0에서 멀어질수록 분포에 **이상치**가 있을 가능성이 높습니다.
 
-* `kurtosis`: describes the distribution **tails**; keeping it simple, a higher number may indicate the presence of outliers (just as we'll see later for the variable `SI.POV.URGP` holding an outlier around the value `50`
-For a complete skewness and kurtosis review, check Refs. [@skew_kurt_1] and [@skew_kurt_2].
+  * `kurtosis`: 분포의 **꼬리**를 설명합니다. 간단히 말해, 숫자가 높을수록 이상치의 존재를 나타낼 수 있습니다 (나중에 `SI.POV.URGP` 변수에서 `50` 근처에 이상치가 있는 것을 볼 수 있듯이).
+    왜도 및 첨도에 대한 완전한 검토는 참고 문헌 [@skew_kurt_1] 및 [@skew_kurt_2]를 참조하십시오.
 
-* `iqr`:  the inter-quartile range is the result of looking at percentiles `0.25` and `0.75` and indicates, in the same variable unit, the dispersion length of 50% of the values. The higher the value the more sparse the variable.
+  * `iqr`: **사분위 범위**는 백분위수 `0.25`와 `0.75`를 살펴본 결과이며, 동일한 변수 단위로 값의 50%의 분산 길이를 나타냅니다. 값이 높을수록 변수가 더 희소합니다.
 
-* `range_98` and `range_80`: indicates the range where `98%` of the values are. It removes the bottom and top 1% (thus, the `98%` number). It is good to know the variable range without potential outliers. For example, `pop_living_slums` goes from `0` to `76.15` It's **more robust** than comparing the **min** and **max** values. 
-The `range_80` is the same as the `range_98` but without the bottom and top `10%`
+  * `range_98` 및 `range_80`: 값의 `98%`가 있는 범위를 나타냅니다. 하위 및 상위 1%를 제거합니다(따라서 `98%` 숫자). 잠재적인 이상치 없이 변수 범위를 아는 것이 좋습니다. 예를 들어, `pop_living_slums`는 `0`에서 `76.15`까지입니다. **`min` 및 `max` 값을 비교하는 것보다 더 견고**합니다.
+    `range_80`은 `range_98`과 동일하지만 하위 및 상위 `10%`를 제외합니다.
 
-`iqr`, `range_98` and `range_80` are based on percentiles, which we'll be covering later in this chapter.
+`iqr`, `range_98`, `range_80`은 백분위수를 기반으로 하며, 이 장의 후반부에서 다룰 것입니다.
 
-**Important**: All the metrics are calculated having removed the `NA` values. Otherwise, the table would be filled with NA`s.
+**중요**: 모든 지표는 `NA` 값을 제거한 후에 계산됩니다. 그렇지 않으면 테이블이 `NA`로 채워질 것입니다.
 
-<br>
 
-##### Advice when using `profiling_num`
+##### `profiling_num` 사용 시 조언
 
-The idea of `profiling_num` is to provide to the data scientist with a full set of metrics, so they can select the most relevant. This can easily be done using the `select` function from the `dplyr` package. 
+`profiling_num`의 목표는 데이터 과학자에게 모든 종류의 지표를 제공하여 가장 적절한 것을 선택할 수 있도록 돕는 것입니다. 이는 `dplyr` 패키지의 `select` 함수를 사용하면 쉽게 할 수 있습니다.
 
-In addition, we have to set in `profiling_num` the parameter `print_results = FALSE`. This way we avoid the printing in the console.
+또한, `profiling_num`에서 `print_results = FALSE` 매개변수를 설정해야 합니다. 이렇게 하면 콘솔에 결과가 출력되는 것을 방지할 수 있습니다.
 
-For example, let's get with the `mean`,  `p_01`,  `p_99` and `range_80`:
+예를 들어, `mean`, `p_01`, `p_99`, `range_80`을 가져와 보겠습니다.
 
 ```{r}
 my_profiling_table=profiling_num(data_world_wide, print_results = FALSE) %>% select(variable, mean, p_01, p_99, range_80)
@@ -469,226 +437,215 @@ my_profiling_table=profiling_num(data_world_wide, print_results = FALSE) %>% sel
 head(my_profiling_table, 3)
 ```
 
-Please note that `profiling_num` returns a table, so we can quickly filter cases given on the conditions we set.
+`profiling_num`은 테이블을 반환하므로, 우리가 설정한 조건에 따라 데이터를 빠르게 필터링할 수 있다는 점을 기억해주세요.
 
-<br> 
+-----
 
-##### Profiling numerical variables by plotting {#plotting-numerical-variable}
+##### 수치형 변수 플로팅을 통한 프로파일링 {\#plotting-numerical-variable}
 
-Another function in `funModeling` is `plot_num` which takes a dataset and plots the distribution of every numerical variable while automatically excluding the non-numerical ones:
+`funModeling`의 또 다른 함수인 `plot_num`은 데이터셋을 받아 수치형 변수들의 분포를 플로팅하며, 비수치형 변수는 자동으로 제외합니다.
 
 ```{r, profiling-numerical-variable-with-histograms, fig.cap="Profiling numerical data", out.extra = ''}
 plot_num(data_world_wide)
 ```
 
-We can adjust the number of bars used in the plot by changing the `bins` parameter (default value is set to 10). For example: `plot_num(data_world_wide, bins = 20)`.
+`bins` 매개변수(기본값 10)를 변경하여 플롯에 사용되는 막대 수를 조정할 수 있습니다. 예를 들어, `plot_num(data_world_wide, bins = 20)`와 같이 사용할 수 있습니다.
 
+-----
 
----
+### 최종 생각
 
-<br>
+지금까지 많은 숫자들이 등장했습니다. *백분위수 부록에는 훨씬 더 많은 숫자가 있죠.* 여기서 중요한 점은 **데이터를 탐색하는 올바른 접근 방식을 찾는 것**입니다. 이는 다른 지표나 다른 기준에서 비롯될 수 있습니다.
 
-### Final thoughts
- 
-Many numbers have appeared here so far, _and even more in the percentile appendix_. The important point is for you to find the right approach to explore your data. This can come from other metrics or other criteria.
+`df_status`, `describe`, `freq`, `profiling_num`, `plot_num` 함수는 데이터 프로젝트 초기에 실행할 수 있습니다.
 
-The functions `df_status`,  `describe`, `freq`, `profiling_num` and `plot_num` can be run at the beginning of a data project.
+데이터의 **정상 및 비정상적인 행동**에 관해서는 둘 다 연구하는 것이 중요합니다. 데이터셋을 일반적인 용어로 설명하려면 극단값을 제외해야 합니다. 예를 들어, `range_98` 변수를 사용해서 말이죠. 극단값을 제외하면 평균은 감소해야 합니다.
 
-Regarding the **normal and abnormal behavior** on data, it's important to study both. To describe the dataset in general terms, we should exclude the extreme values: for example, with `range_98` variable. The mean should decrease after the exclusion.
+이러한 분석은 **단변량**입니다. 즉, 다른 변수를 고려하지 않습니다(**다변량** 분석). 이는 이 책의 후반부에서 다룰 내용입니다. 한편, 입력(및 출력) 변수 간의 상관 관계는 [상관 관계](https://www.google.com/search?q=%23correlation) 장을 확인해 보세요.
 
-These analyses are **univariate**; that is, they do not take into account other variables (**multivariate** analysis). This will be part of this book later on. Meanwhile, for the correlation between input (and output) variables, you can check the [Correlation](#correlation) chapter.
-
-
-<br>
-
----
+-----
 
 ```{r echo=FALSE}
 knitr::include_graphics("introduction/spacer_bar.png")
 ```
 
----
+-----
 
-<br>
-
-
-## Correlation and Relationship {#correlation}
+## 상관 관계 및 관계 {https://www.google.com/search?q=%23correlation}
 
 ```{r manderbolt-fractal,echo=FALSE, out.width="150px"}
 knitr::include_graphics("exploratory_data_analysis/fractal_manderbolt.png")
 ```
 
-_Manderbolt fractal, where the chaos expresses its beauty; image source: Wikipedia._ 
+*혼돈이 아름다움을 표현하는 만델브로트 프랙탈; 이미지 출처: Wikipedia.*
 
-<br>
+### 이 장의 내용은 무엇일까요?
 
-### What is this about?
+이 장은 변수에서 **상관 관계**를 측정하는 방법론적 및 실제적 측면을 모두 다룹니다. 우리는 '상관 관계'라는 단어가 "**함수적 관계**"로 번역될 수 있음을 알게 될 것입니다.
 
-This chapter contains both methodological and practical aspects of measuring correlation in variables. We will see that _correlation_ word can be translated into "**functional relationship**".
+방법론적인 측면에서는 Anscombe Quartet을 다룰 것입니다. 이는 공간적 분포는 다르지만 동일한 상관 관계 측정값을 공유하는 네 개의 플롯 세트입니다. 더 강력한 메트릭(MIC)을 통해 관계를 다시 계산하여 한 단계 더 나아갈 것입니다.
 
-In methodological you will find the Anscombe Quartet, a set of four plots with dissimilar spatial distribution, but sharing the same correlation measure. We'll go one step ahead re-calculating their relationship though a more robust metric (MIC).
+이 책에서는 수학적 수준으로 다루지는 않지만, 앞으로 다룰 예정인 **정보 이론**을 여러 번 언급할 것입니다. 딥 러닝을 포함하여 많은 알고리즘이 정보 이론을 기반으로 합니다.
 
-We will mention **Information Theory** several times, although by now it's not going to be covered at the mathematical level, it's planned to. Many algorithms are based on it, even deep learning.
+낮은 차원(두 변수)과 소규모 데이터(소수의 행)에서 이러한 개념을 이해하면 고차원 데이터를 더 잘 이해하는 데 도움이 됩니다. 그럼에도 불구하고, 일부 실제 사례는 '작은' 데이터일 뿐입니다.
 
-Understanding these concepts in low dimension (two variables) and small data (a bunch of rows) allow us to better understand high dimensional data. Nonetheless, some real cases are only _small_ data.
+실용적인 관점에서 볼 때, 자신의 데이터로 분석을 복제하고 멋진 플롯에서 관계를 프로파일링하고 시각화할 수 있을 것입니다.
 
-From the practical point of view, you'll be able to replicate the analysis with your own data, profiling and exposing their relationships in fancy plots.
+-----
 
-
-<br>
-
-
-Let's starting loading all needed libraries.
+이제 필요한 모든 라이브러리를 로드하는 것으로 시작하겠습니다.
 
 ```{r lib, message=F, results="hide", warning=FALSE}
-# Loading needed libraries
-library(funModeling) # contains heart_disease data
-library(minerva) # contains MIC statistic
+# 필요한 라이브러리 로드
+library(funModeling) # heart_disease 데이터 포함
+library(minerva) # MIC 통계량 포함
 library(ggplot2)
 library(dplyr)
 library(reshape2) 
-library(gridExtra) # allow us to plot two plots in a row
-options(scipen=999) # disable scientific notation
+library(gridExtra) # 두 개의 플롯을 한 줄에 그릴 수 있도록 함
+options(scipen=999) # 과학적 표기법 비활성화
 ```
-<br>
 
-### Linear correlation {#linear-correlation}
+-----
 
-Perhaps the most standard correlation measure for numeric variables is the `R statistic` (or Pearson coefficient) which goes from `1` _positive correlation_ to `-1` _negative correlation_. A value around `0` implies no correlation.
+### 선형 상관 관계 {\#linear-correlation}
 
-Consider the following example, which calculates R measure based on a target variable (for example to do feature engineering). Function `correlation_table` retrieves R  metric for all numeric variables skipping the categorical/nominal ones.
+아마도 수치형 변수에 대한 가장 표준적인 상관 관계 측정값은 `R 통계량`(또는 피어슨 계수)일 것입니다. 이는 `1`(**양의 상관 관계**)에서 `-1`(**음의 상관 관계**)까지의 값을 가집니다. `0`에 가까운 값은 상관 관계가 없음을 의미합니다.
+
+대상 변수(예: **특성 공학**을 수행하기 위함)를 기반으로 R 측정값을 계산하는 다음 예제를 고려해 봅시다. `correlation_table` 함수는 범주형/명목형 변수를 건너뛰고 모든 수치형 변수에 대한 R 메트릭을 검색합니다.
 
 ```{r}
 correlation_table(data=heart_disease, target="has_heart_disease")
 ```
-Variable `heart_disease_severity` is the most important -numerical- variable, the higher its value the higher the chances of having a heart disease (positive correlation). Just the opposite to `max_heart_rate`, which has a negative correlation.
 
-Squaring this number returns the `R-squared` statistic (aka `R2`), which goes from `0` _no correlation_ to `1` _high correlation_. 
+`heart_disease_severity` 변수는 가장 중요한 수치형 변수입니다. 이 값이 높을수록 심장 질환 발병 가능성이 높아집니다(양의 상관 관계). `max_heart_rate`는 음의 상관 관계를 가지므로 정반대입니다.
 
-R statistic is highly influenced by **outliers** and **non-linear** relationships.
+이 숫자를 제곱하면 `R-제곱` 통계량(일명 `R2`)이 반환되며, `0`(상관 관계 없음)에서 `1`(높은 상관 관계)까지의 값을 가집니다.
 
-<br>
+R 통계량은 **이상치**와 **비선형** 관계에 크게 영향을 받습니다.
 
-#### Correlation on Anscombe's Quartet
+-----
 
-Take a look at the **Anscombe's quartet**, quoting [Wikipedia](https://en.wikipedia.org/wiki/Anscombe%27s_quartet):
+#### 앤스콤 쿼텟(Anscombe's Quartet)의 상관 관계
 
-> They were constructed in 1973 by the statistician Francis Anscombe to demonstrate both the importance of graphing data before analyzing it and the effect of outliers on statistical properties. 
+**앤스콤 쿼텟**을 살펴보시죠. [위키백과](https://en.wikipedia.org/wiki/Anscombe%27s_quartet)의 내용을 인용합니다:
 
-1973 and still valid, fantastic.
+> 이들은 통계학자 프랜시스 앤스콤이 1973년에 데이터를 분석하기 전에 그래프로 표시하는 것의 중요성과 이상치가 통계적 속성에 미치는 영향을 모두 보여주기 위해 구성되었습니다.
 
-These four relationships are different, but all of them have the same R2: `0.816`.
+1973년에 만들어졌지만 여전히 유효하다니, 정말 대단하죠.
 
-Following example calculates the R2 and plot every pair.
+이 네 가지 관계는 서로 다르지만, 모두 동일한 R2 값인 `0.816`을 가집니다.
+
+다음 예시는 R2를 계산하고 각 쌍을 플롯합니다.
 
 ```{r anscombe-data, message=FALSE, tidy=FALSE, fig.cap="Anscombe set", out.extra = ''}
-# Reading anscombe quartet data
+# anscombe quartet 데이터 읽기
 anscombe_data = 
   read.delim(file="https://goo.gl/mVLz5L", header = T)
 
-# calculating the correlation (R squared, or R2) for 
-#every pair, every value is the same: 0.86.
+# 모든 쌍에 대한 상관 관계 (R 제곱, R2) 계산
+# 모든 값이 0.86으로 동일합니다.
 cor_1 = cor(anscombe_data$x1, anscombe_data$y1)
 cor_2 = cor(anscombe_data$x2, anscombe_data$y2)
 cor_3 = cor(anscombe_data$x3, anscombe_data$y3)
 cor_4 = cor(anscombe_data$x4, anscombe_data$y4)
 
-# defining the function
+# 함수 정의
 plot_anscombe <- function(x, y, value, type)
 {
-  # 'anscombe_data' is a global variable, this is 
-  # a bad programming practice ;)
+  # 'anscombe_data'는 전역 변수입니다. 이것은 
+  # 좋은 프로그래밍 습관이 아닙니다 ;)
   p=ggplot(anscombe_data, aes_string(x,y))  + 
     geom_smooth(method='lm', fill=NA) + 
     geom_point(aes(colour=factor(1), 
-                   fill = factor(1)), 
-               shape=21, size = 2
-               ) + 
+                    fill = factor(1)), 
+                    shape=21, size = 2
+                    ) + 
     ylim(2, 13) + 
     xlim(4, 19) + 
     theme_minimal() + 
     theme(legend.position="none") + 
     annotate("text", 
-             x = 12, 
-             y =4.5, 
-             label = 
-               sprintf("%s: %s", 
-                       type, 
-                       round(value,2)
-                       )
-             )  
+              x = 12, 
+              y =4.5, 
+              label = 
+                sprintf("%s: %s", 
+                        type, 
+                        round(value,2)
+                        )
+              )  
   
   return(p)
 }
 
-# plotting in a 2x2 grid
+# 2x2 그리드에 플로팅
 grid.arrange(plot_anscombe("x1", "y1", cor_1, "R2"), 
-             plot_anscombe("x2", "y2", cor_2, "R2"), 
-             plot_anscombe("x3", "y3", cor_3, "R2"), 
-             plot_anscombe("x4", "y4", cor_4, "R2"), 
-             ncol=2, 
-             nrow=2)
+            plot_anscombe("x2", "y2", cor_2, "R2"), 
+            plot_anscombe("x3", "y3", cor_3, "R2"), 
+            plot_anscombe("x4", "y4", cor_4, "R2"), 
+            ncol=2, 
+            nrow=2)
 ```
 
-4-different plots, having the same `mean` for every `x` and `y` variable (9 and 7.501 respectively), and the same degree of correlation. You can check all the measures by typing `summary(anscombe_data)`. 
+이 네 가지 다른 플롯은 모든 `x` 및 `y` 변수(각각 9와 7.501)에 대해 동일한 **평균**과 동일한 정도의 상관 관계를 가집니다. `summary(anscombe_data)`를 입력하여 모든 측정값을 확인할 수 있습니다.
 
-This is why is so important to plot relationships when analyzing correlations.
+이것이 상관 관계를 분석할 때 관계를 플롯하는 것이 매우 중요한 이유입니다.
 
-We'll back on this data later. It can be improved! First, we'll introduce some concepts of information theory.
+이 데이터는 나중에 다시 다룰 것입니다. 개선될 수 있거든요\! 먼저, 정보 이론의 몇 가지 개념을 소개하겠습니다.
 
-<br>
+-----
 
-### Correlation based on Information Theory
+### 정보 이론에 기반한 상관 관계
 
-This relationships can be measure better with [Information Theory](https://en.wikipedia.org/wiki/Information_theory) concepts. One of the many algorithms to measure correlation based on this is: **MINE**, acronym for: Maximal Information-based nonparametric exploration.
+이러한 관계는 [**정보 이론**](https://en.wikipedia.org/wiki/Information_theory) 개념을 통해 더 잘 측정할 수 있습니다. 이를 기반으로 상관 관계를 측정하는 여러 알고리즘 중 하나는 Maximal Information-based nonparametric exploration의 약어인 **MINE**입니다.
 
-The implementation in R can be found in [minerva](https://cran.r-project.org/web/packages/minerva/index.html) package. It's also available in other languages like Python.
+R에서의 구현은 [minerva](https://cran.r-project.org/web/packages/minerva/index.html) 패키지에서 찾을 수 있습니다. Python과 같은 다른 언어에서도 사용할 수 있습니다.
 
-<br>
+-----
 
-#### An example in R: A perfect relationship
+#### R 예시: 완벽한 관계
 
-Let's plot a non-linear relationship, directly based on a function (negative exponential), and print the MIC value.
+함수(음의 지수 함수)를 기반으로 한 비선형 관계를 플롯하고 MIC 값을 인쇄해 보겠습니다.
 
 ```{r mic-non-linear-relationship, message=FALSE, fig.width=4, fig.height=3, fig.cap="A perfect relationship", out.extra = ''}
 x=seq(0, 20, length.out=500)
 df_exp=data.frame(x=x, y=dexp(x, rate=0.65))
 ggplot(df_exp, aes(x=x, y=y)) + geom_line(color='steelblue') + theme_minimal()
 
-# position [1,2] contains the correlation of both variables, excluding the correlation measure of each variable against itself.
+# [1,2] 위치는 두 변수의 상관 관계를 포함하며, 각 변수 자체와의 상관 관계는 제외됩니다.
 
-# Calculating linear correlation
+# 선형 상관 관계 계산
 res_cor_R2=cor(df_exp)[1,2]^2
 sprintf("R2: %s", round(res_cor_R2,2))
 
-# now computing the MIC metric
+# 이제 MIC 측정값 계산
 res_mine=mine(df_exp)
 sprintf("MIC: %s", res_mine$MIC[1,2])
 ```
 
-**MIC** value goes from 0 to 1. Being 0 implies no correlation and 1 highest correlation. The interpretation is the same as the R-squared.
+**MIC** 값은 0에서 1까지입니다. 0은 상관 관계가 없음을 의미하고 1은 가장 높은 상관 관계를 의미합니다. 해석은 R-제곱과 동일합니다.
 
-<br>
+-----
 
-#### Results analysis 
+#### 결과 분석
 
-The `MIC=1` indicates there is a perfect correlation between the two variables. If we were doing **feature engineering** this variable should be included.
+`MIC=1`은 두 변수 사이에 완벽한 상관 관계가 있음을 나타냅니다. 만약 **특성 공학**을 수행하고 있다면 이 변수는 포함되어야 합니다.
 
-Further than a simple correlation, what the MIC says is: "Hey these two variables show a functional relationship". 
+단순한 상관 관계를 넘어 MIC가 말하는 것은 "이 두 변수는 **함수적 관계**를 보여줍니다"입니다.
 
-In machine learning terms (and oversimplifying): "variable `y` is dependant of variable `x` and a function -that we don't know which one- can be found model the relationship."
+기계 학습 용어(및 과도하게 단순화하자면): "변수 `y`는 변수 `x`에 종속되며, 그 관계를 모델링할 수 있는 함수(우리가 어떤 함수인지는 모르는)를 찾을 수 있습니다."
 
-This is tricky because that relationship was effectively created based on a function, an exponential one.
+이 관계는 실제로 함수, 즉 지수 함수를 기반으로 생성되었기 때문에 까다롭습니다.
 
-But let's continue with other examples...
+하지만 다른 예제로 계속 진행해 봅시다...
 
-<br>
+-----
 
-### Adding noise
+### 노이즈 추가
 
-Noise is an undesired signal adding to the original one. In machine learning noise helps the model to get confused. Concretely: two identical input cases -for example customers- have different outcomes -one buy and the other doesn't-.
+**노이즈**는 원래 신호에 추가되는 원치 않는 신호입니다. 기계 학습에서 노이즈는 모델이 혼란스러워지는 데 일조합니다. 구체적으로 말하자면, 동일한 두 개의 입력 사례(예: 고객)가 서로 다른 결과(하나는 구매하고 다른 하나는 구매하지 않음)를 갖는 경우입니다.
 
-Now we are going to add some noise creating the `y_noise_1` variable.
+이제 `y_noise_1` 변수를 생성하여 노이즈를 추가할 것입니다.
 
 ```{r noisy-relationship, fig.width=4, fig.height=3, fig.cap="Adding some noise", out.extra = ''}
 df_exp$y_noise_1=jitter(df_exp$y, factor = 1000, amount = NULL)
@@ -696,167 +653,160 @@ ggplot(df_exp, aes(x=x, y=y_noise_1)) +
   geom_line(color='steelblue') + theme_minimal()
 ```
 
-Calculating the correlation and MIC again, printing in both cases the entire matrix, which shows the correlation/MIC metric of each input variable against all the others including themselves.
+상관 관계와 MIC를 다시 계산하고, 두 경우 모두 전체 행렬을 출력합니다. 이 행렬은 각 입력 변수가 자신을 포함한 다른 모든 변수에 대해 갖는 상관 관계/MIC 지표를 보여줍니다.
 
 ```{r}
-# calculating R squared
+# R 제곱 계산
 res_R2=cor(df_exp)^2
 res_R2
 
-# Calculating mine
+# mine 계산
 res_mine_2=mine(df_exp)
 
-# Printing MIC 
+# MIC 출력
 res_mine_2$MIC
-
 ```
 
-Adding noise to the data decreases the MIC value from 1 to 0.7226365 (-27%), and this is great!
+데이터에 노이즈를 추가하자 MIC 값은 1에서 0.7226365(-27%)로 감소했는데, 이는 훌륭합니다\!
 
-R2 also decreased but just a little bit, from 0.3899148 to 0.3866319 (-0.8%). 
+R2도 0.3899148에서 0.3866319(-0.8%)로 약간 감소했습니다.
 
-**Conclusion:** MIC reflects a noisy relationship much better than R2, and it's helpful to find correlated associations. 
+**결론:** MIC는 R2보다 노이즈가 있는 관계를 훨씬 더 잘 반영하며, 상관 관계가 있는 연관성을 찾는 데 유용합니다.
 
-**About the last example:** Generate data based on a function is only for teaching purposes. But the concept of noise in variables is quite common in _almost_ **every data set**, no matter its source. You don't have to do anything to add noise to variables, it's already there.
-Machine learning models deal with this noise, by approaching to the _real_ shape of data.
+**마지막 예시에 대해:** 함수를 기반으로 데이터를 생성하는 것은 교육 목적으로만 사용됩니다. 그러나 변수의 노이즈 개념은 출처에 관계없이 **거의 모든 데이터셋**에서 매우 일반적입니다. 변수에 노이즈를 추가하기 위해 아무것도 할 필요가 없습니다. 이미 거기에 있습니다.
+기계 학습 모델은 데이터의 *실제* 형태에 접근하여 이 노이즈를 처리합니다.
 
-It's quite useful to use the MIC measure to get a sense of the information present in a relationship between two variables.
+두 변수 간의 관계에 존재하는 정보의 의미를 파악하는 데 MIC 측정을 사용하는 것이 매우 유용합니다.
 
-<br>
+-----
 
-### Measuring non-linearity (MIC-R2)
+### 비선형성 측정 (MIC-R2)
 
-`mine` function returns several metrics, we checked only **MIC**, but due to the nature of the algorithm (you can check the original paper [@ReshefEtAl2011]), it computes more interesting indicators. Check them all by inspecting `res_mine_2` object.
+`mine` 함수는 여러 지표를 반환합니다. 우리는 **MIC**만 확인했지만, 알고리즘의 특성상(원본 논문 [@ReshefEtAl2011]을 확인할 수 있습니다) 더 흥미로운 지표들을 계산합니다. `res_mine_2` 객체를 검사하여 모든 지표를 확인해 보세요.
 
-One of them is `MICR2`, used as a measure of **non-linearity**. It is calculated by doing the: MIC - R2. Since R2 measures the linearity, a high `MICR2` would indicate a non-linear relationship.
+그중 하나는 **비선형성**의 척도로 사용되는 `MICR2`입니다. 이는 MIC - R2를 수행하여 계산됩니다. R2가 선형성을 측정하므로, 높은 `MICR2`는 비선형 관계를 나타냅니다.
 
-We can check it by calculating the MICR2 manually, following two matrix returns the same result:
+MICR2를 수동으로 계산하여 확인할 수 있습니다. 다음 두 행렬은 동일한 결과를 반환합니다.
 
 ```{r, eval=FALSE}
-# MIC r2: non-linearity metric
+# MIC r2: 비선형성 지표
 round(res_mine_2$MICR2, 3)
-# calculating MIC r2 manually
+# MIC r2 수동 계산
 round(res_mine_2$MIC-res_R2, 3)
 ```
 
-Non-linear relationships are harder to build a model, even more using a linear algorithm like decision trees or linear regression. 
+비선형 관계는 모델을 구축하기가 더 어렵습니다. 특히 의사 결정 트리나 선형 회귀와 같은 선형 알고리즘을 사용하는 경우에는 더욱 그렇습니다.
 
-Imagine we need to explain the relationship to another person, we'll need "more words" to do it. It's easier to say: _"A increases as B increases and the ratio is always 3x"_ (if A=1 then B=3, linear). 
+다른 사람에게 관계를 설명해야 한다고 상상해 보세요. 그렇게 하려면 "더 많은 단어"가 필요할 것입니다. "A는 B가 증가함에 따라 증가하고 비율은 항상 3배입니다"(A=1이면 B=3, 선형)라고 말하는 것이 더 쉽습니다.
 
-In comparison to: _"A increases as B increases, but A is almost 0 until B reaches the value 10, then A raises to 300; and when B reaches 15, A goes to 1000."_
+다음과 비교해 보세요: "A는 B가 증가함에 따라 증가하지만, B가 값 10에 도달할 때까지 A는 거의 0에 가깝다가 300으로 올라갑니다. 그리고 B가 15에 도달하면 A는 1000으로 갑니다."
 
 ```{r measuring-non-linearity, message=FALSE, fig.width=8, fig.height=3, tidy=FALSE, fig.cap="Comparing relationships", out.extra = ''}
-# creating data example
+# 데이터 예시 생성
 df_example=data.frame(x=df_exp$x, 
                       y_exp=df_exp$y, 
                       y_linear=3*df_exp$x+2)
 
-# getting mine metrics
+# mine 지표 가져오기
 res_mine_3=mine(df_example)
 
-# generating labels to print the results
+# 결과를 출력할 라벨 생성
 results_linear = 
-  sprintf("MIC: %s \n MIC-R2 (non-linearity): %s",
+  sprintf("MIC: %s \n MIC-R2 (비선형성): %s",
           res_mine_3$MIC[1,3],
           round(res_mine_3$MICR2[1,3],2)
           )
 
 results_exp = 
-  sprintf("MIC: %s \n MIC-R2 (non-linearity): %s", 
+  sprintf("MIC: %s \n MIC-R2 (비선형성): %s", 
           res_mine_3$MIC[1,2],
           round(res_mine_3$MICR2[1,2],4)
           )
 
-# Plotting results 
-# Creating plot exponential variable
+# 결과 플로팅
+# 지수 변수 플롯 생성
 p_exp=ggplot(df_example, aes(x=x, y=y_exp)) + 
   geom_line(color='steelblue') + 
   annotate("text", x = 11, y =0.4, label = results_exp) + 
   theme_minimal()
 
-# Creating plot linear variable
+# 선형 변수 플롯 생성
 p_linear=ggplot(df_example, aes(x=x, y=y_linear)) + 
   geom_line(color='steelblue') + 
   annotate("text", x = 8, y = 55, 
-           label = results_linear) + 
+            label = results_linear) + 
   theme_minimal()
 
 grid.arrange(p_exp,p_linear,ncol=2)
 ```
 
-<br>
+두 플롯 모두 MIC=1을 가지는 완벽한 상관 관계(또는 관계)를 보여줍니다.
+비선형성에 관해서는, MICR2는 예상대로 `y_exp`에서 0.6101, `y_linear`에서는 0으로 동작합니다.
 
-Both plots show a perfect correlation (or relationship), holding an MIC=1.
-Regarding non-linearity, MICR2 behaves as expected, in `y_exp`=0.6101, and in `y_linear`=0. 
+이 점은 중요한데, **MIC는 선형 관계에서 R2처럼 동작**하며, 이전에 보았듯이 **비선형** 관계에도 매우 잘 적응하여 관계를 프로파일링하는 특정 점수 지표(`MICR2`)를 검색하기 때문입니다.
 
-This point is important since the **MIC behaves like R2 does in linear relationships**, plus it adapts quite well to **non-linear** relationships as we saw before, retrieving a particular score metric (`MICR2`) to profile the relationship. 
+### 앤스콤 쿼텟에서 정보 측정하기
 
-<br>
+앞서 검토했던 예시를 기억하시나요? 앤스콤 쿼텟의 모든 쌍은 **R2가 0.86**으로 나옵니다. 그러나 플롯을 기반으로 볼 때 모든 쌍이 좋은 상관 관계나 유사한 `x`와 `y`의 분포를 보이는 것은 아니었습니다.
 
-### Measuring information on Anscombe Quartet
-
-Remember the example we review at the beginning? Every pair of Anscombe Quartet returns a **R2 of 0.86**. But based on its plots it was clearly that not every pair exhibits neither a good correlation nor a similar distribution of `x` and `y`.
-
-But what happen if we measure the relationship with a metric based on Information Theory? Yes, MIC again.
+그러나 정보 이론에 기반한 메트릭으로 관계를 측정하면 어떻게 될까요? 네, 다시 MIC입니다.
 
 ```{r anscombe-set-information, fig.cap="MIC statistic", out.extra = ''}
-# calculating the MIC for every pair
+# 모든 쌍에 대한 MIC 계산
 mic_1=mine(anscombe_data$x1, anscombe_data$y1, alpha=0.8)$MIC
 mic_2=mine(anscombe_data$x2, anscombe_data$y2, alpha=0.8)$MIC
 mic_3=mine(anscombe_data$x3, anscombe_data$y3, alpha=0.8)$MIC
 mic_4=mine(anscombe_data$x4, anscombe_data$y4, alpha=0.8)$MIC
 
-# plotting MIC in a 2x2 grid
+# 2x2 그리드에 MIC 플로팅
 grid.arrange(plot_anscombe("x1", "y1", mic_1, "MIC"), plot_anscombe("x2", "y2", mic_2,"MIC"), plot_anscombe("x3", "y3", mic_3,"MIC"), plot_anscombe("x4", "y4", mic_4,"MIC"), ncol=2, nrow=2)
-
 ```
 
-As you may notice we increased the `alpha` value to 0.8, this is a good practice -according to the documentation- when we analyzed small samples. The default value is 0.6 and its maximum 1.
+보시다시피 `alpha` 값을 0.8로 늘렸습니다. 이는 작은 샘플을 분석할 때 문서에 따라 좋은 방법입니다. 기본값은 0.6이고 최대값은 1입니다.
 
-In this case, MIC value spotted the most spurious relationship in the pair `x4 - y4`. Probably due to a few cases per plot (11 rows) the MIC was the same for all the others pairs. Having more cases will show different MIC values.
+이 경우 MIC 값은 쌍 `x4 - y4`에서 가장 가짜 관계를 발견했습니다. 플롯당 몇 개의 케이스(11행) 때문에 MIC가 다른 모든 쌍에 대해 동일했을 수 있습니다. 더 많은 케이스가 있으면 다른 MIC 값이 표시됩니다.
 
-But when combining the MIC with **MIC-R2** (non-linearity measurement) new insights appears:
+그러나 MIC를 **MIC-R2**(비선형성 측정)와 결합하면 새로운 통찰력이 나타납니다.
 
 ```{r anscombe-set}
-# Calculating the MIC for every pair, note the "MIC-R2" object has the hyphen when the input are two vectors, unlike when it takes a data frame which is "MICR2".
+# 모든 쌍에 대한 MIC 계산, 입력이 두 개의 벡터일 때는 "MIC-R2" 객체에 하이픈이 있고 데이터 프레임을 사용할 때는 "MICR2"인 것에 유의하세요.
 mic_r2_1=mine(anscombe_data$x1, anscombe_data$y1, alpha = 0.8)$`MIC-R2`
 mic_r2_2=mine(anscombe_data$x2, anscombe_data$y2, alpha = 0.8)$`MIC-R2`
 mic_r2_3=mine(anscombe_data$x3, anscombe_data$y3, alpha = 0.8)$`MIC-R2`
 mic_r2_4=mine(anscombe_data$x4, anscombe_data$y4, alpha = 0.8)$`MIC-R2`
 
-# Ordering according mic_r2
+# mic_r2에 따라 정렬
 df_mic_r2=data.frame(pair=c(1,2,3,4), mic_r2=c(mic_r2_1,mic_r2_2,mic_r2_3,mic_r2_4)) %>% arrange(-mic_r2)
 df_mic_r2
 ```
 
+**비선형성**에 따라 내림차순으로 정렬하면 결과는 플롯과 일치합니다: 2 \> 3 \> 1 \> 4.
+쌍 4에 대한 이상한 점, 음수입니다. 이는 MIC가 R2보다 낮기 때문입니다. 플롯할 가치가 있는 관계입니다.
 
-Ordering decreasingly by its **non-linearity** the results are consisent with the plots: 2 > 3 > 1 > 4.
-Something strange for pair 4, a negative number. This is because MIC is lower than the R2. A relationship that worth to be plotted.
+-----
 
-<br>
+### 비단조성 측정: MAS 측정
 
-### Measuring non-monotonicity: MAS measure
+MINE는 **MAS**(최대 비대칭 점수)를 사용하여 시계열의 비단조성을 프로파일링하는 데에도 도움이 될 수 있습니다.
 
-MINE can also help us to profile time series regarding its non-monotonicity with **MAS** (maximum asymmetry score).
+단조 시계열은 경향이 바뀌지 않고 항상 위 또는 아래로 이동하는 시계열입니다. 이에 대한 자세한 내용은 [@monotonic_function]에서 확인할 수 있습니다.
 
-A monotonic series is such it never changes its tendency, it always goes up or down. More on this on [@monotonic_function].
-
-Following example simulates two-time series, one not-monotonic `y_1` and the other monotonic `y_2`.
+다음 예시는 비단조 `y_1`와 단조 `y_2`의 두 시계열을 시뮬레이션합니다.
 
 ```{r monotonic-non-monotonic-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="Monotonicity in functions", out.extra = ''}
-# creating sample data (simulating time series)
+# 샘플 데이터 생성 (시계열 시뮬레이션)
 time_x=sort(runif(n=1000, min=0, max=1))
 y_1=4*(time_x-0.5)^2
 y_2=4*(time_x-0.5)^3
 
-# Calculating MAS for both series
+# 두 시계열에 대한 MAS 계산
 mas_y1=round(mine(time_x,y_1)$MAS,2)
 mas_y2=mine(time_x,y_2)$MAS
 
-# Putting all together
+# 모두 함께 넣기
 df_mono=data.frame(time_x=time_x, y_1=y_1, y_2=y_2)
 
-# Plotting
+# 플로팅
 label_p_y_1 = 
   sprintf("MAS=%s (goes down \n and up => not-monotonic)", 
           mas_y1)
@@ -865,7 +815,7 @@ p_y_1=ggplot(df_mono, aes(x=time_x, y=y_1)) +
   geom_line(color='steelblue') + 
   theme_minimal()  + 
   annotate("text", x = 0.45, y =0.75, 
-           label = label_p_y_1)
+            label = label_p_y_1)
 
 label_p_y_2=
   sprintf("MAS=%s (goes up => monotonic)", mas_y2)
@@ -874,31 +824,27 @@ p_y_2=ggplot(df_mono, aes(x=time_x, y=y_2)) +
   geom_line(color='steelblue') + 
   theme_minimal() + 
   annotate("text", x = 0.43, y =0.35, 
-           label = label_p_y_2)
+            label = label_p_y_2)
 
 grid.arrange(p_y_1,p_y_2,ncol=2)
-
 ```
 
-<br>
-
-From another perspective, MAS is also useful to detect periodic relationships. Let's illustrate this with an example
+다른 관점에서 MAS는 주기적 관계를 감지하는 데에도 유용합니다. 예시를 통해 이를 설명해 보겠습니다.
 
 ```{r periodical-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="Periodicity in functions", out.extra = '', echo=FALSE}
-
-# creating data for non-periodic function
+# 비주기적 함수에 대한 데이터 생성
 x_per=seq(-2*pi,2*pi,0.2)
 df_per=data.frame(x=x_per, y=sin(2*x_per))
 
-# creating data for periodic function
+# 주기적 함수에 대한 데이터 생성
 x_non_per=1:100
 df_non_per=data.frame(x=x_non_per, y=2*x_non_per*x_non_per+2)
 
-# Calculating MAS for both series
+# 두 시계열에 대한 MAS 계산
 mas_y1_b=mine(df_per$x,df_per$y)$MAS
 mas_y2_b=round(mine(df_non_per$x,df_non_per$y)$MAS,2)
 
-# Plotting
+# 플로팅
 p_y_1_b=ggplot(df_per, aes(x=x, y=y)) + 
   geom_line(color='steelblue') + 
   theme_minimal() +
@@ -912,22 +858,22 @@ p_y_2_b=ggplot(df_non_per, aes(x=x, y=y)) +
 grid.arrange(p_y_1_b, p_y_2_b, ncol=2)
 ```
 
-#### A more real example: Time Series
+#### 더 실제적인 예시: 시계열
 
-Consider the following case which contains three-time series: `y1`, `y2` and `y3`. They can be profiled concerning its non-monotonicity or overall growth trend.
+세 개의 시계열(`y1`, `y2`, `y3`)을 포함하는 다음 사례를 고려해 보겠습니다. 이들은 비단조성 또는 전체 성장 추세에 따라 프로파일링할 수 있습니다.
 
 ```{r correlation-time-series, fig.height=3, fig.width=5, tidy=FALSE, fig.cap="Time series example", out.extra = ''}
-# reading data
+# 데이터 읽기
 df_time_series = 
   read.delim(file="https://goo.gl/QDUjfd")
 
-# converting to long format so they can be plotted
+# 플롯할 수 있도록 긴 형식으로 변환
 df_time_series_long=melt(df_time_series, id="time")
 
-# Plotting
+# 플로팅
 plot_time_series = 
   ggplot(data=df_time_series_long,
-         aes(x=time, y=value, colour=variable)) +
+        aes(x=time, y=value, colour=variable)) +
   geom_line() + 
   theme_minimal() + 
   scale_color_brewer(palette="Set2")
@@ -936,105 +882,98 @@ plot_time_series
 ```
 
 ```{r}
-# Calculating and printing MAS values for time series data
+# 시계열 데이터에 대한 MAS 값 계산 및 출력
 mine_ts=mine(df_time_series)
 mine_ts$MAS 
 ```
 
-<br>
+`time` 열을 봐야 하므로 각 시계열의 시간에 대한 MAS 값을 얻었습니다.
+`y2`는 가장 단조적(그리고 가장 덜 주기적)인 시계열이며, 이를 보면 확인할 수 있습니다. 항상 올라가는 것처럼 보입니다.
 
-We need to look at `time` column, so we've got the MAS value of each series regarding the time.
-`y2` is the most monotonic (and less periodic) series, and it can be confirmed by looking at it. It seems to be always up.
+**MAS 요약:**
 
-**MAS summary:**
+  * MAS \~ 0은 단조 또는 비주기적 함수("항상" 위 또는 아래로 이동)를 나타냅니다.
+  * MAS \~ 1은 비단조 또는 주기적 함수를 나타냅니다.
 
-* MAS ~ 0 indicates monotonic or non-periodic function ("always" up or down)
-* MAS ~ 1 indicates non-monotonic or periodic function 
+-----
 
+### 시계열 간의 상관 관계
 
-<br>
+MIC 메트릭은 **시계열의 상관 관계**도 측정할 수 있습니다. 일반적인 목적의 도구는 아니지만 서로 다른 시계열을 빠르게 비교하는 데 유용할 수 있습니다.
 
-### Correlation between time series
-
-MIC metric can also measure the **correlation in time series**, it is not a general purpose tool but can be helpful to compare different series quickly.
-
-This section is based on the same data we used in MAS example.
+이 섹션은 MAS 예시에서 사용한 동일한 데이터를 기반으로 합니다.
 
 ```{r time-series, fig.width=4, fig.height=2.5, fig.cap="Time series example", out.extra = ''}
-# printing again the 3-time series
+# 3개의 시계열 다시 출력
 plot_time_series
-# Printing MIC values
+# MIC 값 출력
 mine_ts$MIC
-
 ```
-<br>
 
-Now we need to look at `y1` column. According to MIC measure, we can confirm the same that it's shown in last plot: 
+이제 `y1` 열을 봐야 합니다. MIC 측정값에 따르면 마지막 플롯에 표시된 것과 동일한 내용을 확인할 수 있습니다.
 
-`y1` is more similar to `y3` (MIC=0.709) than what is `y2` (MIC=0.61). 
+`y1`은 `y2`(MIC=0.61)보다 `y3`(MIC=0.709)과 더 유사합니다.
 
-<br>
+-----
 
-#### Going further: Dynamic Time Warping
+#### 더 나아가기: 동적 시간 워핑
 
-MIC will not be helpful for more complex esenarios having time series which vary in speed, you would use [dynamic time warping](https://en.wikipedia.org/wiki/Dynamic_time_warping) technique (**DTW**).
+MIC는 속도가 다른 시계열이 있는 더 복잡한 시나리오에는 유용하지 않습니다. [동적 시간 워핑](https://en.wikipedia.org/wiki/Dynamic_time_warping)(**DTW**) 기술을 사용해야 합니다.
 
-Let's use an image to catch up the concept visually:
-
+개념을 시각적으로 파악하기 위해 이미지를 사용해 보겠습니다.
 
 ```{r Dynamic-Time-warping, echo=FALSE, out.width="300px", fig.cap="Dynamic time warping", out.extra = ''}
 knitr::include_graphics("exploratory_data_analysis/dynamic_time_warping.png")
 ```
 
+이미지 출처: *Dynamic time wrapping Converting images into time series for data mining* [@img_time_series].
 
-Image source: _Dynamic time wrapping Converting images into time series for data mining_ [@img_time_series].
+마지막 이미지는 시계열을 비교하는 두 가지 다른 접근 방식을 보여주며, **유클리드**는 MIC 측정값과 더 유사합니다. 반면 DTW는 서로 다른 시간에 발생하는 유사성을 추적할 수 있습니다.
 
-The last image shows two different approaches to compare time series, and the **euclidean** is more similar to MIC measure. While DTW can track similarities occurring at different times.
+**R**에서의 멋진 구현: [dtw 패키지](http://dtw.r-forge.r-project.org).
 
-A nice implementation in **R**: [dtw package](http://dtw.r-forge.r-project.org).
+시계열 간의 상관 관계를 찾는 것은 **시계열 클러스터링**을 수행하는 또 다른 방법입니다.
 
-Finding correlations between time series is another way of performing **time series clustering**.
+-----
 
-<br>
+### 범주형 변수의 상관 관계
 
-### Correlation on categorical variables
+MINE와 다른 많은 알고리즘은 수치형 데이터에서만 작동합니다. 모든 범주형 변수를 플래그(또는 더미 변수)로 변환하는 **데이터 준비** 트릭을 수행해야 합니다.
 
-MINE -and many other algorithms- only work with numerical data. We need to do a **data preparation** trick, converting every categorical variable into flag (or dummy variable).
+원래 범주형 변수에 30개의 가능한 값이 있는 경우, 행에 해당 범주가 존재하는 경우 값 `1`을 보유하는 30개의 새 열이 생성됩니다.
 
-If the original categorical variable has 30 possible values, it will result in 30 new columns holding the value `0` or `1`, when `1` represents the presence of that category in the row.
-
-If we use package `caret` from R, this conversion only takes two lines of code:
+R의 `caret` 패키지를 사용하는 경우 이 변환은 두 줄의 코드만 필요합니다.
 
 ```{r dummy-vars, message=FALSE, tidy=FALSE}
 library(caret)
 
-# selecting just a few variables
+# 몇 개의 변수만 선택
 heart_disease_2 = 
   select(heart_disease, max_heart_rate, oldpeak, 
-         thal, chest_pain,exer_angina, has_heart_disease)
+          thal, chest_pain,exer_angina, has_heart_disease)
 
-# this conversion from categorical to a numeric is merely 
-# to have a cleaner plot
+# 범주형에서 수치형으로의 이 변환은 단순히 
+# 더 깔끔한 플롯을 만들기 위한 것입니다.
 heart_disease_2$has_heart_disease=
   ifelse(heart_disease_2$has_heart_disease=="yes", 1, 0)
 
-# it converts all categorical variables (factor and 
-# character for R) into numerical variables.
-# skipping the original so the data is ready to use
+# R의 모든 범주형 변수(factor 및 
+# character)를 수치형 변수로 변환합니다.
+# 원본을 건너뛰어 데이터를 사용할 준비가 되도록 합니다.
 dmy = dummyVars(" ~ .", data = heart_disease_2)
 
 heart_disease_3 = 
   data.frame(predict(dmy, newdata = heart_disease_2))
 
-# Important: If you recieve this message 
+# 중요: 이 메시지를 받으면 
 # `Error: Missing values present in input variable 'x'. 
-# Consider using use = 'pairwise.complete.obs'.` 
-# is because data has missing values.
-# Please don't omit NA without an impact analysis first, 
-# in this case it is not important. 
+# Consider using use = 'pairwise.complete.obs'.`
+# 데이터에 결측값이 있기 때문입니다.
+# 먼저 영향 분석 없이 NA를 생략하지 마세요.
+# 이 경우에는 중요하지 않습니다. 
 heart_disease_4=na.omit(heart_disease_3)
   
-# compute the mic!
+# mic 계산!
 mine_res_hd=mine(heart_disease_4)
 ```
 
@@ -1042,242 +981,233 @@ mine_res_hd=mine(heart_disease_4)
 detach("package:caret")
 ```
 
-Printing a sample...
+샘플 인쇄...
 
 ```{r}
 mine_res_hd$MIC[1:5,1:5]
 ```
 
-Where column `thal.3` takes a value of 1 when `thal=3`.
+여기서 `thal.3` 열은 `thal=3`일 때 1의 값을 가집니다.
 
-<br>
+-----
 
-#### Printing some fancy plots! 
+#### 멋진 플롯 인쇄\!
 
-We'll use `corrplot` package in R which can plot a `cor` object (classical correlation matrix), or any other matrix. We will plot **MIC** matrix in this case, but any other can be used as well, for example, **MAS** or another metric that returns an squared matrix of correlations.
+R에서 `corrplot` 패키지를 사용합니다. 이 패키지는 `cor` 객체(클래식 상관 관계 행렬) 또는 다른 행렬을 플롯할 수 있습니다. 이 경우 **MIC** 행렬을 플롯하지만, 예를 들어 **MAS** 또는 상관 관계의 제곱 행렬을 반환하는 다른 메트릭도 사용할 수 있습니다.
 
-The two plots are based on the same data but display the correlation in different ways. 
+두 플롯은 동일한 데이터를 기반으로 하지만 상관 관계를 다른 방식으로 표시합니다.
 
 ```{r correlation-information-theory, tidy=FALSE, fig.cap="Correlation plot", out.extra = ''}
-# library wto plot that matrix
+# 행렬을 플롯하는 라이브러리
 library(corrplot) 
-# to use the color pallete brewer.pal
+# color pallete brewer.pal을 사용합니다.
 library(RColorBrewer) 
 
-# hack to visualize the maximum value of the 
-# scale excluding the diagonal (variable against itself)
+# 대각선(변수 자체)을 제외한 
+# 스케일의 최대값을 시각화하는 해킹
 diag(mine_res_hd$MIC)=0
 
-# Correlation plot with circles. 
+# 원이 있는 상관 관계 플롯. 
 corrplot(mine_res_hd$MIC, 
-         method="circle",
-         col=brewer.pal(n=10, name="PuOr"),
-         # only display upper diagonal
-         type="lower", 
-         #label color, size and rotation
-         tl.col="red",
-         tl.cex = 0.9, 
-         tl.srt=90, 
-         # dont print diagonal (var against itself)
-         diag=FALSE, 
-         # accept a any matrix, mic in this case 
-         #(not a correlation element)
-         is.corr = F 
-        
+        method="circle",
+        col=brewer.pal(n=10, name="PuOr"),
+        # 상단 대각선만 표시
+        type="lower", 
+        # 레이블 색상, 크기 및 회전
+        tl.col="red",
+        tl.cex = 0.9, 
+        tl.srt=90, 
+        # 대각선(변수 자체)을 인쇄하지 않음
+        diag=FALSE, 
+        # 모든 행렬(이 경우 mic)을 허용합니다. 
+        #(상관 요소가 아님)
+        is.corr = F 
+       
 )
 
 
-# Correlation plot with color and correlation MIC
+# 색상 및 상관 관계 MIC가 있는 상관 관계 플롯
 corrplot(mine_res_hd$MIC, 
-         method="color",
-         type="lower", 
-         number.cex=0.7,
-         # Add coefficient of correlation
-         addCoef.col = "black", 
-         tl.col="red", 
-         tl.srt=90, 
-         tl.cex = 0.9,
-         diag=FALSE, 
-         is.corr = F 
+        method="color",
+        type="lower", 
+        number.cex=0.7,
+        # 상관 계수 추가
+        addCoef.col = "black", 
+        tl.col="red", 
+        tl.srt=90, 
+        tl.cex = 0.9,
+        diag=FALSE, 
+        is.corr = F 
 )
-
 ```
 
-Just change the first parameter -`mine_res_hd$MIC`- to the matrix you want and reuse with your data. 
+첫 번째 매개변수 `-mine_res_hd$MIC-`를 원하는 행렬로 변경하고 자신의 데이터와 함께 다시 사용하면 됩니다.
 
-<br>
+-----
 
-#### A comment about this kind of plots
+#### 이러한 종류의 플롯에 대한 의견
 
-They are useful only when the number of variables are not big. Or if you perform a variable selection first, keeping in mind that every variable should be numerical. 
+이러한 플롯은 변수 수가 많지 않을 때만 유용합니다. 또는 모든 변수가 수치형이어야 한다는 점을 염두에 두고 먼저 변수 선택을 수행하는 경우에 유용합니다.
 
-If there is some categorical variable in the selection you can convert it into numerical first and inspect the relationship between the variables, thus sneak peak how certain values in categorical variables are more related to certain outcomes, like in this case.
+선택에 범주형 변수가 있다면 먼저 이를 수치형으로 변환한 다음 변수 간의 관계를 검토하여 특정 범주형 변수의 값이 특정 결과와 어떻게 더 관련되어 있는지 (이 경우처럼) 미리 엿볼 수 있습니다.
 
-<br>
+-----
 
-#### How about some insights from the plots?
+#### 플롯에서 얻을 수 있는 몇 가지 통찰력은 어떠한가요?
 
-Since the variable to predict is `has_heart_disease`, it appears something interesting, to have a heart disease is more correlated to `thal=3` than to value `thal=6`.
+예측하려는 변수가 `has_heart_disease`이므로 흥미로운 점이 나타납니다. 심장 질환을 앓는 것은 `thal=6` 값보다 `thal=3`과 더 밀접하게 관련되어 있습니다.
 
-Same analysis for variable `chest_pain`, a value of 4 is more dangerous than a value of 1.
+변수 `chest_pain`에 대한 동일한 분석에서, 4의 값은 1의 값보다 더 위험합니다.
 
-And we can check it with other plot:
+다른 플롯으로 확인할 수도 있습니다.
 
 ```{r profiling-target-variable, fig.height=2, fig.width=3, fig.cap="Visual analysis using cross-plot", out.extra = ''}
 cross_plot(heart_disease, input = "chest_pain", target = "has_heart_disease", plot_type = "percentual")
 ```
 
-The likelihood of having a heart disease is 72.9% if the patient has `chest_pain=4`. More than 2x more likely if she/(he) has `chest_pain=1` (72.9 vs 30.4%).
+환자가 `chest_pain=4`인 경우 심장 질환 발병 가능성은 72.9%입니다. `chest_pain=1`인 경우(72.9% 대 30.4%)보다 2배 이상 높습니다.
 
-<br>
+-----
 
-**Some thoughts...**
+**몇 가지 생각...**
 
-The data is the same, but the approach to browse it is different. The same goes when we are creating a predictive model, the input data in the _N-dimensional_ space can be approached through different models like support vector machine, a random forest, etc. 
+데이터는 동일하지만 데이터를 탐색하는 접근 방식은 다릅니다. 예측 모델을 만들 때도 마찬가지입니다. *N차원* 공간의 입력 데이터는 서포트 벡터 머신, 랜덤 포레스트 등 다양한 모델을 통해 접근할 수 있습니다.
 
-Like a photographer shooting from different angles, or different cameras. The object is always the same, but the perspective gives different information.
+마치 사진가가 다른 각도나 다른 카메라로 촬영하는 것과 같습니다. 대상은 항상 동일하지만, 관점에 따라 다른 정보를 제공합니다.
 
-Combining raw tables plus different plots gives us a more real and complementary object perspective.
+원시 테이블과 다양한 플롯을 결합하면 더욱 현실적이고 보완적인 객관적인 시각을 얻을 수 있습니다.
 
-<br>
+-----
 
-### Correlation analysis based on information theory {#selecting_best_vars_mic}
+### 정보 이론에 기반한 상관 관계 분석 {\#selecting_best_vars_mic}
 
-Based on MIC measure, mine function can receive the index of the column to predict (or to get all the correlations against only one variable).
+MIC 측정값을 기반으로 `mine` 함수는 예측할 열의 인덱스(또는 단 하나의 변수에 대한 모든 상관 관계를 얻기 위해)를 받을 수 있습니다.
 
 ```{r importance-variable-ranking, fig.width=6, fig.height=4.5, tidy=FALSE, fig.cap="Correlation using information theory", out.extra=''}
 
-# Getting the index of the variable to 
-# predict: has_heart_disease
+# 예측할 변수의 인덱스 가져오기: has_heart_disease
 target="has_heart_disease"
 index_target=grep(target, colnames(heart_disease_4))
 
-# master takes the index column number to calculate all
-# the correlations
+# master는 모든 상관 관계를 계산하기 위해
+# 인덱스 열 번호를 가져옵니다.
 mic_predictive=mine(heart_disease_4, 
                     master = index_target)$MIC
 
-# creating the data frame containing the results, 
-# ordering descently by its correlation and excluding
-# the correlation of target vs itself
+# 결과를 포함하는 데이터 프레임 생성, 
+# 상관 관계에 따라 내림차순으로 정렬하고 
+# 대상 자체와의 상관 관계 제외
 df_predictive = 
   data.frame(variable=rownames(mic_predictive), 
-                         mic=mic_predictive[,1], 
-                         stringsAsFactors = F) %>% 
+                       mic=mic_predictive[,1], 
+                       stringsAsFactors = F) %>% 
   arrange(-mic) %>% 
   filter(variable!=target)
 
-# creating a colorful plot showing importance variable
-# based on MIC measure
+# MIC 측정값을 기반으로 변수 중요도를 보여주는
+# 다채로운 플롯 생성
 ggplot(df_predictive, 
-       aes(x=reorder(variable, mic),y=mic, fill=variable)
-       ) + 
+        aes(x=reorder(variable, mic),y=mic, fill=variable)
+        ) + 
   geom_bar(stat='identity') + 
   coord_flip() + 
   theme_bw() + 
   xlab("") + 
   ylab("Variable Importance (based on MIC)") + 
   guides(fill=FALSE)
-   
+  
 ```
 
-Although it is recommended to run correlations among all variables in order to exclude correlated input features.
+상관 관계가 있는 입력 특성을 제외하기 위해 모든 변수 간의 상관 관계를 실행하는 것이 권장되긴 합니다.
 
-<br>
+-----
 
-#### Practice advice for using `mine` 
+#### `mine` 사용을 위한 실용적인 조언
 
-If it lasts too much time to finish, consider taking a sample.
-If the amount of data is too little, consider setting a higher number in `alpha` parameter, 0.6 is its default.
-Also, it can be run in parallel, just setting `n.cores=3` in case you have 4 cores. A general good practice when running parallel processes, the extra core will be used by the operating system.
+완료하는 데 너무 오랜 시간이 걸린다면 **샘플링**을 고려하십시오.
+데이터 양이 너무 적다면 `alpha` 매개변수에 더 높은 숫자를 설정하는 것을 고려하십시오. 기본값은 0.6입니다.
+또한, 코어가 4개인 경우 `n.cores=3`으로 설정하여 **병렬로 실행**할 수 있습니다. 병렬 프로세스를 실행할 때 운영 체제에서 추가 코어를 사용하므로 이는 일반적인 좋은 방법입니다.
 
-<br>
+-----
 
+### MINE만 이런 기능을 제공하나요?
 
-### But just MINE covers this?
+아닙니다. 우리는 MINE 스위트만 사용했지만, [상호 정보](http://www.scholarpedia.org/article/Mutual_information)와 관련된 다른 알고리즘도 있습니다.
+R에서는 [entropy](https://cran.r-project.org/web/packages/entropy/entropy.pdf) 및 [infotheo](https://artax.karlin.mff.cuni.cz/r-help/library/infotheo/html/mutinformation.html) 패키지 등이 있습니다.
 
-No. We used only MINE suite, but there are other algortihms related to [mutual information](http://www.scholarpedia.org/article/Mutual_information). 
-In R some of the packages are: [entropy](https://cran.r-project.org/web/packages/entropy/entropy.pdf) and [infotheo](https://artax.karlin.mff.cuni.cz/r-help/library/infotheo/html/mutinformation.html).
+`funModeling` 패키지(버전 1.6.6부터)는 섹션 [정보 이론을 사용하여 최고의 특성 순위 지정](https://www.google.com/search?q=%23select_features_var_rank_info)에서 본 것처럼 여러 정보 이론 메트릭을 계산하는 `var_rank_info` 함수를 도입합니다.
 
-Package `funModeling` (from version 1.6.6) introduces the function `var_rank_info` which calculates several information theory metrics, as it was seen in section [Rank best features using information theory](#select_features_var_rank_info).
+**Python**에서는 scikit-learn을 통해 상호 정보를 계산할 수 있습니다. [여기 예제가 있습니다](stackoverflow.com/questions/20491028/optimal-way-to-compute-pairwise-mutual-information-using-numpy).
 
-In **Python** mutual information can be calculated through scikit-learn, [here an example](stackoverflow.com/questions/20491028/optimal-way-to-compute-pairwise-mutual-information-using-numpy).
+개념은 도구를 초월합니다.
 
-The concept transcends the tool.
+-----
 
-<br>
+#### 또 다른 상관 관계 예제 (상호 정보)
 
-#### Another correlation example (mutual information)
+이번에는 `infotheo` 패키지를 사용할 것입니다. 먼저 패키지에 있는 `discretize` 함수(또는 bining)를 적용하는 **데이터 준비** 단계를 수행해야 합니다. 이 함수는 모든 수치형 변수를 동일 빈도 기준에 따라 범주형으로 변환합니다.
 
-This time we'll use `infotheo` package, we need first to do a **data preparation** step, applying a `discretize` function (or binning) function present in the package. It converts every numerical variable into categorical based on equal frequency criteria. 
-
-Next code will create the correlation matrix as we seen before, but based on the mutual information index. 
+다음 코드는 이전에 본 것처럼 상관 관계 행렬을 생성하지만, 상호 정보 지수를 기반으로 합니다.
 
 ```{r correlation-matrix-information-theory, eval=FALSE, fig.cap="Correlation matrix"}
 library(infotheo)
-# discretizing every variable
+# 모든 변수 이산화
 heart_disease_4_disc=discretize(heart_disease_4) 
 
-# calculating "correlation" based on mutual information
+# 상호 정보를 기반으로 "상관 관계" 계산
 heart_info=mutinformation(heart_disease_4_disc, method= "emp")
 
-# hack to visualize the maximum value of the scale excluding the diagonal (var against itself)
+# 대각선(변수 자체)을 제외한 스케일의 최대값을 시각화하는 해킹
 diag(heart_info)=0
 
-# Correlation plot with color and correlation Mutual Information from Infotheo package. This line only retrieves the plot of the right. 
+# Infotheo 패키지의 색상 및 상관 관계 상호 정보가 있는 상관 관계 플롯. 이 줄은 오른쪽의 플롯만 검색합니다. 
 corrplot(heart_info, method="color",type="lower", number.cex=0.6,addCoef.col = "black", tl.col="red", tl.srt=90, tl.cex = 0.9, diag=FALSE, is.corr = F)
 ```
-
 
 ```{r Comparing-MIC-and-mutual-information-index, echo=FALSE, out.width="100%", fig.cap="Comparing variable importance"}
 knitr::include_graphics("exploratory_data_analysis/mic_mutual_info.png")
 ```
 
+상호 정보에 기반한 상관 관계 점수는 MIC와 매우 유사하게 관계 순위를 매기지 않습니까?
 
-Correlation score based on mutual information ranks relationships pretty similar to MIC, doesn’t it?
+-----
 
-<br>
+### 정보 측정: 일반적인 관점
 
-### Information Measures: A general perspective
+상관 관계 외에도, MIC 또는 기타 정보 측정 지표는 _함수적 관계_가 있는지 여부를 측정합니다.
 
-Further than correlation, MIC or other information metric measure if there is a _functional relationship_. 
+높은 MIC 값은 두 변수 간의 관계가 함수로 설명될 수 있음을 나타냅니다. 그 함수 또는 예측 모델을 찾는 것이 우리의 임무입니다.
 
-A high MIC value indicates that the relationship between the two variables can be explained by a function. Is
-our job to find that function or predictive model.
+이 분석은 N-변수로 확장되며, 이 책은 최상의 변수 선택 장에서 다른 알고리즘을 소개합니다.
 
-This analysis is extended to n-variables, this book introduces another algorithm in the selecting best variables chapter. 
+일부 예측 모델은 다른 모델보다 성능이 좋지만, 관계가 완전히 노이즈가 많다면 아무리 발전된 알고리즘이라도 결국 좋지 않은 결과로 이어질 것입니다.
 
-Some predictive models perform better than other, but if the relationship is absolutely noisy no matter how advance the algorithm is, it will end up in bad results. 
+-----
 
-<br>
+**정보 이론**에 대한 더 많은 내용이 나올 것입니다. 지금은 다음 교육용 강의를 확인하십시오:
 
-More to come on **Information Theory**. By now you check these didactical lectures: 
+  * 7분 입문 영상 [https://www.youtube.com/watch?v=2s3aJfRr9gE ](https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3D2s3aJfRr9gE%C2%A0)
+  * [http://alex.smola.org/teaching/cmu2013-10-701x/slides/R8-information_theory.pdf](http://alex.smola.org/teaching/cmu2013-10-701x/slides/R8-information_theory.pdf)
+  * [http://www.scholarpedia.org/article/Mutual_information](http://www.scholarpedia.org/article/Mutual_information)
 
-* 7-min introductory video https://www.youtube.com/watch?v=2s3aJfRr9gE 
-* http://alex.smola.org/teaching/cmu2013-10-701x/slides/R8-information_theory.pdf
-* http://www.scholarpedia.org/article/Mutual_information
+-----
 
-<br>
+### 결론
 
-### Conclusions
+앤스콤 쿼텟은 플롯과 함께 _원시 통계량_을 얻는 좋은 방법을 가르쳐주었습니다.
 
-Anscombe's quartet taught us the good practice of getting the _raw statistic_ together with a plot.
+우리는 **노이즈**가 두 변수 간의 관계에 어떻게 영향을 미칠 수 있는지 알 수 있었고, 이러한 현상은 항상 데이터에 나타납니다. 데이터의 노이즈는 예측 모델을 혼란스럽게 만듭니다.
 
-We could see how **noise** can affect the relationship between two variables, and this phenomenon always appears in data. Noise in data confuses the predictive model. 
+노이즈는 오류와 관련이 있으며, 정보 이론에 기반한 측정값(예:
+**상호 정보** 및 **최대 정보 계수**)을 통해 연구할 수 있으며, 이는 일반적인 R 제곱보다 한 단계 더 나아갑니다. [@Caban2012]에는 MINE를 특성 선택기로 사용하는 임상 연구가 있습니다.
 
-Noise is related to error, and it can be studied with measures based on information theory such as 
-**mutual information** and **maximal information coefficient**, which go one further step than typical R squared. There is a clinical study which uses MINE as feature selector in [@Caban2012].
+이러한 방법은 가장 중요한 변수의 순위를 매기기 위해 예측 모델에 의존하지 않는 방법으로 **특성 공학**에 적용할 수 있습니다. 또한 시계열을 클러스터링하는 데에도 적용할 수 있습니다.
 
-These methods are applicable in **feature engineering** as a method which does not rely on a predictive model to rank most important variables. Also applicable to cluster time series. 
+더 읽어보기: [최상의 변수 선택](https://www.google.com/search?q=%23selecting_best_variables)
 
-Next recommended chapter: [Selecting best variables](#selecting_best_variables)
-
-<br>
-
----
 
 ```{r, echo=FALSE}
 knitr::include_graphics("introduction/spacer_bar.png") 
 ```
 
----
+

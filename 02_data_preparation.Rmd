@@ -22,7 +22,6 @@ knitr::include_graphics("data_preparation/fibonacci_spiral.jpg")
 
 _The Fibonacci series. A sequence of numbers present in nature and human bodies._
 
-<br>
 
 **What are we going to review in this chapter?**
 
@@ -32,7 +31,6 @@ _The Fibonacci series. A sequence of numbers present in nature and human bodies.
 * Theoretical and practical aspects (examples in R)
 * How a predictive model looks at numerical variables
 
-<br>
 
 
 ### The universe of data types
@@ -50,13 +48,11 @@ var_ordered
 
 Don't pay too much attention to this data type as numerical and categorical are the most needed.
 
-<br>
 
 #### Binary variable, numerical, or categorical?
 
 This book suggests using binary variables as numeric when `0` is `FALSE` and `1` is `TRUE.` This makes it easier to profile data. 
 
-<br>
 
 ### Data types per algorithm
 
@@ -70,7 +66,6 @@ Moreover, not every predictive model can handle **missing value**.
 
 The **Data Science Live Book** tries to cover all of these situations.
 
-<br>
 
 ### Converting categorical variables into numerical 
 
@@ -119,7 +114,6 @@ Having kept and transformed only numeric variables while excluding the nominal o
 
 More info about `dummyVars`: http://amunategui.github.io/dummyVar-Walkthrough/
 
-<br>
 
 
 ### Is it categorical or numerical? Think about it.
@@ -130,7 +124,6 @@ If the values are ordered, then it can be considered as numerical as it exhibits
 
 If we create a decision tree model, then we may find rules like: "`If chest_pain > 2.5, then...`". Does it make sense? The algorithm splits the variable by a value that is not present (`2.5`); however, the interpretation by us is "if `chest_pain` is equal or higher than 3, then…”.
 
-<br>
 
 #### Thinking as an algorithm
 
@@ -153,7 +146,6 @@ However, if the model is tree-based, like decision trees, random forest, or grad
 
 Going back to the heart disease example, the variable `chest_pain` exhibits order. We should take advantage of this because if we convert this to a categorical variable, then **we are losing information** and this is an important point when handling data types.
 
-<br>
 
 #### Is the solution to treat all as categorical?
 
@@ -167,7 +159,6 @@ In addition, **high cardinallity** is an issue in categorical variables, e.g., a
 
 Anyway, you can do the _free test_ of converting all variables into categorical ones and see what happens. Compare the results with the numerical variables. Remember to use some good error measure for the test, like Kappa or ROC statistic, and to cross-validate the results.
 
-<br>
 
 #### Be aware when converting categorical into numerical variables
 
@@ -207,7 +198,6 @@ To be sure, nobody builds a predictive model using only four rows; however, the 
 This effect is the same when we handle millions of rows of data and the number of variables scales to hundreds. Learning from small data is a right approach in these cases.
 
 
-<br>
 
 ### Discretizing numerical variables {#discretizing_numerical_variables}
 
@@ -255,7 +245,6 @@ The most standard binning criteria are:
 
 There are all explained below.
 
-<br>
 
 #### Equal range
 
@@ -292,7 +281,6 @@ p2
 The `describe` output tells us that there are four categories in the variable and, between parenthesis/square bracket, the total number of cases per category in both absolute and relative values, respectively. For example, the category `(15.8,30.3]` contains all the cases that have `share_stunted_child` from `15.8` (not inclusive) to `30.3` (inclusive). 
 It appears `45` times and represents `29%` of total cases.
 
-<br>
 
 #### Equal frequency {#equal-frequency-binning}
 
@@ -319,7 +307,6 @@ p3
 
 In this case, we select four bins so that each bin will contain an approximate 25% share.
 
-<br>
 
 #### Custom bins
 
@@ -364,7 +351,6 @@ d_stunt_grp$share_stunted_child_custom_2=
 describe(d_stunt_grp$share_stunted_child_custom_2)
 ```
 
-<br>
 
 ### Discretization with new data
 
@@ -398,8 +384,7 @@ describe(d_stunt_grp$stunt_child_ef)
 The solution is to save the cut points when we do data preparation. Then, when we run the model on production, we use the custom bin discretization and, thereby, force every new case in the proper category. This way, the predictive model will always _sees_ the same. 
 
 The solution in next section.
-
-<br> 
+ 
 
 ### Automatic data frame discretization {#data-discretization}
 
@@ -555,7 +540,6 @@ The decision of _not fail_ when dealing with a new min/max in new data is **just
 
 Common values for the number of segments could be 3, 5, 10, or 20 (but no more). It is up to the data scientist to make this decision. 
 
-<br>
 
 #### Bonus track: The trade-off art `r emo::ji("balance_scale")`
 
@@ -571,7 +555,6 @@ Do these terms sound similar to any other ones in machine learning?
 
 _Just like oriental philosophy has pointed out for thousands of years, there is an art in finding the right balance between one value and its opposite._
 
-<br>
 
 ### Final thoughts
 
@@ -584,8 +567,7 @@ The assignment of variables as categorical or numerical, the two most used data 
 The conversion **introduces some bias** to the analysis. A similar case exists when we deal with missing values: [Handling and Imputation of Missing Data](#missing_data).
 
 When we work with categorical variables, we can change their distribution by re-arranging the categories according to a target variable in order to **better expose their relationship**. Converting a non-linear variable relationship, into one linear. 
-
-<br> 
+ 
 
 ### Bonus track `r emo::ji("boom")`
 
@@ -605,7 +587,6 @@ When we build predictive models, we describe the same bunch of points in differe
 
 
 
-<br>
 
 ---
 
@@ -615,7 +596,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 ---
 
-<br>
 
 
 ## High Cardinality Variable in Descriptive Stats {#high_cardinality_descriptive_stats}
@@ -625,8 +605,7 @@ knitr::include_graphics("introduction/spacer_bar.png")
 A **high cardinality** variable is one in which it can take _many_ different values. For example country. 
 
 This chapter will cover cardinality reduction based on Pareto rule, using the `freq` function which gives a quick view about where the most of values are concentrated and variable distribution.
-
-<br> 
+ 
 
 ### High Cardinality in Descriptive Statistics
 
@@ -653,7 +632,6 @@ head(freq(data_country, "country"), 10)
 freq(data_country, "has_flu")
 ```
 
-<br>
 
 The last table shows there are only 83 rows where `has_flu="yes"`, representing around a 9% of total people.
 
@@ -667,7 +645,6 @@ country_freq=freq(data_country, 'country', plot = F)
 country_freq[1:10,]
 ```
 
-<br>
 
 So 10 countries represent more the 70% of cases. We can assign the category `other` to the remaining cases and plot:
 
@@ -675,8 +652,7 @@ So 10 countries represent more the 70% of cases. We can assign the category `oth
 data_country$country_2=ifelse(data_country$country %in% country_freq[1:10,'country'], data_country$country, 'other')
 freq(data_country, 'country_2')
 ```
-
-<br> 
+ 
 
 ### Final comments
 
@@ -684,11 +660,9 @@ Low representative categories are sometimes errors in data, such as having: `Egy
 
 There is no general rule to shrink data, it depends on each case.
 
-<br>
 
 **Next recommended chapter:** High Cardinality Variable in Predictive Modeling.
 
-<br>
 
 ---
 
@@ -698,7 +672,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 ---
 
-<br>
 
 ## High Cardinality Variable in Predictive Modeling {#high_cardinality_predictive_modeling}
 
@@ -710,7 +683,6 @@ Using the last method may destroy the information of the variable, thus it **los
 
 Other literature named this re-grouping as cardinality reduction or **encoding**.
 
-<br>
 
 **What are we going to review in this chapter?**
 
@@ -720,7 +692,6 @@ Other literature named this re-grouping as cardinality reduction or **encoding**
 * A practical before-and-after example reducing cardinality and insights extraction.
 * How different models such as random forest or a gradient boosting machine deals with categorical variables.
 
-<br>
 
 ### But is it necessary to re-group the variable?
 
@@ -753,7 +724,6 @@ freq(data_country, "has_flu")
 ```
 
 
-<br>
 
 ### The case `r emo::ji("mag")` {#analyze-binary-outcome-vs-categorical-variable}
 
@@ -778,7 +748,6 @@ knitr::include_graphics("data_preparation/country_profiling.png")
 ```
 
 
-<br>
 
 * Note 1: _The first column automatically adjusts its name based on `input` variable_
 * Note 2: _`has_flu` variable has values `yes` and `no`, `categ_analysis` assigns internally the number **1** to the less representative class, `yes` in this case, in order to calculate the mean, sum and percentage._
@@ -792,7 +761,6 @@ These are the metrics returned by `categ_analysis`:
 * `q_rows`: quantity of rows that, regardless of the `has_flu` variable, fell in that category. It's the distribution of `input`. This column sums the total rows analyzed.
 * `perc_rows`: related to `q_rows` it represents the share or percentage of each category. This column sums `1.00`
 
-<br>
 
 #### What conclusions can we draw from this?
 
@@ -809,7 +777,6 @@ Without considering the filter by country, we've got:
 * Column `q_rows` sums total rows present in `data_country` data frame.
 * Column `perc_rows` sums `1.00` -or 100%.
 
-<br>
 
 ---
 
@@ -826,7 +793,6 @@ Easy, take `country_profiling` in a descending order by `mean_target`:
 arrange(country_profiling, -mean_target) %>%  head(.)
 ```
 
-<br>
 
 Great! We've got `Malasyia` as the country with the highest likelihood to have flu! 100% of people there have flu (`mean_has_flu=1.000`).
 
@@ -904,7 +870,6 @@ Creating a category `other` based on the distribution is not a good idea here.
 
 Despite the fact this is a prepared example, there are some data preparations techniques that can be really useful in terms of accuracy, but they need some supervision. This supervision can be helped by algorithms.
 
-<br>
 
 #### Case 2: Reducing by automatic grouping
 
@@ -992,7 +957,6 @@ All the groups seems to have a good representation. This can be checked in `perc
 
 Trying a lower number of cluster may help to reduce this manual task a little. It was just a demonstration of how to optimize a variable having lots of different categories.
 
-<br>
 
  
 ### Handling new categories when the predictive model is on production
@@ -1007,7 +971,6 @@ In so many words:
 
 _A new category appears? Send to the least meaningful group. After a while, re-analyze its impact. Does it have a mid or high likelihood? Change it to the most suitable group._
 
-<br>
 
 ---
 
@@ -1046,7 +1009,6 @@ Area under ROC curve is (`roc`): `r roc`.
 
 Now we do the same model with the same parameters, but with the data preparation we did before.
 
-<br>
   
 ```{r, message=F, warning=F}
 # Building the second model, based on the country_rec variable
@@ -1080,7 +1042,6 @@ We've used one of the most robust models, **gradient boosting machine**, and we'
 
 In _further reading_ there is a benchmark of different treatments for categorical variables and how each one increases or decreases the accuracy.
 
-<br>
 
 ### Don't predictive models handle high cardinality? Part 2 {#high_cardinality_in_predictive_models_part_2}
 
@@ -1105,7 +1066,6 @@ This is related to **Feature engineering**. Also, it's related to [Selecting bes
 
 **Conclusion: reducing the cardinality will reduce the quantity of variables in these models.**
 
-<br>
 
 ---
 
@@ -1117,7 +1077,6 @@ However, if you read up to here, you may want explore on your own having the sam
 
 The same goes for multi-nominal output variable, there will be some categories more related to certain values. For example predicting the epidemic degree: `high`, `mid` or `low` based on the city. There will be some cities that correlated more correlated with a high epidemic level than others.
 
-<br>
 
 ### What we've got as an "extra-`r emo::ji("gift")`" from the grouping?
 
@@ -1125,7 +1084,6 @@ Knowing how categories fell into groups give us information that -in some cases-
 
 If `Argentina` and `Chile` are in `group_1`, then they are the same, and this is how the model will _see_ it.
 
-<br>
 
 ### Representativeness or sample size
 
@@ -1137,7 +1095,6 @@ In general terms: the more difficult the event to predict, the more cases we nee
 
 Further in this book we'll cover this topic from other points of view linking back to this page.
 
-<br>
 
 ### Final thoughts
 
@@ -1149,15 +1106,13 @@ Further in this book we'll cover this topic from other points of view linking ba
 
 * _Should we always reduce the cardinality?_ It depends, two tests on a simple data are not enough to extrapolate all cases. Hopefully it will be a good kick-off for the reader to start doing her-his own optimizations when they consider relevant for the project. 
 
-
-<br> 
+ 
 
 ### Further reading
 
 * Following link contains many different accuracy results based on different treatments for categorical variable: [Beyond One-Hot: an exploration of categorical variables](http://www.kdnuggets.com/2015/12/beyond-one-hot-exploration-categorical-variables.html).
 
 
-<br>
 
 ---
 
@@ -1167,7 +1122,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 ---
 
-<br>
 
 ## Treatment of outliers {#treatment_outliers}
 
@@ -1175,7 +1129,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 The concept of extreme values, much like other topics in machine learning, is not a concept exclusive to this area. What it is an outlier today may not be tomorrow. The boundaries between normal and abnormal behavior are fuzzy; on the other hand, to stand in the extremes is easy.
 
-<br>
 
 ```{r outliers-intuition, echo=FALSE ,out.width="100%", fig.cap="", out.extra=''}
 knitr::include_graphics("data_preparation/outlier_intuition.png")
@@ -1183,7 +1136,6 @@ knitr::include_graphics("data_preparation/outlier_intuition.png")
 
 _Image created by: [Guillermo Mesyngier](https://dribbble.com/gmesyngier)_
 
-<br>
 
 **What are we going to review in this chapter?**
 
@@ -1194,7 +1146,6 @@ _Image created by: [Guillermo Mesyngier](https://dribbble.com/gmesyngier)_
 * Outliers preparation for predictive modeling in R
 
 
-<br>
 
 ---
 
@@ -1264,7 +1215,6 @@ ggplot(df_1, aes(var)) + geom_histogram(bins=20) +
 
 The hard thing to do is to determine where the normal and abnormal separate. There are several approaches to deal with this. We are going to review a few of them.
 
-<br>
 
 ---
 
@@ -1309,7 +1259,6 @@ The definition of these boundaries is one of the most common tasks in machine le
 
 `r emo::ji("pushpin")` Going back to the original issue (_where does the cold weather end?_), not all the questions need to have an answer: some of them just help us simply to think.
 
-<br>
 
 ---
 
@@ -1357,7 +1306,6 @@ freq(data_country_sample$country)
 
 `Peru` and `Vietnam` are the outlier countries in this example as their share in the data is less than 1%.
 
-<br>
 
 ---
 
@@ -1392,7 +1340,6 @@ round(100*prop.table(tbl_hello_world), 2)
 
 Oh `r emo::ji("scream")`! The combination of `Argentina` and `cat_B` is _really low_ (0.75%) in comparison with the other values (less than 1%), whereas the other intersections are above 22%.
 
-<br>
 
 #### Some thoughts...
 
@@ -1402,7 +1349,6 @@ We mention **1%** as a possible threshold to flag a value as an outlier. This va
 
 In addition, the presence of this kind of outlier may not pose a problem.
 
-<br>
 
 ---
 
@@ -1416,7 +1362,6 @@ The core is as follows:
 * It works in two modes (`type` parameter) by setting an `NA` value or by _stopping the variable_ at a particular value. 
 Besides the explanation below, `prep_outliers` is a well-documented function: `help("prep_outliers")`.
 
-<br>
 
 ### Step 1: How to detect outliers `r emo::ji("mag_right")`
 
@@ -1439,7 +1384,6 @@ All values for those aged less than 35 or more than 71 years will be considered 
 
 For more information about percentiles, check the chapter: [The magic of percentiles](#appendix-percentiles).
 
-<br>
 
 ##### Tukey's method {#detecting-outliers-using-tukey-method}
 
@@ -1471,7 +1415,6 @@ It returns a two-value vector; thus, we have the bottom and the top thresholds: 
 
 A subtle visual and step-by-step example can be found in [tukey_outliers]. 
 
-<br>
 
 ##### Hampel's method {#detecting-outliers-using-hampel-method}
 
@@ -1498,7 +1441,6 @@ The higher the `k_mad_value`, the higher the threshold boundaries will be.
 hampel_outlier(heart_disease$age, k_mad_value = 6) 
 ```
   
-<br>
 
 ---
   
@@ -1543,7 +1485,6 @@ Here we can see several indicators that give us some clues. The `std_dev` is rea
 
 _This last task of looking at some numbers and visualize the variable distribution is like imaging a picture by what another person tells us: we convert the voice (which is a signal) into an image in our brain._ `r emo::ji("speaking_head")` `r emo::ji("roll_eyes")` ... => `r emo::ji("mountain_snow")` 
 
-<br>
 
 ##### Using `prep_outliers` for data profiling
 
@@ -1593,7 +1534,6 @@ df_status(df_1, print_results = F) %>% select(variable, q_na, p_na)
 
 This last method is much more severe in spotting outliers, identifying 36% of values as outliers. This is probably because the variable is _quite_ skewed to the left.
 
-<br>
 
 **Bottom and top X% method**
 
@@ -1606,8 +1546,7 @@ df_1$var_top2=prep_outliers(df_1$var, type = "set_na", method="bottom_top", top_
 Please note that the 2% value was arbitrarily chosen. Other values, like 3% or 0.5%, can be tried as well.
 
 Time to compare all the methods!
-
-<br> 
+ 
 
 ##### Putting it all together
 
@@ -1628,7 +1567,6 @@ df_1_m=reshape2::melt(df_1)
 plotar(df_1_m,  target= "variable", input = "value", plot_type = "boxplot")
 ```
 
-<br>
 
 
 When selecting the bottom/top X%, we will always have some values matching that condition, whereas with other methods this may not be the case.
@@ -1666,7 +1604,6 @@ If we were to have used the bottom/top method, then the input percentages would 
 
 All the examples so far have been taking one variable at a time; however, `prep_outliers` can handle several at the same time using the parameter `input` as we will see in next section. All that we have seen up to here will be equivalent, except for what we do once we detect the outlier, i.e., the imputation method. 
 
-<br>
   
 #### Scenario 2: Prepare outliers for predictive modeling
 
@@ -1680,7 +1617,6 @@ Try to think of variable treatment (and creation) as if you're explaining to the
 
 Some predictive models are more **noise tolerant** than others. We can help them by treating some of the outlier values. In practice, to pre-process data by treating outliers tends to produce more accurate results in the presence of unseen data.
 
-<br>
 
 #### Imputing outliers for predictive modeling
 
@@ -1760,7 +1696,6 @@ df_status(df_2_tukey, print_results = F) %>% select(variable, q_na, p_na)
 
 Pretty clear, right?
 
-<br>
 
 Now let's replicate the example we did in the last section with only one variable in order to compare all three methods.
 
@@ -1770,7 +1705,6 @@ df_2$hampel_var2=prep_outliers(data=df_2$var2, type='stop', method = "hampel")
 df_2$bot_top_var2=prep_outliers(data=df_2$var2, type='stop', method = "bottom_top", bottom_percent=0.01, top_percent = 0.01)
 ```
 
-<br>
 
 ##### Putting it all together
 
@@ -1795,7 +1729,6 @@ plotar(df_2_m,  target= "variable", input = "value", plot_type = "boxplot")
 
 _Important_: The two points above the value 100 ( only for `var1`) were excluded, otherwise it was impossible to appreciate the difference between the methods.
 
-<br>
 
 ---
 
@@ -1819,7 +1752,6 @@ In some cases when the predictive model is **running on production**, it's recom
 
 **One nice test** for the reader to do is to pick up a dataset, treat the outliers, and then compare some performance metrics like Kappa, ROC, Accuracy, etc.; **did the data preparation improve any of them?** Or, in reporting, to see how much the mean changes. Even if we plot some variable, does the plot now tell us anything?. In this way, the reader will create new knowledge based on her/his experience `r emo::ji("wink")`.
 
-<br>
 
 ---
 
@@ -1829,7 +1761,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 ---
 
-<br>
 
 ## Missing Data: Analysis, Handling, and Imputation of {#missing_data}
 
@@ -1841,7 +1772,6 @@ In this chapter, we discuss the concept and treatment of empty values. We will p
 
 Hopefully, after studying the whole chapter, the reader will understand key concepts of dealing with missing values and pursue better approaches than the ones proposed here.
 
-<br>
 
 **What are we going to review in this chapter?**
 
@@ -1853,7 +1783,6 @@ Hopefully, after studying the whole chapter, the reader will understand key conc
 
 These will be exemplified using a practical approach in R. The code intends to be generic enough to apply to your projects `r emo::ji("slightly_smiling_face")`.
 
-<br>
 
 
 ---
@@ -1909,7 +1838,6 @@ Keep at hand the last function as it is very common to face the situation of app
 
 Let's go to a more complex example.
 
-<br>
 
 
 ### When the empty value is an empty value
@@ -1924,7 +1852,6 @@ One important question arises: _What to do?!_ `r emo::ji("scream")`
 
 The following recommendations are just that, recommendations. You can try different approaches to discover the best strategy for the data you are analyzing. **There is no “one-size-fits-all”**.
 
-<br>
 
 ---
 
@@ -1934,7 +1861,6 @@ If at least one column has an `NA` value, then exclude the row.
 
 A fast and easy method, right? It's recommended when the number of rows is _low_. But how low is low? That's up to you. Ten cases in 1,000 of rows _may not_ have a huge impact unless those 10 cases are related to the prediction of an anomaly; in this instance, it represents information. We pointed out this issue in [Case 1: reducing by re-categorizing less representative values](#reduce_cardinality_by_re_categorizing_less_representative_values).
 
-<br>
 
 **Example in R:**
 
@@ -1961,7 +1887,6 @@ After the exclusion, six rows out of 303 were eliminated. This approach seems su
 
 However, there are other scenarios in which almost all cases are empty values, thus exclusion will delete the entire dataset!
 
-<br>
 
 ---
 
@@ -1984,7 +1909,6 @@ vars_to_exclude
 heart_disease_clean_2=select(heart_disease, -one_of(vars_to_exclude))
 ```
 
-<br>
 
 ---
 
@@ -2061,7 +1985,6 @@ df_status(web_navigation_data_2)
 
 Note: To apply a function to certain columns is a very common task in any data project. More info about how to use it `mutate_at` from `dplyr`: [how do I select certain columns and give new names to mutated columns?](https://stackoverflow.com/questions/27027347/mutate-each-summarise-each-in-dplyr-how-do-i-select-certain-columns-and-give)
 
-<br>
 
 #### Case B: Assign the most frequent category
 
@@ -2069,7 +1992,6 @@ The intuition behind this method is _to add more of the same as to not affect th
 
 There are other scenarios in which we can imput new missing values based on other predictive models just like k-NN. This approach is more suitable than replacing by the most frequent value. However, the recommended technique is the one we seen in _Case A: Convert the empty value into a string_.
 
-<br>
 
 #### Case C: Exclude some columns and transform others
 
@@ -2100,8 +2022,7 @@ web_navigation_data_3=select(web_navigation_data, -one_of(vars_to_exclude$variab
 df_status(web_navigation_data_3)
 
 ```
-
-<br>  
+  
 
 #### Summing-up 
 
@@ -2114,7 +2035,6 @@ However, we need to minimize the bias we are introducing because the missing val
 * When doing a report, the suggestion is to replace `NA` by the string `empty`,
 * When doing a predictive model that is running live, assign the most repetitive category. 
 
-<br>
 
 ---
 
@@ -2135,8 +2055,7 @@ df_status(HollywoodMovies2011)
 ```
 
 Let's take a look at the values present in the `p_na` column. There is a pattern in the missing values: four variables have 1.47% NA values and another four have around 11.7%. In this case, we are not able to check the data source; however, it is a good idea to check if those cases have a common issue.
-
-<br> 
+ 
 
 ---
 
@@ -2204,7 +2123,6 @@ It should be noted that **equal frequency binning** tends to be more robust than
 
 The equal frequency puts the outliers values in the first or last bin as appropriate. Normal values can range from 3 to 20 buckets. A higher number of buckets tend to be noisier. For more info, check the [cross_plot](#profiling_target_cross_plot) chapter function.
 
-<br>
 
 #### Method 2: Filling the NA with some value
 
@@ -2247,7 +2165,6 @@ As an extra comment regarding the last visualization, it was important to set th
 
 As you can see, there is an inter-relationship between all concepts `r emo::ji("wink")`.
 
-<br>
   
 #### Picking up the right value to fill 
 
@@ -2255,7 +2172,6 @@ The last example replaced the `NA` with the mean, but how about other values? It
 
 The variable we used (`TheatersOpenWeek`) seems normally distributed, which is the reason we used the mean. However, if the variable is more skewed, then another metric probably would be more suitable; for example, the median is less sensitive to outliers. 
 
-<br>
 
 ---
 
@@ -2263,7 +2179,6 @@ The variable we used (`TheatersOpenWeek`) seems normally distributed, which is t
 
 Now we are going to do a quick review of more sophisticated imputation methods in which we create a predictive model, with all that it implies.
 
-<br>
 
 #### Method 1: Using random forest (missForest)
 
@@ -2352,7 +2267,6 @@ If we want to take an analytical point of view, then we can run a statistical te
  
 Next we'll visualize `TheatersOpenWeek` discretized custom variable (`TheatersOpenWeek_cat_cust`).
 
-<br>
 
 ```{r missing-value-imputation, fig.height=4, fig.width=7, tidy=FALSE, fig.cap="Comparing imputation methods", out.extra=''}
 # An ugly hack to plot NA as a category
@@ -2383,7 +2297,6 @@ ggplot(df_all, aes(x = TheatersOpenWeek_cat_cust,
 
 ```
 
-<br>
 
 
 **Analysis:**
@@ -2393,7 +2306,6 @@ The original variable contains 35 `NA` values that were replaced using the mode 
 `missForest` added 15 rows in the category `[0, 1000]`, 3 in `[1000, 2300]`, and 17 in the `[2300, 4100]` category.
 
 
-<br>
 
 #### Method 2: Using the MICE approach
 
@@ -2461,7 +2373,6 @@ More info regarding `MICE` package:
 * Original MICE paper: [Multivariate Imputation by Chained Equations in R](https://www.jstatsoft.org/article/view/v045i03)
 * [Handling missing data with MICE package; a simple approach](https://datascienceplus.com/handling-missing-data-with-mice-package-a-simple-approach)
 
-<br>
 
 ---
 
@@ -2481,7 +2392,6 @@ It's an art to find the correct balance between digging deeply into these transf
 
 Regardless the method, it's quite important to analyze the impact of each decision. There is a lot of trial-and-error as well as exploratory data analysis leading up to the discovery of the most suitable method for your data and project.
  
-<br>
 
 ---
 
@@ -2491,7 +2401,6 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 ---
 
-<br>
 
 
 
@@ -2511,14 +2420,12 @@ So do variables.
 
 As time goes by, variables may change their values, making the time-analysis crucial in order to create a predictive model. Avoiding the use of **effects** as **causes**.
 
-<br>
 
 **What are we going to review in this chapter?**
 
 * Concepts of filtering information before the event to predict.
 * How to analyze and prepare variables that increase -or decrease- their value to infinity (and beyond).
 
-<br>
 
 #### Don't use information from the future
 
@@ -2550,7 +2457,6 @@ We build the predictive model, we got a perfect accuracy, and an inspection thro
 
 **The key message is**: Don't trust in perfect variables, nor perfect models. 
 
-<br>
 
 #### Play fair with data, let it develop their behavior
 
@@ -2590,8 +2496,7 @@ _Why to keep first 5 days of history?_
 
 The behavior in this kick-off period may be more relevant -regarding prediction accuracy- than analyzing the whole history. It depends on each case as we said before. 
 
-
-<br> 
+ 
 
 #### Fighting the infinite
 
@@ -2645,7 +2550,6 @@ As you may notice, it will probably reach the zero value in the infinity... We a
 
 _What do we have to do?_ Time to go to the next section.
 
-<br>
 
 #### Befriend the infinite
 
@@ -2660,7 +2564,6 @@ In this case, a zero can be considered the same as the value which has the 95% o
 A related case is **dealing with outliers**, when we can apply this cutting percentile criteria, as we saw in the [treating outliers](#treatment_outliers) chapter</a>.
 
 
-<br>
 
 #### Examples in other areas
 
@@ -2682,7 +2585,6 @@ Can be defined as a churned or lost opportunity customer.
 But this also happens in _"real life"_, like the case when we write a data science book suitable for all ages, how much time is it required to end it? An infinite amount? Probably not `r emo::ji("smile")`.
 
 
-<br>
 
 #### Final thoughts
 
@@ -2694,7 +2596,6 @@ The key concept here: **how to handle time in predictive modeling**. It's a good
 
 Human knowledge is crucial in these contexts to define thresholds based on experience, intuition and some calculations.
 
-<br>
 
 
 
