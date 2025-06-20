@@ -7,73 +7,67 @@ if(!knitr:::is_html_output())
 }
 ```
 
-# Data Preparation {#data_preparation}
+# 데이터 준비 {#data_preparation}
 
-## Handling Data Types {#data_types}
+## 데이터 유형 처리 {#data_types}
 
-### What is this about?
+### 무엇에 대한 내용인가요?
 
-One of the first things to do when we start a data project is to assign the correct data type for each variable. Although this seems a straightforward task, some algorithms work with certain data types. Here, we'll try to cover these conversions while explaining with examples the implications in each case.
+데이터 프로젝트를 시작할 때 가장 먼저 해야 할 일 중 하나는 각 변수에 올바른 데이터 유형을 할당하는 것입니다. 이는 간단해 보이는 작업이지만, 일부 알고리즘은 특정 데이터 유형으로 작동합니다. 여기서는 각 경우의 의미를 예시와 함께 설명하면서 이러한 변환을 다루려고 합니다.
 
 
 ```{r Fibonnacci-curve, echo=FALSE, out.height="150px", fig.cap="Fibonacci spiral", out.extra=''}
 knitr::include_graphics("data_preparation/fibonacci_spiral.jpg")
 ```
 
-_The Fibonacci series. A sequence of numbers present in nature and human bodies._
+_피보나치 수열. 자연과 인체에 존재하는 숫자의 순서._
 
+**이 장에서 무엇을 검토할 예정인가요?**
 
-**What are we going to review in this chapter?**
+* 올바른 데이터 유형 감지
+* 범주형을 숫자형으로 변환하는 방법
+* 숫자형을 범주형으로 변환하는 방법 (이산화 방법)
+* 이론 및 실제적 측면 (R 예제)
+* 예측 모델이 숫자형 변수를 보는 방식
 
-* Detecting the correct data type
-* How to convert from categorical to numerical
-* How to convert from numerical to categorical (discretization methods)
-* Theoretical and practical aspects (examples in R)
-* How a predictive model looks at numerical variables
+### 데이터 유형의 세계
 
+주요 데이터 유형은 **숫자형**과 **범주형** 두 가지입니다. 범주형의 다른 이름으로는 **문자열**과 **명목형**이 있습니다.
 
+범주형의 하위 집합으로 순서형 또는 R에서 **정렬된(ordered)** 팩터라고 불리는 유형이 있습니다. 적어도 R에서는 이 유형은 특정 순서로 범주를 그릴 때만 관련이 있습니다. R 예시는 다음과 같습니다.
 
-### The universe of data types
-
-There are two main data types, **numerical** and **categorical**. Other names for categorical are **string** and **nominal**.
-
-A subset of categorical is the ordinal or, as it is named in R, an **ordered** factor. At least in R, this type is only relevant when plotting categories in a certain order. An example in R:
-
-```{r}
-# Creating an ordinal or ordered factor
+```r
+# 순서형 또는 정렬된 팩터 생성
 var_factor=factor(c("3_high", "2_mid", "1_low"))
 var_ordered=factor(var_factor, ordered = T)
 var_ordered
 ```
 
-Don't pay too much attention to this data type as numerical and categorical are the most needed.
+숫자형과 범주형이 가장 필요하므로 이 데이터 유형에는 너무 많은 주의를 기울이지 마십시오.
 
+#### 이진 변수, 숫자형 또는 범주형?
 
-#### Binary variable, numerical, or categorical?
+이 책은 `0`이 `FALSE`이고 `1`이 `TRUE`일 때 이진 변수를 숫자형으로 사용할 것을 제안합니다. 이렇게 하면 데이터를 프로파일링하기가 더 쉽습니다.
 
-This book suggests using binary variables as numeric when `0` is `FALSE` and `1` is `TRUE.` This makes it easier to profile data. 
+### 알고리즘별 데이터 유형
 
+일부 알고리즘은 다음과 같이 작동합니다.
 
-### Data types per algorithm
+* 📊 범주형 데이터만 사용
+* 📏 숫자형 데이터만 사용
+* 📊📏 두 가지 유형 모두 사용
 
-Some algorithms work as follows:
+또한, 모든 예측 모델이 **결측값**을 처리할 수 있는 것은 아닙니다.
 
-* `r emo::ji("bar_chart")` Only with categorical data
-* `r emo::ji("straight_ruler")` Only with numerical data
-* `r emo::ji("bar_chart")``r emo::ji("straight_ruler")`  With both types
+**데이터 사이언스 라이브 북**은 이 모든 상황을 다루려고 합니다.
 
-Moreover, not every predictive model can handle **missing value**. 
+### 범주형 변수를 숫자형으로 변환하기
 
-The **Data Science Live Book** tries to cover all of these situations.
+R의 `caret` 패키지를 사용하면 모든 범주형 변수를 **플래그 변수**(더미 변수라고도 함)로 변환하는 것은 간단한 작업입니다.
 
+원래 범주형 변수에 30개의 가능한 값이 있다면, 30개의 새 열이 생성되어 `0` 또는 `1` 값을 가지게 되며, 여기서 `1`은 해당 행에 해당 범주가 존재함을 나타냅니다.
 
-### Converting categorical variables into numerical 
-
-Using the `caret` package in R is a straightforward task that converts every categorical variable into a **flag one**, also known as a _dummy_ variable.
-
-If the original categorical variable has thirty possible values, then it will result in 30 new columns holding the value `0` or `1`, where `1` represents the presence of that category in the row.
-
-If we use the caret package from R, then this conversion only takes two lines of code:
+R의 caret 패키지를 사용하면 이 변환은 단 두 줄의 코드만 필요합니다.
 
 ```{r, message=FALSE, warning=FALSE}
 library(caret) # contains dummyVars function
@@ -588,13 +582,11 @@ When we build predictive models, we describe the same bunch of points in differe
 
 
 
----
 
 ```{r, echo=FALSE}
 knitr::include_graphics("introduction/spacer_bar.png")
 ```
 
----
 
 
 
@@ -664,13 +656,11 @@ There is no general rule to shrink data, it depends on each case.
 **Next recommended chapter:** High Cardinality Variable in Predictive Modeling.
 
 
----
 
 ```{r, echo=FALSE} 
 knitr::include_graphics("introduction/spacer_bar.png") 
 ```
 
----
 
 
 ## High Cardinality Variable in Predictive Modeling {#high_cardinality_predictive_modeling}
@@ -778,7 +768,6 @@ Without considering the filter by country, we've got:
 * Column `perc_rows` sums `1.00` -or 100%.
 
 
----
 
 ### Analysis for Predictive Modeling `r emo::ji("crystal_ball")`
 
@@ -807,7 +796,6 @@ How about `Mexico`? 2 out of 3 have flu... it still seems low. However `Uruguay`
 
 Next there are some ideas to treat this:
 
----
 
 #### Case 1: Reducing by re-categorizing less representative values {#reduce_cardinality_by_re_categorizing_less_representative_values}
 
@@ -972,7 +960,6 @@ In so many words:
 _A new category appears? Send to the least meaningful group. After a while, re-analyze its impact. Does it have a mid or high likelihood? Change it to the most suitable group._
 
 
----
 
 ### Do predictive models handle high cardinality? Part 1
 
@@ -1067,7 +1054,6 @@ This is related to **Feature engineering**. Also, it's related to [Selecting bes
 **Conclusion: reducing the cardinality will reduce the quantity of variables in these models.**
 
 
----
 
 ### Numerical or multi-nominal target variable `r emo::ji("straight_ruler")`
 
@@ -1114,13 +1100,11 @@ Further in this book we'll cover this topic from other points of view linking ba
 
 
 
----
 
 ```{r, echo=FALSE} 
 knitr::include_graphics("introduction/spacer_bar.png") 
 ```
 
----
 
 
 ## Treatment of outliers {#treatment_outliers}
@@ -1147,7 +1131,6 @@ _Image created by: [Guillermo Mesyngier](https://dribbble.com/gmesyngier)_
 
 
 
----
 
 ### The intuition behind outliers
 
@@ -1216,7 +1199,6 @@ ggplot(df_1, aes(var)) + geom_histogram(bins=20) +
 The hard thing to do is to determine where the normal and abnormal separate. There are several approaches to deal with this. We are going to review a few of them.
 
 
----
 
 ### Where is the boundary between hot and cold weather? 
 
@@ -1260,7 +1242,6 @@ The definition of these boundaries is one of the most common tasks in machine le
 `r emo::ji("pushpin")` Going back to the original issue (_where does the cold weather end?_), not all the questions need to have an answer: some of them just help us simply to think.
 
 
----
 
 ### The impact of outliers
 
@@ -1307,7 +1288,6 @@ freq(data_country_sample$country)
 `Peru` and `Vietnam` are the outlier countries in this example as their share in the data is less than 1%.
 
 
----
 
 #### Types of outliers by dimensionality
 
@@ -1350,7 +1330,6 @@ We mention **1%** as a possible threshold to flag a value as an outlier. This va
 In addition, the presence of this kind of outlier may not pose a problem.
 
 
----
 
 ### How to deal with outliers in R {#how_to_deal_with_outliers_in_r}
 
@@ -1442,7 +1421,6 @@ hampel_outlier(heart_disease$age, k_mad_value = 6)
 ```
   
 
----
   
 ### Step 2: What to do with the outliers? `r emo::ji("hammer_and_wrench")`
 
@@ -1730,7 +1708,6 @@ plotar(df_2_m,  target= "variable", input = "value", plot_type = "boxplot")
 _Important_: The two points above the value 100 ( only for `var1`) were excluded, otherwise it was impossible to appreciate the difference between the methods.
 
 
----
 
 ### Final thoughts
 
@@ -1753,13 +1730,11 @@ In some cases when the predictive model is **running on production**, it's recom
 **One nice test** for the reader to do is to pick up a dataset, treat the outliers, and then compare some performance metrics like Kappa, ROC, Accuracy, etc.; **did the data preparation improve any of them?** Or, in reporting, to see how much the mean changes. Even if we plot some variable, does the plot now tell us anything?. In this way, the reader will create new knowledge based on her/his experience `r emo::ji("wink")`.
 
 
----
 
 ```{r, echo=FALSE} 
 knitr::include_graphics("introduction/spacer_bar.png") 
 ```
 
----
 
 
 ## Missing Data: Analysis, Handling, and Imputation of {#missing_data}
@@ -1785,7 +1760,6 @@ These will be exemplified using a practical approach in R. The code intends to b
 
 
 
----
 
 
 
@@ -1853,7 +1827,6 @@ One important question arises: _What to do?!_ `r emo::ji("scream")`
 The following recommendations are just that, recommendations. You can try different approaches to discover the best strategy for the data you are analyzing. **There is no “one-size-fits-all”**.
 
 
----
 
 ### Excluding the entire row
 
@@ -1888,7 +1861,6 @@ After the exclusion, six rows out of 303 were eliminated. This approach seems su
 However, there are other scenarios in which almost all cases are empty values, thus exclusion will delete the entire dataset!
 
 
----
 
 ### Excluding the column
 
@@ -1910,7 +1882,6 @@ heart_disease_clean_2=select(heart_disease, -one_of(vars_to_exclude))
 ```
 
 
----
 
 ### Treating empty values in categorical variables
 
@@ -2036,7 +2007,6 @@ However, we need to minimize the bias we are introducing because the missing val
 * When doing a predictive model that is running live, assign the most repetitive category. 
 
 
----
 
 ### Is there any pattern in missing values?
 
@@ -2057,7 +2027,6 @@ df_status(HollywoodMovies2011)
 Let's take a look at the values present in the `p_na` column. There is a pattern in the missing values: four variables have 1.47% NA values and another four have around 11.7%. In this case, we are not able to check the data source; however, it is a good idea to check if those cases have a common issue.
  
 
----
 
 ### Treating missing values in numerical variables
 
@@ -2173,7 +2142,6 @@ The last example replaced the `NA` with the mean, but how about other values? It
 The variable we used (`TheatersOpenWeek`) seems normally distributed, which is the reason we used the mean. However, if the variable is more skewed, then another metric probably would be more suitable; for example, the median is less sensitive to outliers. 
 
 
----
 
 ### Advanced imputation methods
 
@@ -2374,7 +2342,6 @@ More info regarding `MICE` package:
 * [Handling missing data with MICE package; a simple approach](https://datascienceplus.com/handling-missing-data-with-mice-package-a-simple-approach)
 
 
----
 
 ### Conclusions
 
@@ -2393,13 +2360,11 @@ It's an art to find the correct balance between digging deeply into these transf
 Regardless the method, it's quite important to analyze the impact of each decision. There is a lot of trial-and-error as well as exploratory data analysis leading up to the discovery of the most suitable method for your data and project.
  
 
----
 
 ```{r, echo=FALSE}
 knitr::include_graphics("introduction/spacer_bar.png")
 ```
 
----
 
 
 
@@ -2599,10 +2564,8 @@ Human knowledge is crucial in these contexts to define thresholds based on exper
 
 
 
----
 
 ```{r, echo=FALSE}
 knitr::include_graphics("introduction/spacer_bar.png") 
 ```
 
----
