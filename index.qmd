@@ -1,22 +1,12 @@
 --- 
-title: "Data Science Live Book"
-author: "Pablo Casas"
-date: "`r format(Sys.time(), '%B %Y')`"
-site: bookdown::bookdown_site
-output: bookdown::gitbook
-classoption: oneside
-bibliography: [packages.bib, book.bib]
-biblio-style: apalike
-link-citations: yes
-favicon: "introduction/favicon.ico"
-cover-image: "introduction/data_science_live_book_cover.png"
-github-repo: pablo14/data-science-live-book
-description: "An intuitive and practical approach to data analysis, data preparation and machine learning, suitable for all ages!"
-linestretch: 1.15
-linkcolor: NavyBlue
-links-as-notes: true
-url: 'https\://livebook.datascienceheroes.com/'
-twitter-handle: pabloc_ds
+---
+# title, author, date, bibliography, description, url 등은 _quarto.yml에서 관리
+# site, output, github-repo는 Bookdown 관련 설정이므로 제거
+# classoption, linestretch, linkcolor, links-as-notes는 필요시 _quarto.yml의 format 설정으로 이동 가능
+# favicon은 _quarto.yml의 html: favicon 설정으로 이동 가능
+# cover-image는 _quarto.yml의 book: cover-image 또는 각 format의 cover-image로 이동
+# biblio-style은 _quarto.yml의 biblio-style로 이동
+# link-citations는 Quarto에서 기본적으로 지원하거나 citation-processing 관련 옵션으로 제어
 ---
 
 

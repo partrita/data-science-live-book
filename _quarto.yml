@@ -1,0 +1,19 @@
+project:
+  type: book
+
+book:
+  title: "Data Science Live Book"
+  author: "Pablo Casas"
+  chapters:
+    - index.qmd
+    - 01_exploratory_data_analysis.qmd
+    - 02_data_preparation.qmd
+    - 03_selecting_best_variables.qmd
+    - 04_assesing_model_performance.qmd
+    - 30_appendix.qmd
+    - 40_download_pdf_ebook.qmd
+    - 99_references.qmd
+
+format:
+  html:
+    theme: cosmo
