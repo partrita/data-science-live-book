@@ -1,7 +1,7 @@
 --- 
-title: "Data Science Live Book"
-author: "Pablo Casas"
-date: "`r format(Sys.time(), '%B %Y')`"
+title: "데이터 과학 라이브 북 (Data Science Live Book)"
+author: "Pablo Casas (번역: fkt)"
+date: "`r format(Sys.time(), '%Y년 %m월')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 classoption: oneside
@@ -11,11 +11,11 @@ link-citations: yes
 favicon: "introduction/favicon.ico"
 cover-image: "introduction/data_science_live_book_cover.png"
 github-repo: pablo14/data-science-live-book
-description: "An intuitive and practical approach to data analysis, data preparation and machine learning, suitable for all ages!"
+description: "나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!"
 linestretch: 1.15
 linkcolor: NavyBlue
 links-as-notes: true
-url: 'https\://livebook.datascienceheroes.com/'
+url: 'https://livebook.datascienceheroes.com/'
 twitter-handle: pabloc_ds
 ---
 
@@ -35,7 +35,7 @@ if(!knitr:::is_html_output())
 
 
 
-# Preface {-}
+# 서문 (Preface) {-}
 
 ```{r, echo=FALSE}
 if (knitr:::is_html_output())
@@ -44,104 +44,102 @@ if (knitr:::is_html_output())
 }
 ```
 
-### Paperback & Kindle at Amazon {-}
+### 종이책 & 킨들 (Amazon) {-}
 
-This book is now available at Amazon. **[Check it out!](https://www.amazon.com/dp/9874269049)** `r emo::ji("green_book")` `r emo::ji("rocket")`.
+이 책은 현재 아마존에서 구매 가능합니다. **[확인해 보세요!](https://www.amazon.com/dp/9874269049)** `r emo::ji("green_book")` `r emo::ji("rocket")`.
 
 
-_Link to the black & white version, also available on full-color. It can be shipped to over 100 countries._ `r emo::ji("earth_americas")`
+_흑백 버전 링크이며, 풀컬러 버전도 준비되어 있습니다. 100개국 이상으로 배송 가능합니다._ `r emo::ji("earth_americas")`
 
 <br>
 
-### Why this book? {-}
+### 왜 이 책인가요? {-}
 
-The book will facilitate the understanding of common issues when data analysis and machine learning are done. 
+이 책은 데이터 분석과 머신러닝을 수행할 때 마주치는 일반적인 문제들에 대한 이해를 돕기 위해 작성되었습니다.
 
-Building a predictive model is as difficult as one line of `R` code: 
+예측 모델을 만드는 것은 단 한 줄의 `R` 코드로 가능할 만큼 간단할 수 있습니다.
 
 ```{r, eval=FALSE, echo=TRUE}
 my_fancy_model=randomForest(target ~ var_1 + var_2, my_complicated_data)
 ```
 
-That's it. 
+그게 전부입니다.
 
-But, data has its dirtiness in practice. We need to sculp it, just like an artist does, to expose its information in order to find answers (and new questions).
+하지만 실제 데이터는 매우 지저분합니다. 우리는 예술가가 조각을 하듯 데이터를 다듬어, 그 안에 숨겨진 정보를 드러내고 답(그리고 새로운 질문)을 찾아야 합니다.
 
-There are many challenges to solve, some data sets requiere more _sculpting_ than others. Just to give an example, random forest does not accept empty values, so what to do then? Do we remove the rows in conflict? Or do we transform the empty values into other values? **What is the implication**, in any case, to _my_ data?
+해결해야 할 도전 과제는 많으며, 어떤 데이터셋은 다른 것보다 더 많은 _조각(sculpting)_ 과정이 필요합니다. 예를 들어, 랜덤 포레스트는 결측값(empty values)을 허용하지 않습니다. 그렇다면 어떻게 해야 할까요? 문제가 되는 행을 삭제해야 할까요? 아니면 결측값을 다른 값으로 변환해야 할까요? 어떤 경우든 **내 데이터에 미치는 영향**은 무엇일까요?
 
-Despite the empty values issue, we have to face other situations such as the extreme values (outliers) that tend to bias not only the predictive model itself, but the interpretation of the final results. It's common to "try and guess" _how_ the predictive model considers each variable (ranking best variables), and what the values that increase (or decrease) the likelihood of some event to happening (profiling variables) are.
+결측값 문제 외에도, 이상치(outliers)는 예측 모델 자체뿐만 아니라 최종 결과의 해석까지 왜곡할 수 있습니다. 예측 모델이 각 변수를 어떻게 고려하는지(변수 중요도 순위), 그리고 어떤 값이 특정 사건의 발생 가능성을 높이거나 낮추는지(변수 프로파일링)를 "추측하고 시도"하는 것은 흔한 일입니다.
 
-Deciding the **data type** of the variables may not be trivial. A categorical variable _could be_ numerical and viceversa, depending on the context, the data, and the algorithm itself (some of which only handle one data type). The conversion also has its own implications in _how the model sees the variables_.
+변수의 **데이터 유형**을 결정하는 것도 사소하지 않습니다. 범주형 변수가 수치형이 될 수도 있고 그 반대일 수도 있는데, 이는 문맥, 데이터, 그리고 알고리즘 자체(일부는 특정 데이터 유형만 처리 가능)에 따라 달라집니다. 이러한 변환 역시 _모델이 변수를 바라보는 방식_에 영향을 미칩니다.
 
-It is a book about data preparation, data analysis and machine learning. Generally in literature, data preparation is not as popular as the creation of machine learning models.
-
-<br>
-
-### The journey towards learning {-}
-
-The book has a highly practical approach, and tries to demonstrate what it states. For example, it says: _"Variables work in groups."_, and then you'll find a code that supports the idea.
-
-Practically all chapters can be copy-pasted and be replicated by the reader to draw their own conclusions. Even more, whenever possible the code or script proposed (in R language) was thought generically, so it could be used in real scenarios, whether research or work.
-
-The book's seed was the `funModeling` *R* library which started having a didactical documentation that quickly turned it into this book. Didactical because there is a difference between using a simple function that plots histograms to profile the target variable (`cross_plot`), and the explanation of how to get to semantical conclusions. The intention is to learn the inner concept, so you can _export that knowledge_ to other languages, such as Python, Julia, etc.
-
-This book, as well as the development of a data project, is not linear. The chapters are related among them. For example, the **missing values** chapter can lead to the **cardinality reduction in categorical variables**. Or you can read the **data type** chapter and then change the way you deal with missing values.
-
-You'll find references to other websites so you can expand your study, _this book is just another step in the learning journey_.
+이 책은 데이터 준비, 데이터 분석, 그리고 머신러닝에 관한 책입니다. 일반적으로 문헌에서는 데이터 준비 과정이 머신러닝 모델 생성만큼 인기를 끌지 못하곤 합니다.
 
 <br>
 
-### Is this book for me? Will I understand it? {-}
+### 배움을 향한 여정 {-}
 
-If you already are in the Data Science field, probably you don't think so. You'll pick the code you need, copy-paste it if you like, and that's it.
+이 책은 매우 실무적인 접근 방식을 취하며, 주장하는 바를 직접 증명하려고 노력합니다. 예를 들어, "변수는 그룹으로 작동합니다"라고 말한 뒤, 그 아이디어를 뒷받침하는 코드를 보여줍니다.
 
-But if you are starting a data science career, you'll face a common problem in education: _To have answers to the questions that have not been made._  
+거의 모든 장의 코드를 복사해서 붙여넣고 직접 실행해 보며 스스로 결론을 도출할 수 있습니다. 더 나아가, 제안된 코드나 스크립트(R 언어)는 범용적으로 생각되었으므로 연구나 업무 등 실제 시나리오에서도 사용할 수 있습니다.
 
-For sure you will get closer to the data science world. All the code is well commented so you don't even need to be a programmer. This is the challenge of this book, to try and be friendly when reading, using logic, common sense and intuition. 
+이 책의 뿌리는 `funModeling`이라는 *R* 라이브러리입니다. 처음에는 교육용 문서로 시작했으나 빠르게 이 책으로 발전했습니다. 단순히 히스토그램을 그려서 타겟 변수를 프로파일링하는 함수(`cross_plot`)를 사용하는 법을 가르치는 것을 넘어, 어떻게 의미론적인 결론에 도달하는지 설명하기 때문에 교육적이라 할 수 있습니다. 의도는 내부 개념을 학습하여 그 지식을 Python, Julia 등 다른 언어로도 **확장**할 수 있도록 하는 것입니다.
 
+데이터 프로젝트 개발과 마찬가지로 이 책도 선형적이지 않습니다. 각 장은 서로 연결되어 있습니다. 예를 들어, **결측값** 장은 **범주형 변수의 카디널리티 감소**로 이어질 수 있습니다. 또는 **데이터 유형** 장을 읽고 난 뒤 결측값을 처리하는 방식을 바꿀 수도 있습니다.
 
-
-
-### Programming language {-}
-
-You could learn some `R` but it can be tough to learn directly from this book. If you want to learn R programming, there are other books or courses specialized in programming.
-
-Time for next section.
+학습을 확장할 수 있도록 다른 웹사이트 참조 링크도 포함되어 있습니다. _이 책은 배움의 여정에서 또 하나의 단계일 뿐입니다._
 
 <br>
 
-### Will machines and artificial intelligence rule the world? `r emo::ji("scream")` {-}
+### 이 책이 나에게 맞을까요? 이해할 수 있을까요? {-}
 
-Although it is true that computing power is being increased exponentially, the machines rebellion is far from happening today.
+이미 데이터 과학 분야에 종사하고 있다면 그렇게 생각하지 않을 수도 있습니다. 필요한 코드만 골라서 복사해 쓰면 그만이니까요.
 
-This book tries to expose common issues when creating and handling predictive models. Not a free lunch. There is also a relationship to _1-click solutions_ and voilà! The predictive system is running and deployed. All the data preparation, transformations, table joins, timing considerations, tuning, _etc_ is solved in one step. 
+하지만 데이터 과학 경력을 이제 막 시작했다면, 교육에서 흔히 발생하는 문제인 _"아직 하지 않은 질문에 대한 답을 듣는 것"_을 경험하게 될 것입니다.
 
-Perhaps it is. Indeed as time goes by, there are more robust techniques that help us automatize tasks in predictive modeling. But just in case, it'd be a good practice not to trust blindly in black-box solutions without knowing, for example, how the system _picks up the best variables_, _what the inner procedure to validate the model is_, _how it deals with extremes or rare values_, among other topics covered in this book.
-
-If you are evaluating some machine learning platform, some issues stated in this book can help you to decide the best option. Trying to _unbox the black-box_.
-
-It's tough to have a solution that suits all the cases. Human intervention **is crucial** in order to have a successful project. Rather than worry about machines, the point is _what the use of this technology will be_. Technology is _innocent_. It is the data scientist who sets the inputs and gives the model the needed target to learn. Patterns will emerge, and some of them could be harmful for many people. We have to be aware of the final objective, like in any other technologies. 
-
-
-> The machine is made by man, and it is what man does with it.
-
-(Original quote in Spanish: "La maquina la hace el hombre, y es lo que el hombre hace con ella.")
-
-_By Jorge Drexler (musician, actor and doctor). Extracted from the song "Guitarra y vos"._
+확실한 것은 여러분이 데이터 과학의 세계에 더 가까워질 것이라는 점입니다. 모든 코드는 주석이 잘 달려 있어 프로그래머가 아닐지라도 이해할 수 있습니다. 읽기 편하면서도 논리, 상식, 직관을 사용하는 것, 그것이 이 책의 도전 과제입니다.
 
 <br>
 
-Maybe, could this be the difference between **machine learning** and **data science**? A machine that learns vs. a human being doing science with data? `r emo::ji("thinking")`
+### 프로그래밍 언어 {-}
 
-An open question.
+약간의 `R`을 배울 수는 있겠지만, 이 책만으로 직접 배우기는 쉽지 않을 수 있습니다. R 프로그래밍을 제대로 배우고 싶다면 프로그래밍에 특화된 다른 책이나 강의를 참고하시길 권장합니다.
+
+이제 다음 섹션으로 넘어가겠습니다.
 
 <br>
 
-### What do I need to start? {-}
+### 기계와 인공지능이 세상을 지배하게 될까요? `r emo::ji("scream")` {-}
 
-In general terms, time and patience. Most of the concepts are independent from the language, but when a technical example is required it is done in **[R language](https://cloud.r-project.org)**, (`r R.version.string`). 
+컴퓨팅 파워가 기하급수적으로 증가하고 있는 것은 사실이지만, 기계의 반란은 아직 요원한 일입니다.
 
-The book uses the following libraries, (between parenthesis it's the package version):
+이 책은 예측 모델을 만들고 다룰 때 발생하는 공통적인 문제들을 드러내고자 합니다. "공짜 점심"은 없습니다. "원클릭 솔루션"만으로 예측 시스템이 뚝딱 실행되고 배포되는 것 사이에는 큰 간극이 있습니다. 데이터 준비, 변환, 테이블 조인, 타이밍 고려, 튜닝 등의 모든 과정이 한 번에 해결되는 것처럼 보일 수 있습니다.
+
+어쩌면 그럴 수도 있습니다. 시간이 흐르면서 예측 모델링 작업을 자동화하는 데 도움을 주는 더 강력한 기술들이 등장하고 있습니다. 하지만 만약을 대비하여, 시스템이 _어떻게 최적의 변수를 선택하는지_, _모델을 검증하는 내부 절차는 무엇인지_, _극단값이나 희귀값을 어떻게 처리하는지_ 등을 알지 못한 채 블랙박스 솔루션을 맹목적으로 믿지 않는 것이 좋습니다. 이 책은 바로 그런 주제들을 다룹니다.
+
+만약 어떤 머신러닝 플랫폼을 평가하고 있다면, 이 책에서 언급된 이슈들이 최선의 선택을 내리는 데 도움이 될 것입니다. 즉, **블랙박스를 열어보는 것(unbox the black-box)**입니다.
+
+모든 경우에 들어맞는 단 하나의 솔루션을 갖기는 어렵습니다. 프로젝트가 성공하기 위해서는 인간의 개입이 **매우 중요**합니다. 기계 자체를 걱정하기보다는, 이 기술을 어떻게 사용할 것인지가 핵심입니다. 기술은 죄가 없습니다. 입력을 설정하고 모델이 학습할 타겟을 결정하는 것은 데이터 과학자입니다. 패턴은 나타날 것이고, 그중 일부는 누군가에게 해로울 수도 있습니다. 모든 기술과 마찬가지로 우리는 최종적인 목표를 의식해야 합니다.
+
+> 기계는 인간에 의해 만들어지며, 그것으로 무엇을 할지는 인간에게 달려 있다.
+
+(스페인어 원문: "La maquina la hace el hombre, y es lo que el hombre hace con ella.")
+
+_호르헤 드렉슬러 (뮤지션, 배우, 의사). "Guitarra y vos" 노래에서 발췌._
+
+<br>
+
+어쩌면 이것이 **머신러닝(machine learning)**과 **데이터 과학(data science)**의 차이일까요? 학습하는 기계 대 데이터를 사용하여 과학을 하는 인간? `r emo::ji("thinking")`
+
+열린 질문입니다.
+
+<br>
+
+### 시작하려면 무엇이 필요한가요? {-}
+
+일반적으로 시간과 인내심이 필요합니다. 대부분의 개념은 언어에 독립적이지만, 기술적인 예제가 필요할 때는 **[R 언어](https://cloud.r-project.org)** (`r R.version.string`)를 사용하여 설명합니다.
+
+이 책에서는 다음 라이브러리들을 사용합니다 (괄호 안은 패키지 버전입니다):
 
 ```{r, echo=FALSE}
 used_packages=c("funModeling","dplyr", "Hmisc", "reshape2", "ggplot2", "caret", "minerva", "missForest", "gridExtra", "mice", "Lock5Data", "corrplot", "RColorBrewer", "infotheo")
@@ -155,36 +153,36 @@ for(i in 1:length(used_packages))
 }
 ```
 
-The package `funModeling` was the origin of this book; it started as a set of functions to help the data scientist in their _daily_ tasks. Now its documentation has evolved into this book `r emo::ji("heart")`!
+`funModeling` 패키지는 이 책의 시작점이었습니다. 데이터 과학자가 일상적인 업무를 수행하는 데 도움을 주는 함수 모음으로 시작했으며, 이제 그 문서가 이 책으로 진화했습니다 `r emo::ji("heart")`!
 
-Install any of these by doing: `install.packages("PACKAGE_NAME")`.
+필요한 패키지는 `install.packages("PACKAGE_NAME")` 명령어로 설치할 수 있습니다.
 
-The recommended IDE is **[Rstudio](https://www.rstudio.com/products/rstudio/download/)**.
+추천하는 IDE는 **[Rstudio](https://www.rstudio.com/products/rstudio/download/)**입니다.
 
-This book, both in pdf and web format, was created with Rstudio, using the incredible [Bookdown](https://bookdown.org/yihui/bookdown/).
+이 책(PDF 및 웹 버전 모두)은 Rstudio에서 놀라운 [Bookdown](https://bookdown.org/yihui/bookdown/)을 사용하여 제작되었습니다.
 
-It's all free and open-source, Bookdown, R, Rstudio and this book `r emo::ji("slightly_smiling_face")`
+Bookdown, R, Rstudio, 그리고 이 책까지 모두 자유롭게 사용할 수 있는 오픈 소스입니다 `r emo::ji("slightly_smiling_face")`.
 
-You can review the behind the scenes of how the book was generated in bookdown, and how to publish it in Amazon in: [How to self-publish a book: A handy list of resources](https://blog.datascienceheroes.com/how-to-self-publish-a-book/) and [How to self publish a book: customizing Bookdown](https://blog.datascienceheroes.com/how-to-self-publish-a-book-customizing-bookdown/).
+이 책이 북다운에서 어떻게 생성되었는지, 그리고 아마존에 어떻게 발행했는지 뒷이야기를 확인하시려면 다음 글들을 참고하세요: [How to self-publish a book: A handy list of resources](https://blog.datascienceheroes.com/how-to-self-publish-a-book/) 및 [How to self publish a book: customizing Bookdown](https://blog.datascienceheroes.com/how-to-self-publish-a-book-customizing-bookdown/).
 
-Last two resourses alongside the book, were awardeded by RStudio in the [1st Bookdown Contest](https://community.rstudio.com/t/announcing-winners-of-the-1st-bookdown-contest/16394).
+이 리소스들은 [제1회 Bookdown Contest](https://community.rstudio.com/t/announcing-winners-of-the-1st-bookdown-contest/16394)에서 RStudio로부터 상을 받기도 했습니다.
 
-Hope you enjoy it!
+즐겁게 읽어주시길 바랍니다!
 
 <br>
 
-### How can I contact you? `r emo::ji("envelope_with_arrow")` {-}
+### 연락은 어떻게 하나요? `r emo::ji("envelope_with_arrow")` {-}
 
-If you want to say _hello_, contribute by telling that some part is not well explained, suggest a new topic or share some good experience you had applying any concept explained here, you are welcome to drop me an email at: 
+인사를 건네거나, 설명이 부족한 부분을 알려주거나, 새로운 주제를 제안하거나, 배운 개념을 적용한 경험을 공유하고 싶다면 언제든지 이메일을 보내주세요:
 
-pcasas.biz (at) gmail.com. I'm constantly learning so it's nice to exchange knowledge and keep in touch with other colleagues.
+pcasas.biz (at) gmail.com. 저는 끊임없이 배우고 있으므로 다른 동료들과 지식을 나누고 연락을 주고받는 것을 좋아합니다.
 
 * [Twitter](https://twitter.com/pabloc_ds)
 * [Linkedin](https://www.linkedin.com/in/pcasas)
 * [Github](https://github.com/pablo14)
 * [Data Science Heroes Blog](http://blog.datascienceheroes.com)
 
-Also, you can check the **Github** repositories for both, the book and `funModeling`, so you can report bugs, suggestions, new ideas, etc:
+또한, 책과 `funModeling`의 **Github** 저장소를 확인하여 버그 제보, 제안, 새로운 아이디어 등을 공유할 수 있습니다:
 
 * [funModeling](https://github.com/pablo14/funModeling)
 * [Data Science Live Book](https://github.com/pablo14/data-science-live-book)
@@ -192,29 +190,29 @@ Also, you can check the **Github** repositories for both, the book and `funModel
 <br>
 
 
-### Acknowledgements {-}
+### 감사의 말 {-}
 
-Special thanks to my mentors in this data world, Miguel Spindiak and Marcelo Ferreyra.
+이 데이터 세계의 멘토인 Miguel Spindiak과 Marcelo Ferreyra에게 특별한 감사를 전합니다.
 
-Book technical reviewer: [Pablo Seibelt (aka The Sicarul)](https://www.linkedin.com/in/pabloseibelt) `r emo::ji("hammer_and_wrench")`. Thank you for your sincere and selfless help.
+기술 리뷰어: [Pablo Seibelt (aka The Sicarul)](https://www.linkedin.com/in/pabloseibelt) `r emo::ji("hammer_and_wrench")`. 진심 어린 헌신적인 도움에 감사드립니다.
 
-The art cover was made by: [Bárbara Muñoz](https://www.linkedin.com/in/barbaramercedes/)`r emo::ji("art")`.
+표지 아트 제작: [Bárbara Muñoz](https://www.linkedin.com/in/barbaramercedes/)`r emo::ji("art")`.
 
-This book is dedicated to _[The Nobodies](https://holywaters.wordpress.com/2011/12/08/los-nadiesthe-nobodies-by-eduardo-galeano)_, a short story written by Eduardo Galeano.
+이 책을 에두아르도 갈레아노의 단편 소설 _[The Nobodies](https://holywaters.wordpress.com/2011/12/08/los-nadiesthe-nobodies-by-eduardo-galeano)_에 헌정합니다.
 
 <br>
 
-### Book's information {-}
+### 책 정보 {-}
 
-First published at: [livebook.datascienceheroes.com](http://livebook.datascienceheroes.com).
+최초 발행: [livebook.datascienceheroes.com](http://livebook.datascienceheroes.com).
 
-Licensed under [Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
+[Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) 라이선스를 따릅니다.
 
 ```{r echo=FALSE, out.width='20%'}
 knitr::include_graphics('introduction/by-nc-sa.png')
 ```
 
-ISBN: 978-987-42-5911-0 (eBook version).
+ISBN: 978-987-42-5911-0 (eBook 버전).
 
 ```{r echo=FALSE, out.width='20%'}
 knitr::include_graphics('introduction/ISBN_number.jpg')
@@ -236,6 +234,5 @@ options(warn=-1)
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
+  ), 'packages.bib')
 ```
-

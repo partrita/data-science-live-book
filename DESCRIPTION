@@ -1,6 +1,29 @@
 Package: data-science-live-book
 Title: Data Science Live Book
-Version: Ago 2017
-Imports: bookdown
-Remotes: rstudio/bookdown
- 
+Version: 0.1.0
+Authors@R: person("Pablo", "Casas", role = c("aut", "cre"), email = "pcasas.biz@gmail.com")
+Description: An intuitive and practical approach to data analysis, data preparation and machine learning, suitable for all ages!
+License: CC BY-NC-SA 4.0
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    bookdown,
+    knitr,
+    rmarkdown,
+    funModeling,
+    dplyr,
+    Hmisc,
+    reshape2,
+    ggplot2,
+    caret,
+    minerva,
+    missForest,
+    gridExtra,
+    mice,
+    Lock5Data,
+    corrplot,
+    RColorBrewer,
+    infotheo
+Remotes: 
+    rstudio/bookdown,
+    hadley/emo

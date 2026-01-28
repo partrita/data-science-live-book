@@ -77,7 +77,7 @@ data(heart_disease)
 df_status(heart_disease)
 ```
 
-```{r profiling-data-in-r, echo=FALSE, fig.cap="Dataset health status", out.extra=""}
+```{r profiling-data-in-r, echo=FALSE, fig.cap="데이터셋 상태", out.extra=""}
 knitr::include_graphics("exploratory_data_analysis/dataset_profiling.png")
 ```
 
@@ -107,11 +107,11 @@ knitr::include_graphics("exploratory_data_analysis/dataset_profiling.png")
 my_data_status=df_status(heart_disease, print_results = F)
 
 # Removing variables with 60% of zero values
-vars_to_remove=filter(my_data_status, p_zeros > 60)  %>% .$variable
+vars_to_remove=filter(my_data_status, p_zeros > 60) %>% pull(variable)
 vars_to_remove
 
 # Keeping all columns except the ones present in 'vars_to_remove' vector
-heart_disease_2=select(heart_disease, -one_of(vars_to_remove))
+heart_disease_2=select(heart_disease, -any_of(vars_to_remove))
 ```
 
 **0 값 백분율에 따라 데이터 정렬**
@@ -159,7 +159,7 @@ colnames(heart_disease)
 
 두 변수에 대한 분포를 원한다면:
 
-```{r frequency-analysis-r, fig.height=3, fig.width=5, fig.cap=c('Frequency analysis 1','Frequency analysis 2'), out.extra = ""}
+```{r frequency-analysis-r, fig.height=3, fig.width=5, fig.cap=c('빈도 분석 1','빈도 분석 2'), out.extra = ""}
 freq(data=heart_disease, input = c('thal','chest_pain'))
 ```
 
@@ -195,7 +195,7 @@ freq(data=heart_disease, path_out='my_folder')
 
 동일한 데이터 입력에 대해 정렬되지 않은 경우와 정렬된 경우의 차이를 확인해 보세요:
 
-```{r univariate-analysis, echo=FALSE, fig.cap="Order and beauty", out.extra = ''}
+```{r univariate-analysis, echo=FALSE, fig.cap="순서와 아름다움", out.extra = ''}
 knitr::include_graphics("exploratory_data_analysis/profiling_text_variable-bw.png")
 ```
 
@@ -354,7 +354,7 @@ head(data_world_wide, 3)
 library(Hmisc) # contains the `describe` function
 
 vars_to_profile=c("gini_index", "poverty_headcount_1.9")
-data_subset=select(data_world_wide, one_of(vars_to_profile))
+data_subset=select(data_world_wide, any_of(vars_to_profile))
 
 # Using the `describe` on a complete dataset. # It can be run with one variable; for example, describe(data_subset$poverty_headcount_1.9)
 
@@ -374,7 +374,7 @@ describe(data_subset)
 
 다음 함수는 `profiling_num`이며, 데이터 프레임을 받아들여 **방대한 테이블**을 검색합니다. 이 테이블은 마치 영화 '매트릭스'에서 볼 수 있는 것과 유사하게 **수많은 지표의 바다** 속에서 압도당하기 쉽습니다.
 
-```{r matrix-movie, out.width="150px", echo=FALSE, fig.cap="The matrix of data", out.extra = ""}
+```{r matrix-movie, out.width="150px", echo=FALSE, fig.cap="데이터의 매트릭스", out.extra = ""}
 knitr::include_graphics("exploratory_data_analysis/matrix_movie.png")
 ```
 
@@ -445,7 +445,7 @@ head(my_profiling_table, 3)
 
 `funModeling`의 또 다른 함수인 `plot_num`은 데이터셋을 받아 수치형 변수들의 분포를 플로팅하며, 비수치형 변수는 자동으로 제외합니다.
 
-```{r, profiling-numerical-variable-with-histograms, fig.cap="Profiling numerical data", out.extra = ''}
+```{r, profiling-numerical-variable-with-histograms, fig.cap="수치형 데이터 프로파일링", out.extra = ''}
 plot_num(data_world_wide)
 ```
 
@@ -538,7 +538,7 @@ R 통계량은 **이상치**와 **비선형** 관계에 크게 영향을 받습�
 
 다음 예시는 R2를 계산하고 각 쌍을 플롯합니다.
 
-```{r anscombe-data, message=FALSE, tidy=FALSE, fig.cap="Anscombe set", out.extra = ''}
+```{r anscombe-data, message=FALSE, tidy=FALSE, fig.cap="앤스콤 셋", out.extra = ''}
 # anscombe quartet 데이터 읽기
 anscombe_data = 
   read.delim(file="https://goo.gl/mVLz5L", header = T)
@@ -607,7 +607,7 @@ R에서의 구현은 [minerva](https://cran.r-project.org/web/packages/minerva/i
 
 함수(음의 지수 함수)를 기반으로 한 비선형 관계를 플롯하고 MIC 값을 인쇄해 보겠습니다.
 
-```{r mic-non-linear-relationship, message=FALSE, fig.width=4, fig.height=3, fig.cap="A perfect relationship", out.extra = ''}
+```{r mic-non-linear-relationship, message=FALSE, fig.width=4, fig.height=3, fig.cap="완벽한 관계", out.extra = ''}
 x=seq(0, 20, length.out=500)
 df_exp=data.frame(x=x, y=dexp(x, rate=0.65))
 ggplot(df_exp, aes(x=x, y=y)) + geom_line(color='steelblue') + theme_minimal()
@@ -647,7 +647,7 @@ sprintf("MIC: %s", res_mine$MIC[1,2])
 
 이제 `y_noise_1` 변수를 생성하여 노이즈를 추가할 것입니다.
 
-```{r noisy-relationship, fig.width=4, fig.height=3, fig.cap="Adding some noise", out.extra = ''}
+```{r noisy-relationship, fig.width=4, fig.height=3, fig.cap="노이즈 추가", out.extra = ''}
 df_exp$y_noise_1=jitter(df_exp$y, factor = 1000, amount = NULL)
 ggplot(df_exp, aes(x=x, y=y_noise_1)) + 
   geom_line(color='steelblue') + theme_minimal()
@@ -701,7 +701,7 @@ round(res_mine_2$MIC-res_R2, 3)
 
 다음과 비교해 보세요: "A는 B가 증가함에 따라 증가하지만, B가 값 10에 도달할 때까지 A는 거의 0에 가깝다가 300으로 올라갑니다. 그리고 B가 15에 도달하면 A는 1000으로 갑니다."
 
-```{r measuring-non-linearity, message=FALSE, fig.width=8, fig.height=3, tidy=FALSE, fig.cap="Comparing relationships", out.extra = ''}
+```{r measuring-non-linearity, message=FALSE, fig.width=8, fig.height=3, tidy=FALSE, fig.cap="관계 비교", out.extra = ''}
 # 데이터 예시 생성
 df_example=data.frame(x=df_exp$x, 
                       y_exp=df_exp$y, 
@@ -751,7 +751,7 @@ grid.arrange(p_exp,p_linear,ncol=2)
 
 그러나 정보 이론에 기반한 메트릭으로 관계를 측정하면 어떻게 될까요? 네, 다시 MIC입니다.
 
-```{r anscombe-set-information, fig.cap="MIC statistic", out.extra = ''}
+```{r anscombe-set-information, fig.cap="MIC 통계량", out.extra = ''}
 # 모든 쌍에 대한 MIC 계산
 mic_1=mine(anscombe_data$x1, anscombe_data$y1, alpha=0.8)$MIC
 mic_2=mine(anscombe_data$x2, anscombe_data$y2, alpha=0.8)$MIC
@@ -793,7 +793,7 @@ MINE는 **MAS**(최대 비대칭 점수)를 사용하여 시계열의 비단조�
 
 다음 예시는 비단조 `y_1`와 단조 `y_2`의 두 시계열을 시뮬레이션합니다.
 
-```{r monotonic-non-monotonic-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="Monotonicity in functions", out.extra = ''}
+```{r monotonic-non-monotonic-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="함수의 단조성", out.extra = ''}
 # 샘플 데이터 생성 (시계열 시뮬레이션)
 time_x=sort(runif(n=1000, min=0, max=1))
 y_1=4*(time_x-0.5)^2
@@ -831,7 +831,7 @@ grid.arrange(p_y_1,p_y_2,ncol=2)
 
 다른 관점에서 MAS는 주기적 관계를 감지하는 데에도 유용합니다. 예시를 통해 이를 설명해 보겠습니다.
 
-```{r periodical-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="Periodicity in functions", out.extra = '', echo=FALSE}
+```{r periodical-function, fig.height=3.5, fig.width=8, tidy=FALSE, fig.cap="함수의 주기성", out.extra = '', echo=FALSE}
 # 비주기적 함수에 대한 데이터 생성
 x_per=seq(-2*pi,2*pi,0.2)
 df_per=data.frame(x=x_per, y=sin(2*x_per))
@@ -862,7 +862,7 @@ grid.arrange(p_y_1_b, p_y_2_b, ncol=2)
 
 세 개의 시계열(`y1`, `y2`, `y3`)을 포함하는 다음 사례를 고려해 보겠습니다. 이들은 비단조성 또는 전체 성장 추세에 따라 프로파일링할 수 있습니다.
 
-```{r correlation-time-series, fig.height=3, fig.width=5, tidy=FALSE, fig.cap="Time series example", out.extra = ''}
+```{r correlation-time-series, fig.height=3, fig.width=5, tidy=FALSE, fig.cap="시계열 예제", out.extra = ''}
 # 데이터 읽기
 df_time_series = 
   read.delim(file="https://goo.gl/QDUjfd")
@@ -903,7 +903,7 @@ MIC 메트릭은 **시계열의 상관 관계**도 측정할 수 있습니다. �
 
 이 섹션은 MAS 예시에서 사용한 동일한 데이터를 기반으로 합니다.
 
-```{r time-series, fig.width=4, fig.height=2.5, fig.cap="Time series example", out.extra = ''}
+```{r time-series, fig.width=4, fig.height=2.5, fig.cap="시계열 예제", out.extra = ''}
 # 3개의 시계열 다시 출력
 plot_time_series
 # MIC 값 출력
@@ -922,7 +922,7 @@ MIC는 속도가 다른 시계열이 있는 더 복잡한 시나리오에는 유
 
 개념을 시각적으로 파악하기 위해 이미지를 사용해 보겠습니다.
 
-```{r Dynamic-Time-warping, echo=FALSE, out.width="300px", fig.cap="Dynamic time warping", out.extra = ''}
+```{r Dynamic-Time-warping, echo=FALSE, out.width="300px", fig.cap="동적 시간 워핑 (DTW)", out.extra = ''}
 knitr::include_graphics("exploratory_data_analysis/dynamic_time_warping.png")
 ```
 
@@ -997,7 +997,7 @@ R에서 `corrplot` 패키지를 사용합니다. 이 패키지는 `cor` 객체(�
 
 두 플롯은 동일한 데이터를 기반으로 하지만 상관 관계를 다른 방식으로 표시합니다.
 
-```{r correlation-information-theory, tidy=FALSE, fig.cap="Correlation plot", out.extra = ''}
+```{r correlation-information-theory, tidy=FALSE, fig.cap="상관 관계 플롯", out.extra = ''}
 # 행렬을 플롯하는 라이브러리
 library(corrplot) 
 # color pallete brewer.pal을 사용합니다.
@@ -1061,7 +1061,7 @@ corrplot(mine_res_hd$MIC,
 
 다른 플롯으로 확인할 수도 있습니다.
 
-```{r profiling-target-variable, fig.height=2, fig.width=3, fig.cap="Visual analysis using cross-plot", out.extra = ''}
+```{r profiling-target-variable, fig.height=2, fig.width=3, fig.cap="cross-plot을 사용한 시각적 분석", out.extra = ''}
 cross_plot(heart_disease, input = "chest_pain", target = "has_heart_disease", plot_type = "percentual")
 ```
 
@@ -1083,7 +1083,7 @@ cross_plot(heart_disease, input = "chest_pain", target = "has_heart_disease", pl
 
 MIC 측정값을 기반으로 `mine` 함수는 예측할 열의 인덱스(또는 단 하나의 변수에 대한 모든 상관 관계를 얻기 위해)를 받을 수 있습니다.
 
-```{r importance-variable-ranking, fig.width=6, fig.height=4.5, tidy=FALSE, fig.cap="Correlation using information theory", out.extra=''}
+```{r importance-variable-ranking, fig.width=6, fig.height=4.5, tidy=FALSE, fig.cap="정보 이론을 사용한 상관 관계", out.extra=''}
 
 # 예측할 변수의 인덱스 가져오기: has_heart_disease
 target="has_heart_disease"
@@ -1149,7 +1149,7 @@ R에서는 [entropy](https://cran.r-project.org/web/packages/entropy/entropy.pdf
 
 다음 코드는 이전에 본 것처럼 상관 관계 행렬을 생성하지만, 상호 정보 지수를 기반으로 합니다.
 
-```{r correlation-matrix-information-theory, eval=FALSE, fig.cap="Correlation matrix"}
+```{r correlation-matrix-information-theory, eval=FALSE, fig.cap="상관 관계 행렬"}
 library(infotheo)
 # 모든 변수 이산화
 heart_disease_4_disc=discretize(heart_disease_4) 
@@ -1164,7 +1164,7 @@ diag(heart_info)=0
 corrplot(heart_info, method="color",type="lower", number.cex=0.6,addCoef.col = "black", tl.col="red", tl.srt=90, tl.cex = 0.9, diag=FALSE, is.corr = F)
 ```
 
-```{r Comparing-MIC-and-mutual-information-index, echo=FALSE, out.width="100%", fig.cap="Comparing variable importance"}
+```{r Comparing-MIC-and-mutual-information-index, echo=FALSE, out.width="100%", fig.cap="변수 중요도 비교"}
 knitr::include_graphics("exploratory_data_analysis/mic_mutual_info.png")
 ```
 
