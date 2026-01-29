@@ -664,7 +664,7 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 중요 변수 분석에서 박스 플롯을 사용하면 이진 타겟 변수의 다양한 값들 사이에서 사분위수가 얼마나 다른지 빠르게 확인할 수 있습니다.
 
-`````{r loading-lib, results="hide", message=FALSE}
+```{r loading-lib, results="hide", message=FALSE}
 # funModeling 로드!
 library(funModeling)
 data(heart_disease)

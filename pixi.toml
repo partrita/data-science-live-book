@@ -1,0 +1,30 @@
+[workspace]
+authors = ["deepthought <deepthough@postech.ac.kr>"]
+channels = ["conda-forge"]
+name = "data-science-live-book"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+r-base = ">=4.5.2,<4.6"
+r-bookdown = ">=0.46,<0.47"
+r-rmarkdown = ">=2.30,<3"
+r-knitr = ">=1.51,<2"
+r-dplyr = ">=1.1.4,<2"
+r-tidyr = ">=1.3.2,<2"
+r-reshape2 = ">=1.4.5,<2"
+r-hmisc = ">=5.2_5,<6"
+r-ggplot2 = ">=4.0.1,<5"
+r-caret = ">=7.0_1,<8"
+r-randomforest = ">=4.7_1.2,<5"
+r-gbm = ">=2.2.3,<3"
+r-mice = ">=3.19.0,<4"
+r-missforest = ">=1.6.1,<2"
+r-minerva = ">=1.5.10,<2"
+r-gridextra = ">=2.3,<3"
+r-corrplot = ">=0.95,<0.96"
+r-rcolorbrewer = ">=1.1_3,<2"
+r-infotheo = ">=1.2.0.1,<2"
+r-rpivottable = ">=0.3.0,<0.4"

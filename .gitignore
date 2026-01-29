@@ -22,3 +22,6 @@ dbg_01.Rmd
 data-science-live-book.toc
 preamble.log
 texput.log
+# pixi environments
+.pixi/*
+!.pixi/config.toml
