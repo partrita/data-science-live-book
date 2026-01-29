@@ -23,6 +23,7 @@ Imports:
     Lock5Data,
     corrplot,
     RColorBrewer,
-    infotheo
+    infotheo,
+    gbm
 Remotes: 
     rstudio/bookdown
