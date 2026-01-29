@@ -310,8 +310,7 @@ df_conv_world=data.frame(
 # adding the new indicator value
 data_world_2 = left_join(data_world, 
                          df_conv_world, 
-                         by="Series.Code", 
-                         all.x=T)
+                         by="Series.Code")
 
 data_world_2 = 
   mutate(data_world_2, Series.Code_2=
