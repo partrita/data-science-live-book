@@ -2187,7 +2187,7 @@ df_imputed=imputation_res$ximp
 # randomForest 패키지의 na.roughfix를 기반으로 한 또 다른 대치 생성
 if(!requireNamespace("randomForest", quietly = TRUE)) install.packages("randomForest")
 library(randomForest)
-df_rough=na.roughfix(df_holly)
+df_rough=randomForest::na.roughfix(df_holly)
 
 # 대치 전후의 분포 비교
 df_holly$imputation="original"
