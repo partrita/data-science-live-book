@@ -7,11 +7,11 @@ if(!knitr:::is_html_output())
 }
 ```
 
-# 탐색적 데이터 분석 {#exploratory_data_analysis}
+# 탐색적 데이터 분석
 
 숫자들의 소리에 귀 기울이기 :)
 
-## 프로파일링: 숫자의 목소리 {#profiling}
+## 프로파일링: 숫자의 목소리
 
 ```{r echo=FALSE, out.width="100px"}
 knitr::include_graphics("exploratory_data_analysis/Galeano.jpg")
@@ -53,7 +53,7 @@ knitr::include_graphics("exploratory_data_analysis/Galeano.jpg")
 
 --
 
-### 데이터셋 상태 {\#dataset-health-status}
+### 데이터셋 상태
 
 0, NA, Inf, 고유 값의 양과 데이터 유형은 모델의 좋고 나쁨에 영향을 미칠 수 있습니다. 다음은 데이터 모델링의 첫 단계를 다루는 접근 방식입니다.
 
@@ -151,7 +151,7 @@ colnames(heart_disease)
 
 --
 
-### 범주형 변수 프로파일링 {\#profiling-categorical-variables}
+### 범주형 변수 프로파일링
 
 *최신 'funModeling' 버전(\>= 1.6)을 사용하고 있는지 확인하십시오.*
 
@@ -470,7 +470,7 @@ knitr::include_graphics("introduction/spacer_bar.png")
 
 -----
 
-## 상관 관계 및 관계 {https://www.google.com/search?q=%23correlation}
+## 상관 관계 및 관계
 
 ```{r manderbolt-fractal,echo=FALSE, out.width="150px"}
 knitr::include_graphics("exploratory_data_analysis/fractal_manderbolt.png")
