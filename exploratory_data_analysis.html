@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 탐색적 데이터 분석 | 데이터 과학 라이브 북 (Data Science Live Book)</title>
+  <meta name="description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="generator" content="bookdown 0.46.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 탐색적 데이터 분석 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+  <meta property="og:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="github-repo" content="pablo14/data-science-live-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 탐색적 데이터 분석 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta name="twitter:site" content="@pabloc_ds" />
+  <meta name="twitter:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="twitter:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+
+<meta name="author" content="Pablo Casas (번역: fkt)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="introduction/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+<link rel="next" href="data_preparation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-82047152-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science Live Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>서문 (Preface)</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#종이책-킨들-amazon"><i class="fa fa-check"></i>종이책 &amp; 킨들 (Amazon)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#왜-이-책인가요"><i class="fa fa-check"></i>왜 이 책인가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#배움을-향한-여정"><i class="fa fa-check"></i>배움을 향한 여정</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#이-책이-나에게-맞을까요-이해할-수-있을까요"><i class="fa fa-check"></i>이 책이 나에게 맞을까요? 이해할 수 있을까요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#프로그래밍-언어"><i class="fa fa-check"></i>프로그래밍 언어</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기계와-인공지능이-세상을-지배하게-될까요"><i class="fa fa-check"></i>기계와 인공지능이 세상을 지배하게 될까요? 😱</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#시작하려면-무엇이-필요한가요"><i class="fa fa-check"></i>시작하려면 무엇이 필요한가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#연락은-어떻게-하나요"><i class="fa fa-check"></i>연락은 어떻게 하나요? 📩</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#감사의-말"><i class="fa fa-check"></i>감사의 말</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#책-정보"><i class="fa fa-check"></i>책 정보</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html"><i class="fa fa-check"></i><b>1</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#profiling"><i class="fa fa-check"></i><b>1.1</b> 프로파일링: 숫자의 목소리</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#데이터셋-상태-dataset-health-status"><i class="fa fa-check"></i><b>1.1.1</b> 데이터셋 상태 {#dataset-health-status}</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수-프로파일링-profiling-categorical-variables"><i class="fa fa-check"></i><b>1.1.2</b> 범주형 변수 프로파일링 {#profiling-categorical-variables}</a></li>
+<li class="chapter" data-level="1.1.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#수치형-변수-프로파일링"><i class="fa fa-check"></i><b>1.1.3</b> 수치형 변수 프로파일링</a></li>
+<li class="chapter" data-level="1.1.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#최종-생각"><i class="fa fa-check"></i><b>1.1.4</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#상관-관계-및-관계-httpswww.google.comsearchq23correlation"><i class="fa fa-check"></i><b>1.2</b> 상관 관계 및 관계 {https://www.google.com/search?q=%23correlation}</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#이-장의-내용은-무엇일까요"><i class="fa fa-check"></i><b>1.2.1</b> 이 장의 내용은 무엇일까요?</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#선형-상관-관계-linear-correlation"><i class="fa fa-check"></i><b>1.2.2</b> 선형 상관 관계 {#linear-correlation}</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계"><i class="fa fa-check"></i><b>1.2.3</b> 정보 이론에 기반한 상관 관계</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#노이즈-추가"><i class="fa fa-check"></i><b>1.2.4</b> 노이즈 추가</a></li>
+<li class="chapter" data-level="1.2.5" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비선형성-측정-mic-r2"><i class="fa fa-check"></i><b>1.2.5</b> 비선형성 측정 (MIC-R2)</a></li>
+<li class="chapter" data-level="1.2.6" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#앤스콤-쿼텟에서-정보-측정하기"><i class="fa fa-check"></i><b>1.2.6</b> 앤스콤 쿼텟에서 정보 측정하기</a></li>
+<li class="chapter" data-level="1.2.7" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비단조성-측정-mas-측정"><i class="fa fa-check"></i><b>1.2.7</b> 비단조성 측정: MAS 측정</a></li>
+<li class="chapter" data-level="1.2.8" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#시계열-간의-상관-관계"><i class="fa fa-check"></i><b>1.2.8</b> 시계열 간의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.9" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수의-상관-관계"><i class="fa fa-check"></i><b>1.2.9</b> 범주형 변수의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.10" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계-분석-selecting_best_vars_mic"><i class="fa fa-check"></i><b>1.2.10</b> 정보 이론에 기반한 상관 관계 분석 {#selecting_best_vars_mic}</a></li>
+<li class="chapter" data-level="1.2.11" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#mine만-이런-기능을-제공하나요"><i class="fa fa-check"></i><b>1.2.11</b> MINE만 이런 기능을 제공하나요?</a></li>
+<li class="chapter" data-level="1.2.12" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-측정-일반적인-관점"><i class="fa fa-check"></i><b>1.2.12</b> 정보 측정: 일반적인 관점</a></li>
+<li class="chapter" data-level="1.2.13" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#결론"><i class="fa fa-check"></i><b>1.2.13</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data_preparation.html"><a href="data_preparation.html"><i class="fa fa-check"></i><b>2</b> 데이터 준비</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data_preparation.html"><a href="data_preparation.html#data_types"><i class="fa fa-check"></i><b>2.1</b> 데이터 유형 처리</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요"><i class="fa fa-check"></i><b>2.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data_preparation.html"><a href="data_preparation.html#데이터-유형의-세계"><i class="fa fa-check"></i><b>2.1.2</b> 데이터 유형의 세계</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data_preparation.html"><a href="data_preparation.html#알고리즘별-데이터-유형"><i class="fa fa-check"></i><b>2.1.3</b> 알고리즘별 데이터 유형</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수를-숫자형으로-변환하기"><i class="fa fa-check"></i><b>2.1.4</b> 범주형 변수를 숫자형으로 변환하기</a></li>
+<li class="chapter" data-level="2.1.5" data-path="data_preparation.html"><a href="data_preparation.html#범주형인가요-수치형인가요-생각해-봅시다."><i class="fa fa-check"></i><b>2.1.5</b> 범주형인가요, 수치형인가요? 생각해 봅시다.</a></li>
+<li class="chapter" data-level="2.1.6" data-path="data_preparation.html"><a href="data_preparation.html#discretizing_numerical_variables"><i class="fa fa-check"></i><b>2.1.6</b> 수치형 변수 이산화 (Discretizing numerical variables)</a></li>
+<li class="chapter" data-level="2.1.7" data-path="data_preparation.html"><a href="data_preparation.html#discretization_new_data"><i class="fa fa-check"></i><b>2.1.7</b> 새로운 데이터에서의 이산화</a></li>
+<li class="chapter" data-level="2.1.8" data-path="data_preparation.html"><a href="data_preparation.html#data-discretization"><i class="fa fa-check"></i><b>2.1.8</b> 자동 데이터 프레임 이산화</a></li>
+<li class="chapter" data-level="2.1.9" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-1"><i class="fa fa-check"></i><b>2.1.9</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.1.10" data-path="data_preparation.html"><a href="data_preparation.html#보너스-트랙"><i class="fa fa-check"></i><b>2.1.10</b> 보너스 트랙 💥</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_descriptive_stats"><i class="fa fa-check"></i><b>2.2</b> 기술 통계에서의 고카디널리티 변수</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-1"><i class="fa fa-check"></i><b>2.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data_preparation.html"><a href="data_preparation.html#기술-통계에서의-고카디널리티"><i class="fa fa-check"></i><b>2.2.2</b> 기술 통계에서의 고카디널리티</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data_preparation.html"><a href="data_preparation.html#최종-코멘트"><i class="fa fa-check"></i><b>2.2.3</b> 최종 코멘트</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_predictive_modeling"><i class="fa fa-check"></i><b>2.3</b> High Cardinality Variable in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-2"><i class="fa fa-check"></i><b>2.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data_preparation.html"><a href="data_preparation.html#하지만-변수를-재그룹화하는-것이-필요할까요"><i class="fa fa-check"></i><b>2.3.2</b> 하지만 변수를 재그룹화하는 것이 필요할까요?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data_preparation.html"><a href="data_preparation.html#analyze-binary-outcome-vs-categorical-variable"><i class="fa fa-check"></i><b>2.3.3</b> 사례 🔍</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델링을-위한-분석"><i class="fa fa-check"></i><b>2.3.4</b> 예측 모델링을 위한 분석 🔮</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-운영-환경에-있을-때-새로운-카테고리-처리하기"><i class="fa fa-check"></i><b>2.3.5</b> 예측 모델이 운영 환경에 있을 때 새로운 카테고리 처리하기</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-고카디널리티를-처리하나요-파트-1"><i class="fa fa-check"></i><b>2.3.6</b> 예측 모델이 고카디널리티를 처리하나요? 파트 1</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_in_predictive_models_part_2"><i class="fa fa-check"></i><b>2.3.7</b> 예측 모델이 고카디널리티를 처리하지 않나요? 파트 2</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-또는-다중-공선성-타겟-변수"><i class="fa fa-check"></i><b>2.3.8</b> 수치형 또는 다중 공선성 타겟 변수 📏</a></li>
+<li class="chapter" data-level="2.3.9" data-path="data_preparation.html"><a href="data_preparation.html#그룹화에서-얻은-추가-선물-은-무엇인가요"><i class="fa fa-check"></i><b>2.3.9</b> 그룹화에서 얻은 “추가 선물 🎁”은 무엇인가요?</a></li>
+<li class="chapter" data-level="2.3.10" data-path="data_preparation.html"><a href="data_preparation.html#대표성-또는-샘플-크기"><i class="fa fa-check"></i><b>2.3.10</b> 대표성 또는 샘플 크기</a></li>
+<li class="chapter" data-level="2.3.11" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-2"><i class="fa fa-check"></i><b>2.3.11</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.3.12" data-path="data_preparation.html"><a href="data_preparation.html#추가-읽기"><i class="fa fa-check"></i><b>2.3.12</b> 추가 읽기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data_preparation.html"><a href="data_preparation.html#treatment_outliers"><i class="fa fa-check"></i><b>2.4</b> 이상치 처리 (Treatment of outliers)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-3"><i class="fa fa-check"></i><b>2.4.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="data_preparation.html"><a href="data_preparation.html#이상치에-대한-직관"><i class="fa fa-check"></i><b>2.4.2</b> 이상치에 대한 직관</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data_preparation.html"><a href="data_preparation.html#덥고-추운-날씨의-경계는-어디일까요"><i class="fa fa-check"></i><b>2.4.3</b> 덥고 추운 날씨의 경계는 어디일까요?</a></li>
+<li class="chapter" data-level="2.4.4" data-path="data_preparation.html"><a href="data_preparation.html#이상치의-영향"><i class="fa fa-check"></i><b>2.4.4</b> 이상치의 영향</a></li>
+<li class="chapter" data-level="2.4.5" data-path="data_preparation.html"><a href="data_preparation.html#how_to_deal_with_outliers_in_r"><i class="fa fa-check"></i><b>2.4.5</b> R에서 이상치를 처리하는 방법</a></li>
+<li class="chapter" data-level="2.4.6" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-감지하는-방법"><i class="fa fa-check"></i><b>2.4.6</b> 1단계: 이상치를 감지하는 방법 🔎</a></li>
+<li class="chapter" data-level="2.4.7" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-어떻게-할까요"><i class="fa fa-check"></i><b>2.4.7</b> 2단계: 이상치를 어떻게 할까요? 🛠️</a></li>
+<li class="chapter" data-level="2.4.8" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-3"><i class="fa fa-check"></i><b>2.4.8</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data_preparation.html"><a href="data_preparation.html#missing_data"><i class="fa fa-check"></i><b>2.5</b> 결측 데이터: 분석, 처리 및 대치</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-4"><i class="fa fa-check"></i><b>2.5.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-정보를-나타낼-때"><i class="fa fa-check"></i><b>2.5.2</b> 빈 값이 정보를 나타낼 때</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-진짜-빈-값일-때"><i class="fa fa-check"></i><b>2.5.3</b> 빈 값이 진짜 빈 값일 때</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data_preparation.html"><a href="data_preparation.html#전체-행-제외하기"><i class="fa fa-check"></i><b>2.5.4</b> 전체 행 제외하기</a></li>
+<li class="chapter" data-level="2.5.5" data-path="data_preparation.html"><a href="data_preparation.html#열-제외하기"><i class="fa fa-check"></i><b>2.5.5</b> 열 제외하기</a></li>
+<li class="chapter" data-level="2.5.6" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수의-빈-값-처리하기"><i class="fa fa-check"></i><b>2.5.6</b> 범주형 변수의 빈 값 처리하기</a></li>
+<li class="chapter" data-level="2.5.7" data-path="data_preparation.html"><a href="data_preparation.html#결측값에-어떤-패턴이-있나요"><i class="fa fa-check"></i><b>2.5.7</b> 결측값에 어떤 패턴이 있나요?</a></li>
+<li class="chapter" data-level="2.5.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-변수의-결측값-처리하기"><i class="fa fa-check"></i><b>2.5.8</b> 수치형 변수의 결측값 처리하기</a></li>
+<li class="chapter" data-level="2.5.9" data-path="data_preparation.html"><a href="data_preparation.html#고급-대치-방법-advanced-imputation-methods"><i class="fa fa-check"></i><b>2.5.9</b> 고급 대치 방법 (Advanced imputation methods)</a></li>
+<li class="chapter" data-level="2.5.10" data-path="data_preparation.html"><a href="data_preparation.html#결론-1"><i class="fa fa-check"></i><b>2.5.10</b> 결론</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="data_preparation.html"><a href="data_preparation.html#considerations-involving-time"><i class="fa fa-check"></i><b>2.6</b> 시간과 관련된 고려 사항</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-5"><i class="fa fa-check"></i><b>2.6.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html"><i class="fa fa-check"></i><b>3</b> 최적 변수 선택</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#general_aspects_selecting_best_variables"><i class="fa fa-check"></i><b>3.1</b> 최적 변수 선택의 일반적 측면</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#무엇에-대한-내용인가요-6"><i class="fa fa-check"></i><b>3.1.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#직관"><i class="fa fa-check"></i><b>3.2</b> 직관</a></li>
+<li class="chapter" data-level="3.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#최적의-선택"><i class="fa fa-check"></i><b>3.3</b> “최적”의 선택?</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-순위-더-깊이-알아보기"><i class="fa fa-check"></i><b>3.3.1</b> 변수 순위 더 깊이 알아보기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#선택의-특성"><i class="fa fa-check"></i><b>3.4</b> 선택의 특성</a></li>
+<li class="chapter" data-level="3.5" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-개선하기"><i class="fa fa-check"></i><b>3.5</b> 변수 개선하기</a></li>
+<li class="chapter" data-level="3.6" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#도메인-지식에-의한-정제"><i class="fa fa-check"></i><b>3.6</b> 도메인 지식에 의한 정제</a></li>
+<li class="chapter" data-level="3.7" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수는-그룹으로-작용합니다"><i class="fa fa-check"></i><b>3.7</b> 변수는 그룹으로 작용합니다</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#r-사례-그룹으로-작용하는-변수"><i class="fa fa-check"></i><b>3.7.1</b> R 사례: 그룹으로 작용하는 변수</a></li>
+<li class="chapter" data-level="3.7.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#작은-사례-정보-이론-기반"><i class="fa fa-check"></i><b>3.7.2</b> 작은 사례 (정보 이론 기반)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#결론-2"><i class="fa fa-check"></i><b>3.7.3</b> 결론</a></li>
+<li class="chapter" data-level="3.7.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#select_features_var_rank_info"><i class="fa fa-check"></i><b>3.7.4</b> 정보 이론을 사용한 최적 특성 순위 매기기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#입력-변수-간의-상관관계"><i class="fa fa-check"></i><b>3.8</b> 입력 변수 간의 상관관계</a></li>
+<li class="chapter" data-level="3.9" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#단순하게-유지하기"><i class="fa fa-check"></i><b>3.9</b> 단순하게 유지하기</a></li>
+<li class="chapter" data-level="3.10" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#클러스터링에서의-변수-선택"><i class="fa fa-check"></i><b>3.10</b> 클러스터링에서의 변수 선택?</a></li>
+<li class="chapter" data-level="3.11" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#실무에서-최적-변수-선택하기"><i class="fa fa-check"></i><b>3.11</b> 실무에서 최적 변수 선택하기</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#짧은-답변"><i class="fa fa-check"></i><b>3.11.1</b> 짧은 답변</a></li>
+<li class="chapter" data-level="3.11.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#긴-답변"><i class="fa fa-check"></i><b>3.11.2</b> 긴 답변</a></li>
+<li class="chapter" data-level="3.11.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#자신만의-지식-창출하기"><i class="fa fa-check"></i><b>3.11.3</b> 자신만의 지식 창출하기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#타겟-프로파일링"><i class="fa fa-check"></i><b>3.12</b> 타겟 프로파일링</a>
+<ul>
+<li class="chapter" data-level="3.12.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#profiling_target_cross_plot"><i class="fa fa-check"></i><b>3.12.1</b> <code>cross_plot</code> 사용하기 (dataViz)</a></li>
+<li class="chapter" data-level="3.12.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-boxplots"><i class="fa fa-check"></i><b>3.12.2</b> 박스 플롯 사용하기</a></li>
+<li class="chapter" data-level="3.12.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-density-histograms"><i class="fa fa-check"></i><b>3.12.3</b> 밀도 히스토그램 사용하기</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="model-performance.html"><a href="model-performance.html"><i class="fa fa-check"></i><b>4</b> 모델 성능 평가</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="model-performance.html"><a href="model-performance.html#knowing_the_error"><i class="fa fa-check"></i><b>4.1</b> 오차 알기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-10"><i class="fa fa-check"></i><b>4.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="model-performance.html"><a href="model-performance.html#예상치-못한-동작-줄이기"><i class="fa fa-check"></i><b>4.1.2</b> 예상치 못한 동작 줄이기</a></li>
+<li class="chapter" data-level="4.1.3" data-path="model-performance.html"><a href="model-performance.html#교차-검증cross-validation-cv으로-설명해-보겠습니다"><i class="fa fa-check"></i><b>4.1.3</b> 교차 검증(Cross-Validation, CV)으로 설명해 보겠습니다</a></li>
+<li class="chapter" data-level="4.1.4" data-path="model-performance.html"><a href="model-performance.html#그렇다면-오차란-무엇인가요"><i class="fa fa-check"></i><b>4.1.4</b> 그렇다면 오차란 무엇인가요?</a></li>
+<li class="chapter" data-level="4.1.5" data-path="model-performance.html"><a href="model-performance.html#실무에-대한-제언이-있나요"><i class="fa fa-check"></i><b>4.1.5</b> 실무에 대한 제언이 있나요?</a></li>
+<li class="chapter" data-level="4.1.6" data-path="model-performance.html"><a href="model-performance.html#잊지-마세요-데이터-준비"><i class="fa fa-check"></i><b>4.1.6</b> 잊지 마세요: 데이터 준비</a></li>
+<li class="chapter" data-level="4.1.7" data-path="model-performance.html"><a href="model-performance.html#마지막-생각"><i class="fa fa-check"></i><b>4.1.7</b> 마지막 생각</a></li>
+<li class="chapter" data-level="4.1.8" data-path="model-performance.html"><a href="model-performance.html#더-읽어보기"><i class="fa fa-check"></i><b>4.1.8</b> 더 읽어보기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="model-performance.html"><a href="model-performance.html#out-of-time_validation"><i class="fa fa-check"></i><b>4.2</b> 시간 외 검증 (Out-of-Time Validation)</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-11"><i class="fa fa-check"></i><b>4.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="model-performance.html"><a href="model-performance.html#어떤-종류의-데이터인가요-1"><i class="fa fa-check"></i><b>4.2.2</b> 어떤 종류의 데이터인가요?</a></li>
+<li class="chapter" data-level="4.2.3" data-path="model-performance.html"><a href="model-performance.html#시간-외-검증-예시"><i class="fa fa-check"></i><b>4.2.3</b> 시간 외 검증 예시</a></li>
+<li class="chapter" data-level="4.2.4" data-path="model-performance.html"><a href="model-performance.html#이득-및-리프트-분석gain-and-lift-analysis-사용하기"><i class="fa fa-check"></i><b>4.2.4</b> 이득 및 리프트 분석(Gain and Lift Analysis) 사용하기</a></li>
+<li class="chapter" data-level="4.2.5" data-path="model-performance.html"><a href="model-performance.html#수치형-타겟-변수는-어떤가요"><i class="fa fa-check"></i><b>4.2.5</b> 수치형 타겟 변수는 어떤가요?</a></li>
+<li class="chapter" data-level="4.2.6" data-path="model-performance.html"><a href="model-performance.html#마지막-생각-1"><i class="fa fa-check"></i><b>4.2.6</b> 마지막 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="model-performance.html"><a href="model-performance.html#gain_and_lift"><i class="fa fa-check"></i><b>4.3</b> 이득 및 리프트 분석 (Gain and Lift Analysis)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-12"><i class="fa fa-check"></i><b>4.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.3.2" data-path="model-performance.html"><a href="model-performance.html#어떻게-해석하나요"><i class="fa fa-check"></i><b>4.3.2</b> 어떻게 해석하나요?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="model-performance.html"><a href="model-performance.html#모델을-사용하지-않는다면-어떨까요"><i class="fa fa-check"></i><b>4.3.3</b> 모델을 사용하지 않는다면 어떨까요?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-performance.html"><a href="model-performance.html#scoring_data"><i class="fa fa-check"></i><b>4.4</b> 데이터 스코어링 (Scoring Data)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="model-performance.html"><a href="model-performance.html#숨겨진-직관"><i class="fa fa-check"></i><b>4.4.1</b> 숨겨진 직관</a></li>
+<li class="chapter" data-level="4.4.2" data-path="model-performance.html"><a href="model-performance.html#예제를-살펴봅시다"><i class="fa fa-check"></i><b>4.4.2</b> 예제를 살펴봅시다</a></li>
+<li class="chapter" data-level="4.4.3" data-path="model-performance.html"><a href="model-performance.html#모든-것은-절단점cut-point에-달려-있습니다"><i class="fa fa-check"></i><b>4.4.3</b> 모든 것은 절단점(cut point)에 달려 있습니다 📏</a></li>
+<li class="chapter" data-level="4.4.4" data-path="model-performance.html"><a href="model-performance.html#최선과-최악의-시나리오"><i class="fa fa-check"></i><b>4.4.4</b> 최선과 최악의 시나리오</a></li>
+<li class="chapter" data-level="4.4.5" data-path="model-performance.html"><a href="model-performance.html#분류기-비교"><i class="fa fa-check"></i><b>4.4.5</b> 분류기 비교</a></li>
+<li class="chapter" data-level="4.4.6" data-path="model-performance.html"><a href="model-performance.html#r로-직접-해보기"><i class="fa fa-check"></i><b>4.4.6</b> R로 직접 해보기!</a></li>
+<li class="chapter" data-level="4.4.7" data-path="model-performance.html"><a href="model-performance.html#결론-4"><i class="fa fa-check"></i><b>4.4.7</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>5</b> 부록 (APPENDIX)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="appendix.html"><a href="appendix.html#appendix-percentiles"><i class="fa fa-check"></i><b>5.1</b> 백분위수의 마법</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="appendix.html"><a href="appendix.html#백분위수를-계산하는-방법"><i class="fa fa-check"></i><b>5.1.1</b> 백분위수를 계산하는 방법</a></li>
+<li class="chapter" data-level="5.1.2" data-path="appendix.html"><a href="appendix.html#사용자-정의-분위수-계산"><i class="fa fa-check"></i><b>5.1.2</b> 사용자 정의 분위수 계산</a></li>
+<li class="chapter" data-level="5.1.3" data-path="appendix.html"><a href="appendix.html#대부분의-값이-어디에-있는지-표시하기"><i class="fa fa-check"></i><b>5.1.3</b> 대부분의 값이 어디에 있는지 표시하기</a></li>
+<li class="chapter" data-level="5.1.4" data-path="appendix.html"><a href="appendix.html#백분위수-시각화"><i class="fa fa-check"></i><b>5.1.4</b> 백분위수 시각화</a></li>
+<li class="chapter" data-level="5.1.5" data-path="appendix.html"><a href="appendix.html#순위-및-상위하위-x-개념"><i class="fa fa-check"></i><b>5.1.5</b> 순위 및 상위/하위 ‘X%’ 개념</a></li>
+<li class="chapter" data-level="5.1.6" data-path="appendix.html"><a href="appendix.html#데이터-스코어링에서의-백분위수"><i class="fa fa-check"></i><b>5.1.6</b> 데이터 스코어링에서의 백분위수</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="appendix.html"><a href="appendix.html#funmodeling-quick-start"><i class="fa fa-check"></i><b>5.2</b> <code>funModeling</code> 퀵스타트</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="appendix.html"><a href="appendix.html#블랙박스-열어보기"><i class="fa fa-check"></i><b>5.2.1</b> 블랙박스 열어보기</a></li>
+<li class="chapter" data-level="5.2.2" data-path="appendix.html"><a href="appendix.html#탐색적-데이터-분석-eda"><i class="fa fa-check"></i><b>5.2.2</b> 탐색적 데이터 분석 (EDA)</a></li>
+<li class="chapter" data-level="5.2.3" data-path="appendix.html"><a href="appendix.html#상관관계"><i class="fa fa-check"></i><b>5.2.3</b> 상관관계</a></li>
+<li class="chapter" data-level="5.2.4" data-path="appendix.html"><a href="appendix.html#데이터-준비"><i class="fa fa-check"></i><b>5.2.4</b> 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.5" data-path="appendix.html"><a href="appendix.html#이상치outliers-데이터-준비"><i class="fa fa-check"></i><b>5.2.5</b> 이상치(Outliers) 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.6" data-path="appendix.html"><a href="appendix.html#예측-모델-성능"><i class="fa fa-check"></i><b>5.2.6</b> 예측 모델 성능</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="download-book.html"><a href="download-book.html"><i class="fa fa-check"></i><b>6</b> 도서 다운로드</a></li>
+<li class="chapter" data-level="" data-path="참고-문헌-references.html"><a href="참고-문헌-references.html"><i class="fa fa-check"></i>참고 문헌 (References)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">데이터 과학 라이브 북 (Data Science Live Book)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory_data_analysis" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> 탐색적 데이터 분석<a href="exploratory_data_analysis.html#exploratory_data_analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>숫자들의 소리에 귀 기울이기 :)</p>
+<div id="profiling" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> 프로파일링: 숫자의 목소리<a href="exploratory_data_analysis.html#profiling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="exploratory_data_analysis/Galeano.jpg" alt="" width="100px" /></p>
+<blockquote>
+<p>“숫자의 목소리” – <a href="https://en.wikipedia.org/wiki/Eduardo_Galeano">에두아르도 갈레아노</a>, 작가이자 소설가의 비유.</p>
+</blockquote>
+<p>우리가 탐색하는 데이터는 제대로 해석하지 못하면 이집트 상형문자와 같을 수 있습니다. 프로파일링은 데이터가 우리에게 무엇을 말하고 싶어 하는지, 우리가 충분히 인내심을 갖고 귀 기울인다면, 그 메시지를 찾는 일련의 반복적인 단계 중 첫걸음입니다.</p>
+<p>이 장에서는 몇 가지 함수를 사용하여 완벽한 데이터 프로파일링을 다룰 것입니다. 이는 데이터 프로젝트의 첫 단계가 되어야 하며, 올바른 데이터 유형을 파악하고 수치형 및 범주형 변수의 분포를 탐색하는 것부터 시작합니다.</p>
+<p>또한 비전문가에게 보고서를 작성할 때 유용한 <strong>의미론적 결론을 도출</strong>하는 데 중점을 둡니다.</p>
+<p><strong>이 장에서 무엇을 살펴볼까요?</strong></p>
+<ul>
+<li><strong>데이터셋 상태</strong>:
+<ul>
+<li>총 행, 열, 데이터 유형, 0 값, 결측치와 같은 <strong>지표</strong> 얻기</li>
+<li>각 항목이 다양한 분석에 미치는 영향</li>
+<li>데이터를 정리하기 위해 이를 <strong>빠르게 필터링</strong>하고 <strong>조작</strong>하는 방법</li>
+</ul></li>
+<li><strong>범주형 변수의 단변량 분석</strong>:
+<ul>
+<li><strong>빈도</strong>, 백분율, 누적 값, 시각적으로 매력적인 플롯</li>
+</ul></li>
+<li><strong>수치형 변수의 단변량 분석</strong>:
+<ul>
+<li><strong>백분위수</strong>, 분산, 표준 편차, 평균, 상위 및 하위 값</li>
+<li><strong>백분위수 vs. 분위수 vs. 사분위수</strong></li>
+<li>왜도, 첨도, 사분위 범위, 변동 계수</li>
+<li><strong>분포 플로팅</strong></li>
+<li>“데이터 월드”를 기반으로 한 데이터 준비 및 데이터 분석의 완벽한 <strong>사례 연구</strong></li>
+</ul></li>
+</ul>
+<p>이 장에서 다룰 함수 요약:</p>
+<ul>
+<li><code>df_status(data)</code>: 데이터셋 구조 프로파일링</li>
+<li><code>describe(data)</code>: 수치형 및 범주형 프로파일링 (정량적)</li>
+<li><code>freq(data)</code>: 범주형 프로파일링 (정량적 및 플롯).</li>
+<li><code>profiling_num(data)</code>: 수치형 변수 프로파일링 (정량적)</li>
+<li><code>plot_num(data)</code>: 수치형 변수 프로파일링 (플롯)</li>
+</ul>
+<p>참고: <code>describe</code>는 <code>Hmisc</code> 패키지에 있으며, 나머지 함수는 <code>funModeling</code>에 있습니다.</p>
+<p>–</p>
+<div id="데이터셋-상태-dataset-health-status" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> 데이터셋 상태 {#dataset-health-status}<a href="exploratory_data_analysis.html#데이터셋-상태-dataset-health-status" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>0, NA, Inf, 고유 값의 양과 데이터 유형은 모델의 좋고 나쁨에 영향을 미칠 수 있습니다. 다음은 데이터 모델링의 첫 단계를 다루는 접근 방식입니다.</p>
+<p>먼저, <code>funModeling</code> 및 <code>dplyr</code> 라이브러리를 로드합니다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploratory_data_analysis.html#cb3-1" tabindex="-1"></a><span class="co"># Loading funModeling!</span></span>
+<span id="cb3-2"><a href="exploratory_data_analysis.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(funModeling)</span>
+<span id="cb3-3"><a href="exploratory_data_analysis.html#cb3-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="exploratory_data_analysis.html#cb3-4" tabindex="-1"></a><span class="fu">data</span>(heart_disease)</span></code></pre></div>
+<div id="결측치-0-값-데이터-유형-및-고유-값-확인" class="section level4 hasAnchor" number="1.1.1.1">
+<h4><span class="header-section-number">1.1.1.1</span> 결측치, 0 값, 데이터 유형 및 고유 값 확인<a href="exploratory_data_analysis.html#결측치-0-값-데이터-유형-및-고유-값-확인" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>새로운 데이터셋을 분석할 때 가장 먼저 해야 할 일 중 하나는 <strong>결측치</strong>(<code>R</code>에서는 <code>NA</code>)가 있는지와 <strong>데이터 유형</strong>을 파악하는 것입니다.</p>
+<p><code>funModeling</code>에 포함된 <code>df_status</code> 함수는 상대적 값과 백분율로 이러한 수치를 보여주는 데 도움이 됩니다. 또한 무한대 값과 0 값에 대한 통계도 검색합니다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploratory_data_analysis.html#cb4-1" tabindex="-1"></a><span class="co"># Profiling the data input</span></span>
+<span id="cb4-2"><a href="exploratory_data_analysis.html#cb4-2" tabindex="-1"></a><span class="fu">df_status</span>(heart_disease)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:profiling-data-in-r"></span>
+<img src="exploratory_data_analysis/dataset_profiling.png" alt="데이터셋 상태"  />
+<p class="caption">
+Figure 1.1: 데이터셋 상태
+</p>
+</div>
+<ul>
+<li><code>q_zeros</code>: 0 값의 수 (<code>p_zeros</code>: 백분율)</li>
+<li><code>q_inf</code>: 무한대 값의 수 (<code>p_inf</code>: 백분율)</li>
+<li><code>q_na</code>: NA 값의 수 (<code>p_na</code>: 백분율)</li>
+<li><code>type</code>: factor 또는 numeric</li>
+<li><code>unique</code>: 고유 값의 수</li>
+</ul>
+</div>
+<div id="이러한-지표가-왜-중요할까요" class="section level4 hasAnchor" number="1.1.1.2">
+<h4><span class="header-section-number">1.1.1.2</span> 이러한 지표가 왜 중요할까요?<a href="exploratory_data_analysis.html#이러한-지표가-왜-중요할까요" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>0 값</strong>: <strong>0 값이 많은</strong> 변수는 모델링에 유용하지 않을 수 있으며, 어떤 경우에는 모델을 심각하게 편향시킬 수 있습니다.</li>
+<li><strong>NA</strong>: 여러 모델은 NA가 있는 행을 자동으로 제외합니다(예: <strong>랜덤 포레스트</strong>). 결과적으로 단 하나의 변수 때문에 여러 행이 누락되어 최종 모델이 편향될 수 있습니다. 예를 들어, 데이터에 100개 변수 중 90%가 NA인 변수가 하나만 있다면, 모델은 원본 행의 10%만으로 학습하게 될 것입니다.</li>
+<li><strong>Inf</strong>: 무한대 값은 R의 일부 함수에서 예상치 못한 동작을 유발할 수 있습니다.</li>
+<li><strong>Type</strong>: 일부 변수는 숫자로 인코딩되어 있지만, 코드나 범주이며 모델이 이를 동일한 방식으로 <strong>처리하지 않습니다</strong>.</li>
+<li><strong>Unique</strong>: 고유 값의 수가 많은(약 30개) Factor/범주형 변수는 범주의 카디널리티가 낮으면 <strong>과적합</strong>되는 경향이 있습니다(예: <strong>의사결정 트리</strong>).</li>
+</ul>
+</div>
+<div id="불필요한-사례-필터링" class="section level4 hasAnchor" number="1.1.1.3">
+<h4><span class="header-section-number">1.1.1.3</span> 불필요한 사례 필터링<a href="exploratory_data_analysis.html#불필요한-사례-필터링" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>df_status</code> 함수는 데이터 프레임을 받아 앞 섹션에서 설명한 모든 지표를 기반으로 피처(또는 변수)를 빠르게 제거하는 데 도움이 되는 <em>상태 테이블</em>을 반환합니다. 예를 들어:</p>
+<p><strong>0 값이 <em>많은</em> 변수 제거</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exploratory_data_analysis.html#cb5-1" tabindex="-1"></a><span class="co"># Profiling the Data Input</span></span>
+<span id="cb5-2"><a href="exploratory_data_analysis.html#cb5-2" tabindex="-1"></a>my_data_status<span class="ot">=</span><span class="fu">df_status</span>(heart_disease)</span></code></pre></div>
+<pre><code>##                  variable q_zeros p_zeros q_na p_na q_inf p_inf    type unique
+## 1                     age       0    0.00    0 0.00     0     0 integer     41
+## 2                  gender       0    0.00    0 0.00     0     0  factor      2
+## 3              chest_pain       0    0.00    0 0.00     0     0  factor      4
+## 4  resting_blood_pressure       0    0.00    0 0.00     0     0 integer     50
+## 5       serum_cholestoral       0    0.00    0 0.00     0     0 integer    152
+## 6     fasting_blood_sugar     258   85.15    0 0.00     0     0  factor      2
+## 7         resting_electro     151   49.83    0 0.00     0     0  factor      3
+## 8          max_heart_rate       0    0.00    0 0.00     0     0 integer     91
+## 9             exer_angina     204   67.33    0 0.00     0     0 integer      2
+## 10                oldpeak      99   32.67    0 0.00     0     0 numeric     40
+## 11                  slope       0    0.00    0 0.00     0     0 integer      3
+## 12      num_vessels_flour     176   58.09    4 1.32     0     0 integer      4
+## 13                   thal       0    0.00    2 0.66     0     0  factor      3
+## 14 heart_disease_severity     164   54.13    0 0.00     0     0 integer      5
+## 15           exter_angina     204   67.33    0 0.00     0     0  factor      2
+## 16      has_heart_disease       0    0.00    0 0.00     0     0  factor      2</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploratory_data_analysis.html#cb7-1" tabindex="-1"></a><span class="co"># Removing variables with 60% of zero values</span></span>
+<span id="cb7-2"><a href="exploratory_data_analysis.html#cb7-2" tabindex="-1"></a>vars_to_remove<span class="ot">=</span><span class="fu">filter</span>(my_data_status, p_zeros <span class="sc">&gt;</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(variable)</span>
+<span id="cb7-3"><a href="exploratory_data_analysis.html#cb7-3" tabindex="-1"></a>vars_to_remove</span></code></pre></div>
+<pre><code>## [1] &quot;fasting_blood_sugar&quot; &quot;exer_angina&quot;         &quot;exter_angina&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="exploratory_data_analysis.html#cb9-1" tabindex="-1"></a><span class="co"># Keeping all columns except the ones present in &#39;vars_to_remove&#39; vector</span></span>
+<span id="cb9-2"><a href="exploratory_data_analysis.html#cb9-2" tabindex="-1"></a>heart_disease_2<span class="ot">=</span><span class="fu">select</span>(heart_disease, <span class="sc">-</span><span class="fu">any_of</span>(vars_to_remove))</span></code></pre></div>
+<p><strong>0 값 백분율에 따라 데이터 정렬</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exploratory_data_analysis.html#cb10-1" tabindex="-1"></a><span class="fu">arrange</span>(my_data_status, <span class="sc">-</span>p_zeros) <span class="sc">%&gt;%</span> <span class="fu">select</span>(variable, q_zeros, p_zeros)</span></code></pre></div>
+<pre><code>##                  variable q_zeros p_zeros
+## 1     fasting_blood_sugar     258   85.15
+## 2             exer_angina     204   67.33
+## 3            exter_angina     204   67.33
+## 4       num_vessels_flour     176   58.09
+## 5  heart_disease_severity     164   54.13
+## 6         resting_electro     151   49.83
+## 7                 oldpeak      99   32.67
+## 8                     age       0    0.00
+## 9                  gender       0    0.00
+## 10             chest_pain       0    0.00
+## 11 resting_blood_pressure       0    0.00
+## 12      serum_cholestoral       0    0.00
+## 13         max_heart_rate       0    0.00
+## 14                  slope       0    0.00
+## 15                   thal       0    0.00
+## 16      has_heart_disease       0    0.00</code></pre>
+<p>동일한 논리가 특정 임계값 이상 또는 이하의 변수를 제거(또는 유지)하려는 경우에도 적용됩니다. 결측치가 포함된 변수를 다룰 때의 함의에 대한 자세한 정보는 결측치 장을 참조하십시오.</p>
+</div>
+<div id="이러한-주제에-대해-더-깊이-알아보기" class="section level4 hasAnchor" number="1.1.1.4">
+<h4><span class="header-section-number">1.1.1.4</span> 이러한 주제에 대해 더 깊이 알아보기<a href="exploratory_data_analysis.html#이러한-주제에-대해-더-깊이-알아보기" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>df_status</code>가 반환하는 값은 다른 장에서 심층적으로 다루고 있습니다:</p>
+<ul>
+<li><strong>결측치</strong>(NA) 처리, 분석 및 결측치 대치는 <a href="https://www.google.com/search?q=%23missing_data">결측치</a> 장에서 심층적으로 다룹니다.</li>
+<li><strong>데이터 유형</strong>, 그 변환 및 다양한 데이터 유형을 다룰 때의 함의 등은 <a href="https://www.google.com/search?q=%23data_types">데이터 유형</a> 장에서 다룹니다.</li>
+<li>높은 수의 <strong>고유 값</strong>은 <strong>고카디널리티 변수</strong>와 동의어입니다. 이 상황은 다음 두 장에서 연구됩니다:
+<ul>
+<li><a href="https://www.google.com/search?q=%23high_cardinality_descriptive_stats">기술 통계에서의 고카디널리티 변수</a></li>
+<li><a href="https://www.google.com/search?q=%23high_cardinality_predictive_modeling">예측 모델링에서의 고카디널리티 변수</a></li>
+</ul></li>
+</ul>
+</div>
+<div id="기타-일반적인-통계-얻기-총-행-수-총-열-수-및-열-이름" class="section level4 hasAnchor" number="1.1.1.5">
+<h4><span class="header-section-number">1.1.1.5</span> 기타 일반적인 통계 얻기: <strong>총 행 수</strong>, <strong>총 열 수</strong> 및 <strong>열 이름</strong>:<a href="exploratory_data_analysis.html#기타-일반적인-통계-얻기-총-행-수-총-열-수-및-열-이름" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="exploratory_data_analysis.html#cb12-1" tabindex="-1"></a><span class="co"># Total rows</span></span>
+<span id="cb12-2"><a href="exploratory_data_analysis.html#cb12-2" tabindex="-1"></a><span class="fu">nrow</span>(heart_disease)</span></code></pre></div>
+<pre><code>## [1] 303</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exploratory_data_analysis.html#cb14-1" tabindex="-1"></a><span class="co"># Total columns</span></span>
+<span id="cb14-2"><a href="exploratory_data_analysis.html#cb14-2" tabindex="-1"></a><span class="fu">ncol</span>(heart_disease)</span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exploratory_data_analysis.html#cb16-1" tabindex="-1"></a><span class="co"># Column names</span></span>
+<span id="cb16-2"><a href="exploratory_data_analysis.html#cb16-2" tabindex="-1"></a><span class="fu">colnames</span>(heart_disease)</span></code></pre></div>
+<pre><code>##  [1] &quot;age&quot;                    &quot;gender&quot;                 &quot;chest_pain&quot;            
+##  [4] &quot;resting_blood_pressure&quot; &quot;serum_cholestoral&quot;      &quot;fasting_blood_sugar&quot;   
+##  [7] &quot;resting_electro&quot;        &quot;max_heart_rate&quot;         &quot;exer_angina&quot;           
+## [10] &quot;oldpeak&quot;                &quot;slope&quot;                  &quot;num_vessels_flour&quot;     
+## [13] &quot;thal&quot;                   &quot;heart_disease_severity&quot; &quot;exter_angina&quot;          
+## [16] &quot;has_heart_disease&quot;</code></pre>
+<p>–</p>
+</div>
+</div>
+<div id="범주형-변수-프로파일링-profiling-categorical-variables" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> 범주형 변수 프로파일링 {#profiling-categorical-variables}<a href="exploratory_data_analysis.html#범주형-변수-프로파일링-profiling-categorical-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>최신 ‘funModeling’ 버전(&gt;= 1.6)을 사용하고 있는지 확인하십시오.</em></p>
+<p><code>freq</code> 함수는 빈도 또는 분포 분석을 간편하게 만듭니다. 이 함수는 분포를 테이블과 플롯(기본값)으로 검색하고 절대 및 상대 숫자의 분포를 보여줍니다.</p>
+<p>두 변수에 대한 분포를 원한다면:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="exploratory_data_analysis.html#cb18-1" tabindex="-1"></a><span class="fu">freq</span>(<span class="at">data=</span>heart_disease, <span class="at">input =</span> <span class="fu">c</span>(<span class="st">&#39;thal&#39;</span>,<span class="st">&#39;chest_pain&#39;</span>))</span></code></pre></div>
+<pre><code>## Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use &quot;none&quot; instead as
+## of ggplot2 3.3.4.
+## ℹ The deprecated feature was likely used in the funModeling package.
+##   Please report the issue at &lt;https://github.com/pablo14/funModeling/issues&gt;.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="figure"><span style="display:block;" id="fig:frequency-analysis-r-1"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/frequency-analysis-r-1.png" alt="빈도 분석 1" width="480"  />
+<p class="caption">
+Figure 1.2: 빈도 분석 1
+</p>
+</div>
+<pre><code>##   thal frequency percentage cumulative_perc
+## 1    3       166      54.79           54.79
+## 2    7       117      38.61           93.40
+## 3    6        18       5.94           99.34
+## 4 &lt;NA&gt;         2       0.66          100.00</code></pre>
+<div class="figure"><span style="display:block;" id="fig:frequency-analysis-r-2"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/frequency-analysis-r-2.png" alt="빈도 분석 2" width="480"  />
+<p class="caption">
+Figure 1.3: 빈도 분석 2
+</p>
+</div>
+<pre><code>##   chest_pain frequency percentage cumulative_perc
+## 1          4       144      47.52           47.52
+## 2          3        86      28.38           75.90
+## 3          2        50      16.50           92.40
+## 4          1        23       7.59          100.00</code></pre>
+<pre><code>## [1] &quot;Variables processed: thal, chest_pain&quot;</code></pre>
+<p>나머지 <code>funModeling</code> 함수와 마찬가지로 <code>input</code>이 없으면 주어진 데이터 프레임에 있는 모든 factor 또는 character 변수에 대해 실행됩니다.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="exploratory_data_analysis.html#cb23-1" tabindex="-1"></a><span class="fu">freq</span>(<span class="at">data=</span>heart_disease)</span></code></pre></div>
+<p>플롯을 제외하고 테이블만 출력하려면 <code>plot</code> 매개변수를 <code>FALSE</code>로 설정합니다.
+<code>freq</code> 예시는 <strong>단일 변수</strong>를 입력으로 처리할 수도 있습니다.
+<em>기본적으로</em> <code>NA</code> 값은 테이블과 플롯 모두에서 <strong>고려됩니다</strong>. <code>NA</code>를 제외해야 한다면 <code>na.rm = TRUE</code>로 설정하십시오.
+다음 줄에 있는 두 가지 예시:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="exploratory_data_analysis.html#cb24-1" tabindex="-1"></a><span class="fu">freq</span>(<span class="at">data=</span>heart_disease<span class="sc">$</span>thal, <span class="at">plot =</span> <span class="cn">FALSE</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>하나의 변수만 제공되면 <code>freq</code>는 출력된 테이블을 반환하므로, 제공되는 변수를 기반으로 일부 계산을 쉽게 수행할 수 있습니다.</p>
+<ul>
+<li>예를 들어, <strong>공유의 80% 이상을 차지하는 범주</strong>를 출력하는 것(<code>cumulative_perc &lt; 80</code>을 기반으로).</li>
+<li><strong>긴 꼬리</strong>에 속하는 범주를 얻는 것, 즉 <code>percentage &lt; 1</code>로 필터링하여 1% 미만으로 나타나는 범주를 검색하는 것.</li>
+</ul>
+<p>또한, 패키지의 다른 플롯 함수와 마찬가지로 플롯을 내보내야 하는 경우 <code>path_out</code> 매개변수를 추가하면 폴더가 아직 생성되지 않았다면 생성됩니다.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="exploratory_data_analysis.html#cb25-1" tabindex="-1"></a><span class="fu">freq</span>(<span class="at">data=</span>heart_disease, <span class="at">path_out=</span><span class="st">&#39;my_folder&#39;</span>)</span></code></pre></div>
+<div id="분석" class="section level5 hasAnchor" number="1.1.2.0.1">
+<h5><span class="header-section-number">1.1.2.0.1</span> 분석<a href="exploratory_data_analysis.html#분석" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>출력은 <code>frequency</code> 변수에 따라 정렬되므로, 가장 빈번한 범주와 이들이 차지하는 비중(<code>cummulative_perc</code> 변수)을 빠르게 분석할 수 있습니다. 일반적으로 우리는 인간으로서 질서를 좋아합니다. 변수가 정렬되어 있지 않으면 우리의 눈은 모든 막대를 비교하기 위해 움직이고, 우리의 뇌는 각 막대를 다른 막대와 관련하여 배치합니다.</p>
+<p>동일한 데이터 입력에 대해 정렬되지 않은 경우와 정렬된 경우의 차이를 확인해 보세요:</p>
+<div class="figure"><span style="display:block;" id="fig:univariate-analysis"></span>
+<img src="exploratory_data_analysis/profiling_text_variable-bw.png" alt="순서와 아름다움"  />
+<p class="caption">
+Figure 1.4: 순서와 아름다움
+</p>
+</div>
+<p>일반적으로 대부분의 경우에 나타나는 범주는 소수에 불과합니다.</p>
+<p>더 자세한 분석은 <a href="https://www.google.com/search?q=%23high_cardinality_descriptive_stats">기술 통계에서의 고카디널리티 변수</a>에서 확인하세요.</p>
+</div>
+<div id="describe-함수-소개" class="section level4 hasAnchor" number="1.1.2.1">
+<h4><span class="header-section-number">1.1.2.1</span> <code>describe</code> 함수 소개<a href="exploratory_data_analysis.html#describe-함수-소개" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이 함수는 <code>Hmisc</code> 패키지에 포함되어 있으며, 수치형 및 범주형 변수 모두에 대해 전체 데이터셋을 빠르게 프로파일링할 수 있게 해줍니다. 이 경우, 우리는 두 개의 변수만 선택하고 결과를 분석할 것입니다.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploratory_data_analysis.html#cb26-1" tabindex="-1"></a><span class="co"># Just keeping two variables to use in this example</span></span>
+<span id="cb26-2"><a href="exploratory_data_analysis.html#cb26-2" tabindex="-1"></a>heart_disease_3<span class="ot">=</span><span class="fu">select</span>(heart_disease, thal, chest_pain)</span>
+<span id="cb26-3"><a href="exploratory_data_analysis.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="exploratory_data_analysis.html#cb26-4" tabindex="-1"></a><span class="co"># Profiling the data!</span></span>
+<span id="cb26-5"><a href="exploratory_data_analysis.html#cb26-5" tabindex="-1"></a><span class="fu">describe</span>(heart_disease_3)</span></code></pre></div>
+<pre><code>## heart_disease_3 
+## 
+##  2  Variables      303  Observations
+## --------------------------------------------------------------------------------
+## thal 
+##        n  missing distinct 
+##      301        2        3 
+##                             
+## Value          3     6     7
+## Frequency    166    18   117
+## Proportion 0.551 0.060 0.389
+## --------------------------------------------------------------------------------
+## chest_pain 
+##        n  missing distinct 
+##      303        0        4 
+##                                   
+## Value          1     2     3     4
+## Frequency     23    50    86   144
+## Proportion 0.076 0.165 0.284 0.475
+## --------------------------------------------------------------------------------</code></pre>
+<p>여기서:</p>
+<ul>
+<li><code>n</code>: <code>NA</code>가 아닌 행의 수. 이 경우, 숫자를 포함하는 환자가 <code>301명</code> 있음을 나타냅니다.</li>
+<li><code>missing</code>: 결측치의 수. 이 지표를 <code>n</code>에 더하면 총 행 수가 됩니다.</li>
+<li><code>unique</code>: 고유(또는 구별되는) 값의 수.</li>
+</ul>
+<p>다른 정보는 <code>freq</code> 함수와 매우 유사하며, 각기 다른 범주에 대해 상대적 및 절대적 값으로 총 수를 괄호 안에 반환합니다.</p>
+<p>–</p>
+</div>
+</div>
+<div id="수치형-변수-프로파일링" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> 수치형 변수 프로파일링<a href="exploratory_data_analysis.html#수치형-변수-프로파일링" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이 섹션은 두 부분으로 나뉩니다:</p>
+<ul>
+<li>파트 1: “월드 데이터” 사례 연구 소개</li>
+<li>파트 2: R에서 수치형 프로파일링 수행</li>
+</ul>
+<p>데이터 월드의 데이터 준비 단계가 어떻게 계산되는지 알고 싶지 않다면, 프로파일링이 시작되는 “파트 2: R에서 수치형 프로파일링 수행”으로 건너뛰셔도 좋습니다.</p>
+<div id="파트-1-월드-데이터-사례-연구-소개" class="section level4 hasAnchor" number="1.1.3.1">
+<h4><span class="header-section-number">1.1.3.1</span> 파트 1: 월드 데이터 사례 연구 소개<a href="exploratory_data_analysis.html#파트-1-월드-데이터-사례-연구-소개" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이 데이터에는 세계 개발과 관련된 많은 지표가 포함되어 있습니다. 프로파일링 예제와는 별개로, 이 종류의 데이터 분석에 관심이 있는 사회학자, 연구원 등을 위해 바로 사용할 수 있는 테이블을 제공하는 것이 목적입니다.</p>
+<p>원본 데이터 출처는 다음과 같습니다: <a href="http://databank.worldbank.org/data/reports.aspx?source=2&amp;Topic=11#">http://databank.worldbank.org</a>. 거기서 모든 변수를 설명하는 데이터 사전을 찾을 수 있습니다.</p>
+<p>먼저, 데이터 정리가 필요합니다. 각 지표별로 가장 최신 값을 유지할 것입니다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploratory_data_analysis.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb28-2"><a href="exploratory_data_analysis.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="exploratory_data_analysis.html#cb28-3" tabindex="-1"></a><span class="co"># Loading data from the book repository without altering the format</span></span>
+<span id="cb28-4"><a href="exploratory_data_analysis.html#cb28-4" tabindex="-1"></a>data_world<span class="ot">=</span><span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;https://goo.gl/2TrDgN&quot;</span>, <span class="at">header =</span> T, <span class="at">stringsAsFactors =</span> F, <span class="at">na.strings =</span> <span class="st">&quot;..&quot;</span>)</span>
+<span id="cb28-5"><a href="exploratory_data_analysis.html#cb28-5" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="exploratory_data_analysis.html#cb28-6" tabindex="-1"></a><span class="co"># Excluding missing values in Series.Code. The data downloaded from the web page contains four lines with &quot;free-text&quot; at the bottom of the file.</span></span>
+<span id="cb28-7"><a href="exploratory_data_analysis.html#cb28-7" tabindex="-1"></a>data_world<span class="ot">=</span><span class="fu">filter</span>(data_world, Series.Code<span class="sc">!=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb28-8"><a href="exploratory_data_analysis.html#cb28-8" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="exploratory_data_analysis.html#cb28-9" tabindex="-1"></a><span class="co"># The magical function that keeps the newest values for each metric. If you&#39;re not familiar with R, then skip it.</span></span>
+<span id="cb28-10"><a href="exploratory_data_analysis.html#cb28-10" tabindex="-1"></a>max_ix<span class="ot">&lt;-</span><span class="cf">function</span>(d) </span>
+<span id="cb28-11"><a href="exploratory_data_analysis.html#cb28-11" tabindex="-1"></a>{</span>
+<span id="cb28-12"><a href="exploratory_data_analysis.html#cb28-12" tabindex="-1"></a>  ix<span class="ot">=</span><span class="fu">which</span>(<span class="sc">!</span><span class="fu">is.na</span>(d))</span>
+<span id="cb28-13"><a href="exploratory_data_analysis.html#cb28-13" tabindex="-1"></a>  res<span class="ot">=</span><span class="fu">ifelse</span>(<span class="fu">length</span>(ix)<span class="sc">==</span><span class="dv">0</span>, <span class="cn">NA</span>, d[<span class="fu">max</span>(ix)])</span>
+<span id="cb28-14"><a href="exploratory_data_analysis.html#cb28-14" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb28-15"><a href="exploratory_data_analysis.html#cb28-15" tabindex="-1"></a>}</span>
+<span id="cb28-16"><a href="exploratory_data_analysis.html#cb28-16" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="exploratory_data_analysis.html#cb28-17" tabindex="-1"></a>data_world<span class="sc">$</span>newest_value<span class="ot">=</span><span class="fu">apply</span>(data_world[,<span class="dv">5</span><span class="sc">:</span><span class="fu">ncol</span>(data_world)], <span class="dv">1</span>, <span class="at">FUN=</span>max_ix)</span>
+<span id="cb28-18"><a href="exploratory_data_analysis.html#cb28-18" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="exploratory_data_analysis.html#cb28-19" tabindex="-1"></a><span class="co"># Printing the first three rows</span></span>
+<span id="cb28-20"><a href="exploratory_data_analysis.html#cb28-20" tabindex="-1"></a><span class="fu">head</span>(data_world, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##                                          Series.Name       Series.Code
+## 1 Population living in slums (% of urban population) EN.POP.SLUM.UR.ZS
+## 2 Population living in slums (% of urban population) EN.POP.SLUM.UR.ZS
+## 3 Population living in slums (% of urban population) EN.POP.SLUM.UR.ZS
+##   Country.Name Country.Code X1990..YR1990. X2000..YR2000. X2007..YR2007.
+## 1  Afghanistan          AFG             NA             NA             NA
+## 2      Albania          ALB             NA             NA             NA
+## 3      Algeria          DZA           11.8             NA             NA
+##   X2008..YR2008. X2009..YR2009. X2010..YR2010. X2011..YR2011. X2012..YR2012.
+## 1             NA             NA             NA             NA             NA
+## 2             NA             NA             NA             NA             NA
+## 3             NA             NA             NA             NA             NA
+##   X2013..YR2013. X2014..YR2014. X2015..YR2015. X2016..YR2016. newest_value
+## 1             NA           62.7             NA             NA         62.7
+## 2             NA             NA             NA             NA           NA
+## 3             NA             NA             NA             NA         11.8</code></pre>
+<p><code>Series.Name</code>과 <code>Series.Code</code> 열은 분석할 지표입니다.
+<code>Country.Name</code>과 <code>Country.Code</code>는 국가입니다. 각 행은 국가와 지표의 고유한 조합을 나타냅니다.
+나머지 열인 <code>X1990..YR1990.</code> (1990년), <code>X2000..YR2000.</code> (2000년), <code>X2007..YR2007.</code> (2007년) 등은 해당 연도의 지표 값을 나타내며, 각 열은 연도입니다.</p>
+</div>
+<div id="데이터-과학자의-의사결정" class="section level4 hasAnchor" number="1.1.3.2">
+<h4><span class="header-section-number">1.1.3.2</span> 데이터 과학자의 의사결정<a href="exploratory_data_analysis.html#데이터-과학자의-의사결정" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>일부 국가에서는 해당 연도에 지표 측정이 없어 <code>NA</code> 값이 많습니다. 이 시점에서 우리는 데이터 과학자로서 <strong>결정을 내려야 합니다</strong>. 전문가(예: 사회학자)에게 묻지 않는다면 최적의 결정은 아닐 것입니다.</p>
+<p><code>NA</code> 값은 어떻게 처리할까요? 이 경우, 모든 지표에 대해 <strong>가장 최신 값</strong>을 유지할 것입니다. 아마도 어떤 국가의 정보는 2016년까지 업데이트되어 있고, 다른 국가는 2009년까지만 업데이트되어 있을 것이므로, 논문 결론을 도출하는 데 최선의 방법은 아닐 수 있습니다. 하지만 첫 번째 분석을 위해 모든 지표를 최신 데이터와 비교하는 것은 유효한 접근 방식입니다.</p>
+<p>다른 해결책은 가장 최신 값을 유지하되, 이 숫자가 지난 5년 이내의 값인 경우에만 유지하는 것이었을 수 있습니다. 이렇게 하면 분석할 국가의 수가 줄어들 것입니다.</p>
+<p>이러한 질문들은 <strong>인공지능 시스템</strong>이 답하기 불가능하지만, 이 결정은 결과에 극적인 영향을 미칠 수 있습니다.</p>
+<p><strong>마지막 변환</strong></p>
+<p>다음 단계는 마지막 테이블을 ‘롱(long)’ 형식에서 <strong>‘와이드(wide)’ 형식</strong>으로 변환하는 것입니다. 즉, 각 행은 국가를 나타내고 각 열은 지표를 나타냅니다(지표-국가 조합별 ’최신 값’을 포함하는 이전 변환 덕분입니다).</p>
+<p>지표 이름이 명확하지 않으므로, 그중 몇 가지를 “번역”할 것입니다.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploratory_data_analysis.html#cb30-1" tabindex="-1"></a><span class="co"># Get the list of indicator descriptions.</span></span>
+<span id="cb30-2"><a href="exploratory_data_analysis.html#cb30-2" tabindex="-1"></a>names<span class="ot">=</span><span class="fu">unique</span>(<span class="fu">select</span>(data_world, Series.Name, Series.Code))</span>
+<span id="cb30-3"><a href="exploratory_data_analysis.html#cb30-3" tabindex="-1"></a><span class="fu">head</span>(names, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##                                            Series.Name       Series.Code
+## 1   Population living in slums (% of urban population) EN.POP.SLUM.UR.ZS
+## 218                    Income share held by second 20%    SI.DST.02ND.20
+## 435                     Income share held by third 20%    SI.DST.03RD.20
+## 652                    Income share held by fourth 20%    SI.DST.04TH.20
+## 869                   Income share held by highest 20%    SI.DST.05TH.20</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploratory_data_analysis.html#cb32-1" tabindex="-1"></a><span class="co"># Convert a few</span></span>
+<span id="cb32-2"><a href="exploratory_data_analysis.html#cb32-2" tabindex="-1"></a>df_conv_world<span class="ot">=</span><span class="fu">data.frame</span>(</span>
+<span id="cb32-3"><a href="exploratory_data_analysis.html#cb32-3" tabindex="-1"></a>  <span class="at">new_name=</span><span class="fu">c</span>(<span class="st">&quot;urban_poverty_headcount&quot;</span>, </span>
+<span id="cb32-4"><a href="exploratory_data_analysis.html#cb32-4" tabindex="-1"></a>             <span class="st">&quot;rural_poverty_headcount&quot;</span>, </span>
+<span id="cb32-5"><a href="exploratory_data_analysis.html#cb32-5" tabindex="-1"></a>             <span class="st">&quot;gini_index&quot;</span>, </span>
+<span id="cb32-6"><a href="exploratory_data_analysis.html#cb32-6" tabindex="-1"></a>             <span class="st">&quot;pop_living_slums&quot;</span>,</span>
+<span id="cb32-7"><a href="exploratory_data_analysis.html#cb32-7" tabindex="-1"></a>             <span class="st">&quot;poverty_headcount_1.9&quot;</span>), </span>
+<span id="cb32-8"><a href="exploratory_data_analysis.html#cb32-8" tabindex="-1"></a>  <span class="at">Series.Code=</span><span class="fu">c</span>(<span class="st">&quot;SI.POV.URHC&quot;</span>, </span>
+<span id="cb32-9"><a href="exploratory_data_analysis.html#cb32-9" tabindex="-1"></a>                <span class="st">&quot;SI.POV.RUHC&quot;</span>,</span>
+<span id="cb32-10"><a href="exploratory_data_analysis.html#cb32-10" tabindex="-1"></a>                <span class="st">&quot;SI.POV.GINI&quot;</span>,</span>
+<span id="cb32-11"><a href="exploratory_data_analysis.html#cb32-11" tabindex="-1"></a>                <span class="st">&quot;EN.POP.SLUM.UR.ZS&quot;</span>,</span>
+<span id="cb32-12"><a href="exploratory_data_analysis.html#cb32-12" tabindex="-1"></a>                <span class="st">&quot;SI.POV.DDAY&quot;</span>), </span>
+<span id="cb32-13"><a href="exploratory_data_analysis.html#cb32-13" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb32-14"><a href="exploratory_data_analysis.html#cb32-14" tabindex="-1"></a></span>
+<span id="cb32-15"><a href="exploratory_data_analysis.html#cb32-15" tabindex="-1"></a><span class="co"># adding the new indicator value</span></span>
+<span id="cb32-16"><a href="exploratory_data_analysis.html#cb32-16" tabindex="-1"></a>data_world_2 <span class="ot">=</span> <span class="fu">left_join</span>(data_world, </span>
+<span id="cb32-17"><a href="exploratory_data_analysis.html#cb32-17" tabindex="-1"></a>                         df_conv_world, </span>
+<span id="cb32-18"><a href="exploratory_data_analysis.html#cb32-18" tabindex="-1"></a>                         <span class="at">by=</span><span class="st">&quot;Series.Code&quot;</span>)</span>
+<span id="cb32-19"><a href="exploratory_data_analysis.html#cb32-19" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="exploratory_data_analysis.html#cb32-20" tabindex="-1"></a>data_world_2 <span class="ot">=</span> </span>
+<span id="cb32-21"><a href="exploratory_data_analysis.html#cb32-21" tabindex="-1"></a>  <span class="fu">mutate</span>(data_world_2, <span class="at">Series.Code_2=</span></span>
+<span id="cb32-22"><a href="exploratory_data_analysis.html#cb32-22" tabindex="-1"></a>           <span class="fu">ifelse</span>(<span class="sc">!</span><span class="fu">is.na</span>(new_name), </span>
+<span id="cb32-23"><a href="exploratory_data_analysis.html#cb32-23" tabindex="-1"></a>                  <span class="fu">as.character</span>(data_world_2<span class="sc">$</span>new_name), </span>
+<span id="cb32-24"><a href="exploratory_data_analysis.html#cb32-24" tabindex="-1"></a>                  data_world_2<span class="sc">$</span>Series.Code)</span>
+<span id="cb32-25"><a href="exploratory_data_analysis.html#cb32-25" tabindex="-1"></a>          )</span></code></pre></div>
+<p>모든 지표의 의미는 data.worldbank.org에서 확인할 수 있습니다. 예를 들어, <code>EN.POP.SLUM.UR.ZS</code>가 무엇을 의미하는지 알고 싶다면, <a href="https://www.google.com/search?q=http://data.worldbank.org/indicator/EN.POP.SLUM.UR.ZS%EB%A5%BC">http://data.worldbank.org/indicator/EN.POP.SLUM.UR.ZS를</a> 입력하면 됩니다.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploratory_data_analysis.html#cb33-1" tabindex="-1"></a><span class="co"># The package &#39;reshape2&#39; contains both &#39;dcast&#39; and &#39;melt&#39; functions</span></span>
+<span id="cb33-2"><a href="exploratory_data_analysis.html#cb33-2" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb33-3"><a href="exploratory_data_analysis.html#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="exploratory_data_analysis.html#cb33-4" tabindex="-1"></a>data_world_wide<span class="ot">=</span><span class="fu">dcast</span>(data_world_2, Country.Name <span class="sc">~</span> Series.Code_2, <span class="at">value.var =</span> <span class="st">&quot;newest_value&quot;</span>)</span></code></pre></div>
+<p>참고: <code>reshape2</code> 패키지를 사용하여 <strong><code>long</code> 및 <code>wide</code> 형식</strong>에 대해 더 자세히 이해하고, 이들 간에 변환하는 방법에 대해 알아보려면 <a href="https://www.google.com/search?q=http://seananderson.ca/2013/10/19/reshape.html%EC%9D%84">http://seananderson.ca/2013/10/19/reshape.html을</a> 참조하십시오.</p>
+<p>이제 분석할 최종 테이블이 준비되었습니다:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploratory_data_analysis.html#cb34-1" tabindex="-1"></a><span class="co"># Printing the first three rows</span></span>
+<span id="cb34-2"><a href="exploratory_data_analysis.html#cb34-2" tabindex="-1"></a><span class="fu">head</span>(data_world_wide, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   Country.Name gini_index pop_living_slums poverty_headcount_1.9
+## 1  Afghanistan         NA             62.7                    NA
+## 2      Albania      28.96               NA                  1.06
+## 3      Algeria         NA             11.8                    NA
+##   rural_poverty_headcount SI.DST.02ND.20 SI.DST.03RD.20 SI.DST.04TH.20
+## 1                    38.3             NA             NA             NA
+## 2                    15.3          13.17          17.34          22.81
+## 3                     4.8             NA             NA             NA
+##   SI.DST.05TH.20 SI.DST.10TH.10 SI.DST.FRST.10 SI.DST.FRST.20 SI.POV.2DAY
+## 1             NA             NA             NA             NA          NA
+## 2          37.82          22.93           3.66           8.85        6.79
+## 3             NA             NA             NA             NA          NA
+##   SI.POV.GAP2 SI.POV.GAPS SI.POV.NAGP SI.POV.NAHC SI.POV.RUGP SI.POV.URGP
+## 1          NA          NA         8.4        35.8         9.3         5.6
+## 2        1.43        0.22         2.9        14.3         3.0         2.9
+## 3          NA          NA          NA         5.5         0.8         1.1
+##   SI.SPR.PC40 SI.SPR.PC40.ZG SI.SPR.PCAP SI.SPR.PCAP.ZG urban_poverty_headcount
+## 1          NA             NA          NA             NA                    27.6
+## 2        4.08        -1.2205        7.41        -1.3143                    13.6
+## 3          NA             NA          NA             NA                     5.8</code></pre>
+<p>–</p>
+</div>
+<div id="파트-2-r에서-수치형-프로파일링-수행-numerical-profiling-in-r" class="section level4 hasAnchor" number="1.1.3.3">
+<h4><span class="header-section-number">1.1.3.3</span> 파트 2: R에서 수치형 프로파일링 수행 {#numerical-profiling-in-r}<a href="exploratory_data_analysis.html#파트-2-r에서-수치형-프로파일링-수행-numerical-profiling-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>다음 함수들을 살펴볼 것입니다:</p>
+<ul>
+<li><code>Hmisc</code> 패키지의 <strong><code>describe</code></strong></li>
+<li><code>funModeling</code> 패키지의 <strong><code>profiling_num</code></strong> (전체 단변량 분석) 및 <strong><code>plot_num</code></strong> (히스토그램)</li>
+</ul>
+<p>예시로 두 변수만 선택할 것입니다:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exploratory_data_analysis.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(Hmisc) <span class="co"># contains the `describe` function</span></span>
+<span id="cb36-2"><a href="exploratory_data_analysis.html#cb36-2" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="exploratory_data_analysis.html#cb36-3" tabindex="-1"></a>vars_to_profile<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;gini_index&quot;</span>, <span class="st">&quot;poverty_headcount_1.9&quot;</span>)</span>
+<span id="cb36-4"><a href="exploratory_data_analysis.html#cb36-4" tabindex="-1"></a>data_subset<span class="ot">=</span><span class="fu">select</span>(data_world_wide, <span class="fu">any_of</span>(vars_to_profile))</span>
+<span id="cb36-5"><a href="exploratory_data_analysis.html#cb36-5" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="exploratory_data_analysis.html#cb36-6" tabindex="-1"></a><span class="co"># Using the `describe` on a complete dataset. # It can be run with one variable; for example, describe(data_subset$poverty_headcount_1.9)</span></span>
+<span id="cb36-7"><a href="exploratory_data_analysis.html#cb36-7" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="exploratory_data_analysis.html#cb36-8" tabindex="-1"></a><span class="fu">describe</span>(data_subset)</span></code></pre></div>
+<pre><code>## data_subset 
+## 
+##  2  Variables      217  Observations
+## --------------------------------------------------------------------------------
+## gini_index 
+##        n  missing distinct     Info     Mean  pMedian      Gmd      .05 
+##      140       77      136        1     38.8    38.39    9.594    26.81 
+##      .10      .25      .50      .75      .90      .95 
+##    27.58    32.35    37.69    43.92    50.47    53.53 
+## 
+## lowest : 24.09 25.59 25.9  26.12 26.13, highest: 56.24 60.46 60.79 60.97 63.38
+## --------------------------------------------------------------------------------
+## poverty_headcount_1.9 
+##        n  missing distinct     Info     Mean  pMedian      Gmd      .05 
+##      116      101      107        1    18.33    15.18    23.56    0.025 
+##      .10      .25      .50      .75      .90      .95 
+##    0.075    1.052    6.000   33.815   54.045   67.328 
+## 
+## lowest : 0     0.01  0.03  0.04  0.06 , highest: 68.64 68.74 70.91 77.08 77.84
+## --------------------------------------------------------------------------------</code></pre>
+<p><code>poverty_headcount_1.9</code> (<code>2011년 국제 가격 기준 하루 1.90달러 미만으로 생활하는 인구의 비율</code>)를 다음과 같이 설명할 수 있습니다:</p>
+<ul>
+<li><code>n</code>: <strong>결측치가 없는 행의 수</strong>. 이 경우, 숫자를 포함하는 국가가 <code>116개</code>임을 나타냅니다.</li>
+<li><code>missing</code>: <strong>결측치 수</strong>. 이 지표를 <code>n</code>에 더하면 총 행 수가 됩니다. 거의 절반의 국가에 데이터가 없습니다.</li>
+<li><code>unique</code>: <strong>고유(또는 구분되는) 값의 수</strong>.</li>
+<li><code>Info</code>: 변수에 존재하는 정보량의 추정치이며 이 시점에서는 중요하지 않습니다.</li>
+<li><code>Mean</code>: <strong>고전적인 평균</strong>.</li>
+<li>Numbers: <code>.05</code>, <code>.10</code>, <code>.25</code>, <code>.50</code>, <code>.75</code>, <code>.90</code>, <code>.95</code>는 <strong>백분위수</strong>를 나타냅니다. 이 값들은 분포를 설명하는 데 매우 유용합니다. 나중에 심층적으로 다룰 것입니다. 예를 들어, <code>.05</code>는 5번째 백분위수입니다.</li>
+<li><code>lowest</code> 및 <code>highest</code>: <strong>가장 낮은/가장 높은 다섯 가지 값</strong>. 여기서 이상치와 데이터 오류를 발견할 수 있습니다. 예를 들어, 변수가 백분율을 나타낸다면 음수 값을 포함할 수 없습니다.</li>
+</ul>
+<p>다음 함수는 <code>profiling_num</code>이며, 데이터 프레임을 받아들여 <strong>방대한 테이블</strong>을 검색합니다. 이 테이블은 마치 영화 ’매트릭스’에서 볼 수 있는 것과 유사하게 <strong>수많은 지표의 바다</strong> 속에서 압도당하기 쉽습니다.</p>
+<div class="figure"><span style="display:block;" id="fig:matrix-movie"></span>
+<img src="exploratory_data_analysis/matrix_movie.png" alt="데이터의 매트릭스" width="150px"  />
+<p class="caption">
+Figure 1.5: 데이터의 매트릭스
+</p>
+</div>
+<p><em>영화 “매트릭스”(1999). 워쇼스키 형제(감독).</em></p>
+<p>다음 테이블의 목적은 사용자에게 <strong>완벽한 지표 세트</strong>를 제공하여, 연구에 어떤 지표를 선택할지 결정할 수 있도록 하는 것입니다.</p>
+<p>참고: 모든 지표 뒤에는 많은 통계 이론이 있습니다. 여기서는 개념을 소개하기 위해 작고 <strong>매우 단순화된</strong> 접근 방식을 다룰 것입니다.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="exploratory_data_analysis.html#cb38-1" tabindex="-1"></a><span class="fu">library</span>(funModeling)</span>
+<span id="cb38-2"><a href="exploratory_data_analysis.html#cb38-2" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="exploratory_data_analysis.html#cb38-3" tabindex="-1"></a><span class="co"># Full numerical profiling in one function automatically excludes non-numerical variables</span></span>
+<span id="cb38-4"><a href="exploratory_data_analysis.html#cb38-4" tabindex="-1"></a><span class="fu">profiling_num</span>(data_world_wide)</span></code></pre></div>
+<pre><code>##                   variable      mean    std_dev variation_coef      p_01
+## 1               gini_index 38.798571  8.4918157     0.21886929 25.710900
+## 2         pop_living_slums 45.698958 23.6568472     0.51766710  6.830000
+## 3    poverty_headcount_1.9 18.333707 22.7448672     1.24060384  0.000000
+## 4  rural_poverty_headcount 41.239393 21.9073185     0.53122311  2.902000
+## 5           SI.DST.02ND.20 10.940286  2.1659949     0.19798339  5.568000
+## 6           SI.DST.03RD.20 15.187571  2.0341395     0.13393448  9.137400
+## 7           SI.DST.04TH.20 21.456357  1.4915663     0.06951629 16.286100
+## 8           SI.DST.05TH.20 45.891714  7.1385549     0.15555215 35.004300
+## 9           SI.DST.10TH.10 30.510786  6.7513063     0.22127606 20.729200
+## 10          SI.DST.FRST.10  2.544571  0.8695044     0.34170958  0.915600
+## 11          SI.DST.FRST.20  6.524714  1.8737104     0.28717125  2.614300
+## 12             SI.POV.2DAY 32.370603 30.6360176     0.94641478  0.060500
+## 13             SI.POV.GAP2 14.163017 16.4036041     1.15819983  0.011500
+## 14             SI.POV.GAPS  6.892241 10.0965534     1.46491581  0.000000
+## 15             SI.POV.NAGP 12.246689 10.1167055     0.82607676  0.420700
+## 16             SI.POV.NAHC 30.695310 17.8844702     0.58264503  1.842000
+## 17             SI.POV.RUGP 15.870000 11.8254018     0.74514189  0.740000
+## 18             SI.POV.URGP  8.281972  8.2393371     0.99485211  0.300000
+## 19             SI.SPR.PC40 10.306375  9.7539668     0.94640131  0.856500
+## 20          SI.SPR.PC40.ZG  1.958495  3.6212194     1.84898052 -6.231772
+## 21             SI.SPR.PCAP 21.066000 17.4406999     0.82790752  2.426400
+## 22          SI.SPR.PCAP.ZG  1.457513  3.2074948     2.20066251 -5.897152
+## 23 urban_poverty_headcount 23.281195 15.0598876     0.64686918  0.579000
+##        p_05     p_25    p_50     p_75     p_95      p_99    skewness kurtosis
+## 1  26.81450 32.34750 37.6850 43.92250 53.53400 60.899800  0.55162475 2.874236
+## 2  10.75000 25.17500 46.2000 65.62500 83.37500 93.415000  0.08655596 2.045147
+## 3   0.02500  1.05250  6.0000 33.81500 67.32750 76.154500  1.12464564 2.947020
+## 4   6.46500 25.25000 38.1000 57.60000 75.77601 81.696000  0.05070376 1.967226
+## 5   7.36050  9.52750 11.1350 12.61250 14.20050 14.572200 -0.41139253 2.695430
+## 6  11.82750 13.87750 15.4600 16.69750 17.86200 18.144400 -0.87594286 3.843357
+## 7  18.28850 20.75750 21.9100 22.52250 23.01300 23.387600 -1.53741889 5.599431
+## 8  36.35950 40.49500 44.8250 49.82750 58.11500 65.894000  0.73763641 3.317412
+## 9  21.98850 25.71000 29.4950 34.11500 42.21150 50.616500  0.90532034 3.596310
+## 10  1.14750  1.88500  2.5400  3.23750  3.88200  4.346600  0.04275050 2.212272
+## 11  3.36950  5.09250  6.5050  8.00000  9.39200  9.996600 -0.11850862 2.232570
+## 12  0.39250  3.82750 20.2700 63.20500 84.57750 90.341000  0.53561716 1.757298
+## 13  0.08500  1.30500  5.5250 26.30000 48.53000 56.178500  1.06276529 2.871285
+## 14  0.00000  0.28750  1.4150 10.29250 31.45500 38.288000  1.65405890 4.701748
+## 15  1.22500  4.50000  8.6500 16.95000 32.42500 36.720000  1.12937489 3.982550
+## 16  6.43000 16.35000 26.6000 44.25000 62.98000 71.640000  0.52875485 2.375444
+## 17  1.65000  5.95000 13.6000 22.45000 37.70000 45.290000  0.80102636 2.955030
+## 18  0.90000  2.90000  6.3000  9.95000 25.15000 35.170000  2.31559531 9.765938
+## 19  1.22850  3.47500  6.9450 12.69250 28.86750 35.350200  1.25086949 3.366531
+## 20 -3.02107 -0.08445  1.7137  4.64300  7.92913  8.996918 -0.29366391 3.271338
+## 21  3.13750  8.00250 15.2750 25.41500 52.83700 67.168600  1.13166760 3.296606
+## 22 -3.80500 -0.48640  1.3242  3.55805  7.01655  8.481370 -0.01843620 3.593681
+## 23  3.14000 12.70750 20.1000 31.17500 51.03500 61.754000  0.72974377 2.973982
+##         iqr                      range_98            range_80
+## 1  11.57500            [25.7109, 60.8998]    [27.576, 50.469]
+## 2  40.45000                [6.83, 93.415]        [12.5, 75.2]
+## 3  32.76250                  [0, 76.1545]     [0.075, 54.045]
+## 4  32.35000               [2.902, 81.696]      [13.99, 71.99]
+## 5   3.08500              [5.568, 14.5722]     [8.283, 13.802]
+## 6   2.82000             [9.1374, 18.1444]    [12.667, 17.503]
+## 7   1.76500            [16.2861, 23.3876]    [19.733, 22.813]
+## 8   9.33250             [35.0043, 65.894]    [36.995, 55.242]
+## 9   8.40500            [20.7292, 50.6165]     [22.569, 39.89]
+## 10  1.35250              [0.9156, 4.3466]      [1.479, 3.674]
+## 11  2.90750              [2.6143, 9.9966]      [3.986, 8.891]
+## 12 59.37750              [0.0605, 90.341]       [0.79, 78.29]
+## 13 24.99500             [0.0115, 56.1785]      [0.155, 40.85]
+## 14 10.00500                   [0, 38.288]      [0.025, 23.45]
+## 15 12.45000    [0.4207, 36.7200000000001]          [1.85, 27]
+## 16 27.90000                [1.842, 71.64]       [9.86, 58.22]
+## 17 16.50000                 [0.74, 45.29]         [3.3, 32.2]
+## 18  7.05000                  [0.3, 35.17]         [1.3, 19.1]
+## 19  9.21750             [0.8565, 35.3502]     [1.809, 27.627]
+## 20  4.72745 [-6.231772, 8.99691799999999] [-2.64254, 6.48298]
+## 21 17.41250             [2.4264, 67.1686]     [4.247, 49.224]
+## 22  4.04445 [-5.897152, 8.48136999999999]  [-2.0726, 5.17284]
+## 23 18.46749               [0.579, 61.754]       [5.98, 46.11]</code></pre>
+<p>각 지표에는 <strong>존재 이유</strong>가 있습니다:</p>
+<ul>
+<li><p><code>variable</code>: <strong>변수 이름</strong></p></li>
+<li><p><code>mean</code>: 잘 알려진 <strong>평균</strong>.</p></li>
+<li><p><code>std_dev</code>: <strong>표준 편차</strong>, 평균값을 중심으로 한 <strong>분산</strong> 또는 <strong>퍼짐</strong> 정도를 나타내는 척도입니다. <code>0</code>에 가까운 값은 거의 변동이 없음을 의미하며(따라서 상수에 가깝게 보임), 반대로 _높음_의 기준을 정하기는 어렵지만, 변동이 클수록 퍼짐이 더 크다고 말할 수 있습니다.
+<em>혼돈은 무한한 표준 편차처럼 보일 수 있습니다</em>. 단위는 평균과 동일하여 비교 가능합니다.</p></li>
+<li><p><code>variation_coef</code>: <strong>변동 계수</strong>=<code>std_dev</code>/<code>mean</code>. <code>std_dev</code>는 절대값이므로, <code>std_dev</code>를 <code>mean</code>과 비교하여 상대적인 숫자로 나타내는 지표가 좋습니다. <code>0.22</code>는 <code>std_dev</code>가 <code>mean</code>의 22%임을 나타냅니다. <code>0</code>에 가까우면 변수가 평균을 중심으로 더 집중되는 경향이 있습니다. 두 분류기를 비교할 때, 정확도에서 <code>std_dev</code>와 <code>variation_coef</code>가 더 낮은 분류기를 선호할 수 있습니다.</p></li>
+<li><p><code>p_01</code>, <code>p_05</code>, <code>p_25</code>, <code>p_50</code>, <code>p_75</code>, <code>p_95</code>, <code>p_99</code>: <strong>백분위수</strong> (1%, 5%, 25% 등). 이 장의 후반부에서 백분위수에 대한 완전한 검토가 있습니다.</p></li>
+</ul>
+<p>백분위수에 대한 자세한 설명은 <a href="https://www.google.com/search?q=%23appendix-percentiles">부록 1: 백분위수의 마법</a>을 참조하십시오.</p>
+<ul>
+<li><p><code>skewness</code>: <strong>비대칭성</strong>을 측정하는 척도입니다. <strong>0</strong>에 가까우면 분포가 평균을 중심으로 <em>동일하게</em> 분포(또는 대칭)되어 있음을 나타냅니다. <strong>양수</strong>는 오른쪽에 긴 꼬리가 있음을 의미하며, <strong>음수</strong>는 그 반대를 의미합니다.
+이 섹션 뒤에 플롯에서 왜도를 확인하십시오. 변수 <code>pop_living_slums</code>는 0에 가깝고(“균등하게” 분포), <code>poverty_headcount_1.9</code>는 양수(오른쪽에 꼬리), <code>SI.DST.04TH.20</code>은 음수(왼쪽에 꼬리)입니다. 왜도가 0에서 멀어질수록 분포에 <strong>이상치</strong>가 있을 가능성이 높습니다.</p></li>
+<li><p><code>kurtosis</code>: 분포의 <strong>꼬리</strong>를 설명합니다. 간단히 말해, 숫자가 높을수록 이상치의 존재를 나타낼 수 있습니다 (나중에 <code>SI.POV.URGP</code> 변수에서 <code>50</code> 근처에 이상치가 있는 것을 볼 수 있듯이).
+왜도 및 첨도에 대한 완전한 검토는 참고 문헌 <span class="citation">(<a href="#ref-skew_kurt_1">McNeese 2016</a>)</span> 및 <span class="citation">(<a href="#ref-skew_kurt_2">Handbook 2013</a>)</span>를 참조하십시오.</p></li>
+<li><p><code>iqr</code>: <strong>사분위 범위</strong>는 백분위수 <code>0.25</code>와 <code>0.75</code>를 살펴본 결과이며, 동일한 변수 단위로 값의 50%의 분산 길이를 나타냅니다. 값이 높을수록 변수가 더 희소합니다.</p></li>
+<li><p><code>range_98</code> 및 <code>range_80</code>: 값의 <code>98%</code>가 있는 범위를 나타냅니다. 하위 및 상위 1%를 제거합니다(따라서 <code>98%</code> 숫자). 잠재적인 이상치 없이 변수 범위를 아는 것이 좋습니다. 예를 들어, <code>pop_living_slums</code>는 <code>0</code>에서 <code>76.15</code>까지입니다. <strong><code>min</code> 및 <code>max</code> 값을 비교하는 것보다 더 견고</strong>합니다.
+<code>range_80</code>은 <code>range_98</code>과 동일하지만 하위 및 상위 <code>10%</code>를 제외합니다.</p></li>
+</ul>
+<p><code>iqr</code>, <code>range_98</code>, <code>range_80</code>은 백분위수를 기반으로 하며, 이 장의 후반부에서 다룰 것입니다.</p>
+<p><strong>중요</strong>: 모든 지표는 <code>NA</code> 값을 제거한 후에 계산됩니다. 그렇지 않으면 테이블이 <code>NA</code>로 채워질 것입니다.</p>
+<div id="profiling_num-사용-시-조언" class="section level5 hasAnchor" number="1.1.3.3.1">
+<h5><span class="header-section-number">1.1.3.3.1</span> <code>profiling_num</code> 사용 시 조언<a href="exploratory_data_analysis.html#profiling_num-사용-시-조언" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><code>profiling_num</code>의 목표는 데이터 과학자에게 모든 종류의 지표를 제공하여 가장 적절한 것을 선택할 수 있도록 돕는 것입니다. 이는 <code>dplyr</code> 패키지의 <code>select</code> 함수를 사용하면 쉽게 할 수 있습니다.</p>
+<p>또한, <code>profiling_num</code>은 결과를 자동으로 콘솔에 출력하지 않을 수 있습니다.</p>
+<p>예를 들어, <code>mean</code>, <code>p_01</code>, <code>p_99</code>, <code>range_80</code>을 가져와 보겠습니다.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="exploratory_data_analysis.html#cb40-1" tabindex="-1"></a>my_profiling_table<span class="ot">=</span><span class="fu">profiling_num</span>(data_world_wide) <span class="sc">%&gt;%</span> <span class="fu">select</span>(variable, mean, p_01, p_99, range_80)</span>
+<span id="cb40-2"><a href="exploratory_data_analysis.html#cb40-2" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="exploratory_data_analysis.html#cb40-3" tabindex="-1"></a><span class="co"># Printing only the first three rows</span></span>
+<span id="cb40-4"><a href="exploratory_data_analysis.html#cb40-4" tabindex="-1"></a><span class="fu">head</span>(my_profiling_table, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##                variable     mean    p_01    p_99         range_80
+## 1            gini_index 38.79857 25.7109 60.8998 [27.576, 50.469]
+## 2      pop_living_slums 45.69896  6.8300 93.4150     [12.5, 75.2]
+## 3 poverty_headcount_1.9 18.33371  0.0000 76.1545  [0.075, 54.045]</code></pre>
+<p><code>profiling_num</code>은 테이블을 반환하므로, 우리가 설정한 조건에 따라 데이터를 빠르게 필터링할 수 있다는 점을 기억해주세요.</p>
+<hr />
+</div>
+<div id="수치형-변수-플로팅을-통한-프로파일링-plotting-numerical-variable" class="section level5 hasAnchor" number="1.1.3.3.2">
+<h5><span class="header-section-number">1.1.3.3.2</span> 수치형 변수 플로팅을 통한 프로파일링 {#plotting-numerical-variable}<a href="exploratory_data_analysis.html#수치형-변수-플로팅을-통한-프로파일링-plotting-numerical-variable" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p><code>funModeling</code>의 또 다른 함수인 <code>plot_num</code>은 데이터셋을 받아 수치형 변수들의 분포를 플로팅하며, 비수치형 변수는 자동으로 제외합니다.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="exploratory_data_analysis.html#cb42-1" tabindex="-1"></a><span class="fu">plot_num</span>(data_world_wide)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:profiling-numerical-variable-with-histograms"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/profiling-numerical-variable-with-histograms-1.png" alt="수치형 데이터 프로파일링" width="672"  />
+<p class="caption">
+Figure 1.6: 수치형 데이터 프로파일링
+</p>
+</div>
+<p><code>bins</code> 매개변수(기본값 10)를 변경하여 플롯에 사용되는 막대 수를 조정할 수 있습니다. 예를 들어, <code>plot_num(data_world_wide, bins = 20)</code>와 같이 사용할 수 있습니다.</p>
+<hr />
+</div>
+</div>
+</div>
+<div id="최종-생각" class="section level3 hasAnchor" number="1.1.4">
+<h3><span class="header-section-number">1.1.4</span> 최종 생각<a href="exploratory_data_analysis.html#최종-생각" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>지금까지 많은 숫자들이 등장했습니다. <em>백분위수 부록에는 훨씬 더 많은 숫자가 있죠.</em> 여기서 중요한 점은 <strong>데이터를 탐색하는 올바른 접근 방식을 찾는 것</strong>입니다. 이는 다른 지표나 다른 기준에서 비롯될 수 있습니다.</p>
+<p><code>df_status</code>, <code>describe</code>, <code>freq</code>, <code>profiling_num</code>, <code>plot_num</code> 함수는 데이터 프로젝트 초기에 실행할 수 있습니다.</p>
+<p>데이터의 <strong>정상 및 비정상적인 행동</strong>에 관해서는 둘 다 연구하는 것이 중요합니다. 데이터셋을 일반적인 용어로 설명하려면 극단값을 제외해야 합니다. 예를 들어, <code>range_98</code> 변수를 사용해서 말이죠. 극단값을 제외하면 평균은 감소해야 합니다.</p>
+<p>이러한 분석은 <strong>단변량</strong>입니다. 즉, 다른 변수를 고려하지 않습니다(<strong>다변량</strong> 분석). 이는 이 책의 후반부에서 다룰 내용입니다. 한편, 입력(및 출력) 변수 간의 상관 관계는 <a href="https://www.google.com/search?q=%23correlation">상관 관계</a> 장을 확인해 보세요.</p>
+<hr />
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+<hr />
+</div>
+</div>
+<div id="상관-관계-및-관계-httpswww.google.comsearchq23correlation" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> 상관 관계 및 관계 {<a href="https://www.google.com/search?q=%23correlation" class="uri">https://www.google.com/search?q=%23correlation</a>}<a href="exploratory_data_analysis.html#상관-관계-및-관계-httpswww.google.comsearchq23correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="exploratory_data_analysis/fractal_manderbolt.png" alt="" width="150px" /></p>
+<p><em>혼돈이 아름다움을 표현하는 만델브로트 프랙탈; 이미지 출처: Wikipedia.</em></p>
+<div id="이-장의-내용은-무엇일까요" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> 이 장의 내용은 무엇일까요?<a href="exploratory_data_analysis.html#이-장의-내용은-무엇일까요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이 장은 변수에서 <strong>상관 관계</strong>를 측정하는 방법론적 및 실제적 측면을 모두 다룹니다. 우리는 ’상관 관계’라는 단어가 “<strong>함수적 관계</strong>”로 번역될 수 있음을 알게 될 것입니다.</p>
+<p>방법론적인 측면에서는 Anscombe Quartet을 다룰 것입니다. 이는 공간적 분포는 다르지만 동일한 상관 관계 측정값을 공유하는 네 개의 플롯 세트입니다. 더 강력한 메트릭(MIC)을 통해 관계를 다시 계산하여 한 단계 더 나아갈 것입니다.</p>
+<p>이 책에서는 수학적 수준으로 다루지는 않지만, 앞으로 다룰 예정인 <strong>정보 이론</strong>을 여러 번 언급할 것입니다. 딥 러닝을 포함하여 많은 알고리즘이 정보 이론을 기반으로 합니다.</p>
+<p>낮은 차원(두 변수)과 소규모 데이터(소수의 행)에서 이러한 개념을 이해하면 고차원 데이터를 더 잘 이해하는 데 도움이 됩니다. 그럼에도 불구하고, 일부 실제 사례는 ‘작은’ 데이터일 뿐입니다.</p>
+<p>실용적인 관점에서 볼 때, 자신의 데이터로 분석을 복제하고 멋진 플롯에서 관계를 프로파일링하고 시각화할 수 있을 것입니다.</p>
+<hr />
+<p>이제 필요한 모든 라이브러리를 로드하는 것으로 시작하겠습니다.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="exploratory_data_analysis.html#cb43-1" tabindex="-1"></a><span class="co"># 필요한 라이브러리 로드</span></span>
+<span id="cb43-2"><a href="exploratory_data_analysis.html#cb43-2" tabindex="-1"></a><span class="fu">library</span>(funModeling) <span class="co"># heart_disease 데이터 포함</span></span>
+<span id="cb43-3"><a href="exploratory_data_analysis.html#cb43-3" tabindex="-1"></a><span class="fu">library</span>(minerva) <span class="co"># MIC 통계량 포함</span></span>
+<span id="cb43-4"><a href="exploratory_data_analysis.html#cb43-4" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb43-5"><a href="exploratory_data_analysis.html#cb43-5" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb43-6"><a href="exploratory_data_analysis.html#cb43-6" tabindex="-1"></a><span class="fu">library</span>(reshape2) </span>
+<span id="cb43-7"><a href="exploratory_data_analysis.html#cb43-7" tabindex="-1"></a><span class="fu">library</span>(gridExtra) <span class="co"># 두 개의 플롯을 한 줄에 그릴 수 있도록 함</span></span>
+<span id="cb43-8"><a href="exploratory_data_analysis.html#cb43-8" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>) <span class="co"># 과학적 표기법 비활성화</span></span></code></pre></div>
+<hr />
+</div>
+<div id="선형-상관-관계-linear-correlation" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 선형 상관 관계 {#linear-correlation}<a href="exploratory_data_analysis.html#선형-상관-관계-linear-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>아마도 수치형 변수에 대한 가장 표준적인 상관 관계 측정값은 <code>R 통계량</code>(또는 피어슨 계수)일 것입니다. 이는 <code>1</code>(<strong>양의 상관 관계</strong>)에서 <code>-1</code>(<strong>음의 상관 관계</strong>)까지의 값을 가집니다. <code>0</code>에 가까운 값은 상관 관계가 없음을 의미합니다.</p>
+<p>대상 변수(예: <strong>특성 공학</strong>을 수행하기 위함)를 기반으로 R 측정값을 계산하는 다음 예제를 고려해 봅시다. <code>correlation_table</code> 함수는 범주형/명목형 변수를 건너뛰고 모든 수치형 변수에 대한 R 메트릭을 검색합니다.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="exploratory_data_analysis.html#cb44-1" tabindex="-1"></a><span class="fu">correlation_table</span>(<span class="at">data=</span>heart_disease, <span class="at">target=</span><span class="st">&quot;has_heart_disease&quot;</span>)</span></code></pre></div>
+<pre><code>##                 Variable has_heart_disease
+## 1      has_heart_disease              1.00
+## 2 heart_disease_severity              0.83
+## 3      num_vessels_flour              0.46
+## 4                oldpeak              0.42
+## 5                  slope              0.34
+## 6                    age              0.23
+## 7 resting_blood_pressure              0.15
+## 8      serum_cholestoral              0.08
+## 9         max_heart_rate             -0.42</code></pre>
+<p><code>heart_disease_severity</code> 변수는 가장 중요한 수치형 변수입니다. 이 값이 높을수록 심장 질환 발병 가능성이 높아집니다(양의 상관 관계). <code>max_heart_rate</code>는 음의 상관 관계를 가지므로 정반대입니다.</p>
+<p>이 숫자를 제곱하면 <code>R-제곱</code> 통계량(일명 <code>R2</code>)이 반환되며, <code>0</code>(상관 관계 없음)에서 <code>1</code>(높은 상관 관계)까지의 값을 가집니다.</p>
+<p>R 통계량은 <strong>이상치</strong>와 <strong>비선형</strong> 관계에 크게 영향을 받습니다.</p>
+<hr />
+<div id="앤스콤-쿼텟anscombes-quartet의-상관-관계" class="section level4 hasAnchor" number="1.2.2.1">
+<h4><span class="header-section-number">1.2.2.1</span> 앤스콤 쿼텟(Anscombe’s Quartet)의 상관 관계<a href="exploratory_data_analysis.html#앤스콤-쿼텟anscombes-quartet의-상관-관계" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>앤스콤 쿼텟</strong>을 살펴보시죠. <a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">위키백과</a>의 내용을 인용합니다:</p>
+<blockquote>
+<p>이들은 통계학자 프랜시스 앤스콤이 1973년에 데이터를 분석하기 전에 그래프로 표시하는 것의 중요성과 이상치가 통계적 속성에 미치는 영향을 모두 보여주기 위해 구성되었습니다.</p>
+</blockquote>
+<p>1973년에 만들어졌지만 여전히 유효하다니, 정말 대단하죠.</p>
+<p>이 네 가지 관계는 서로 다르지만, 모두 동일한 R2 값인 <code>0.816</code>을 가집니다.</p>
+<p>다음 예시는 R2를 계산하고 각 쌍을 플롯합니다.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="exploratory_data_analysis.html#cb46-1" tabindex="-1"></a><span class="co"># anscombe quartet 데이터 읽기</span></span>
+<span id="cb46-2"><a href="exploratory_data_analysis.html#cb46-2" tabindex="-1"></a>anscombe_data <span class="ot">=</span> </span>
+<span id="cb46-3"><a href="exploratory_data_analysis.html#cb46-3" tabindex="-1"></a>  <span class="fu">read.delim</span>(<span class="at">file=</span><span class="st">&quot;https://goo.gl/mVLz5L&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb46-4"><a href="exploratory_data_analysis.html#cb46-4" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="exploratory_data_analysis.html#cb46-5" tabindex="-1"></a><span class="co"># 모든 쌍에 대한 상관 관계 (R 제곱, R2) 계산</span></span>
+<span id="cb46-6"><a href="exploratory_data_analysis.html#cb46-6" tabindex="-1"></a><span class="co"># 모든 값이 0.86으로 동일합니다.</span></span>
+<span id="cb46-7"><a href="exploratory_data_analysis.html#cb46-7" tabindex="-1"></a>cor_1 <span class="ot">=</span> <span class="fu">cor</span>(anscombe_data<span class="sc">$</span>x1, anscombe_data<span class="sc">$</span>y1)</span>
+<span id="cb46-8"><a href="exploratory_data_analysis.html#cb46-8" tabindex="-1"></a>cor_2 <span class="ot">=</span> <span class="fu">cor</span>(anscombe_data<span class="sc">$</span>x2, anscombe_data<span class="sc">$</span>y2)</span>
+<span id="cb46-9"><a href="exploratory_data_analysis.html#cb46-9" tabindex="-1"></a>cor_3 <span class="ot">=</span> <span class="fu">cor</span>(anscombe_data<span class="sc">$</span>x3, anscombe_data<span class="sc">$</span>y3)</span>
+<span id="cb46-10"><a href="exploratory_data_analysis.html#cb46-10" tabindex="-1"></a>cor_4 <span class="ot">=</span> <span class="fu">cor</span>(anscombe_data<span class="sc">$</span>x4, anscombe_data<span class="sc">$</span>y4)</span>
+<span id="cb46-11"><a href="exploratory_data_analysis.html#cb46-11" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="exploratory_data_analysis.html#cb46-12" tabindex="-1"></a><span class="co"># 함수 정의</span></span>
+<span id="cb46-13"><a href="exploratory_data_analysis.html#cb46-13" tabindex="-1"></a>plot_anscombe <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, value, type)</span>
+<span id="cb46-14"><a href="exploratory_data_analysis.html#cb46-14" tabindex="-1"></a>{</span>
+<span id="cb46-15"><a href="exploratory_data_analysis.html#cb46-15" tabindex="-1"></a>  <span class="co"># &#39;anscombe_data&#39;는 전역 변수입니다. 이것은 </span></span>
+<span id="cb46-16"><a href="exploratory_data_analysis.html#cb46-16" tabindex="-1"></a>  <span class="co"># 좋은 프로그래밍 습관이 아닙니다 ;)</span></span>
+<span id="cb46-17"><a href="exploratory_data_analysis.html#cb46-17" tabindex="-1"></a>  p<span class="ot">=</span><span class="fu">ggplot</span>(anscombe_data, <span class="fu">aes_string</span>(x,y))  <span class="sc">+</span> </span>
+<span id="cb46-18"><a href="exploratory_data_analysis.html#cb46-18" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&#39;lm&#39;</span>, <span class="at">fill=</span><span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb46-19"><a href="exploratory_data_analysis.html#cb46-19" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span><span class="fu">factor</span>(<span class="dv">1</span>), </span>
+<span id="cb46-20"><a href="exploratory_data_analysis.html#cb46-20" tabindex="-1"></a>                    <span class="at">fill =</span> <span class="fu">factor</span>(<span class="dv">1</span>)), </span>
+<span id="cb46-21"><a href="exploratory_data_analysis.html#cb46-21" tabindex="-1"></a>                    <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb46-22"><a href="exploratory_data_analysis.html#cb46-22" tabindex="-1"></a>                    ) <span class="sc">+</span> </span>
+<span id="cb46-23"><a href="exploratory_data_analysis.html#cb46-23" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">2</span>, <span class="dv">13</span>) <span class="sc">+</span> </span>
+<span id="cb46-24"><a href="exploratory_data_analysis.html#cb46-24" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="dv">4</span>, <span class="dv">19</span>) <span class="sc">+</span> </span>
+<span id="cb46-25"><a href="exploratory_data_analysis.html#cb46-25" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb46-26"><a href="exploratory_data_analysis.html#cb46-26" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb46-27"><a href="exploratory_data_analysis.html#cb46-27" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb46-28"><a href="exploratory_data_analysis.html#cb46-28" tabindex="-1"></a>              <span class="at">x =</span> <span class="dv">12</span>, </span>
+<span id="cb46-29"><a href="exploratory_data_analysis.html#cb46-29" tabindex="-1"></a>              <span class="at">y =</span><span class="fl">4.5</span>, </span>
+<span id="cb46-30"><a href="exploratory_data_analysis.html#cb46-30" tabindex="-1"></a>              <span class="at">label =</span> </span>
+<span id="cb46-31"><a href="exploratory_data_analysis.html#cb46-31" tabindex="-1"></a>                <span class="fu">sprintf</span>(<span class="st">&quot;%s: %s&quot;</span>, </span>
+<span id="cb46-32"><a href="exploratory_data_analysis.html#cb46-32" tabindex="-1"></a>                        type, </span>
+<span id="cb46-33"><a href="exploratory_data_analysis.html#cb46-33" tabindex="-1"></a>                        <span class="fu">round</span>(value,<span class="dv">2</span>)</span>
+<span id="cb46-34"><a href="exploratory_data_analysis.html#cb46-34" tabindex="-1"></a>                        )</span>
+<span id="cb46-35"><a href="exploratory_data_analysis.html#cb46-35" tabindex="-1"></a>              )  </span>
+<span id="cb46-36"><a href="exploratory_data_analysis.html#cb46-36" tabindex="-1"></a>  </span>
+<span id="cb46-37"><a href="exploratory_data_analysis.html#cb46-37" tabindex="-1"></a>  <span class="fu">return</span>(p)</span>
+<span id="cb46-38"><a href="exploratory_data_analysis.html#cb46-38" tabindex="-1"></a>}</span>
+<span id="cb46-39"><a href="exploratory_data_analysis.html#cb46-39" tabindex="-1"></a></span>
+<span id="cb46-40"><a href="exploratory_data_analysis.html#cb46-40" tabindex="-1"></a><span class="co"># 2x2 그리드에 플로팅</span></span>
+<span id="cb46-41"><a href="exploratory_data_analysis.html#cb46-41" tabindex="-1"></a><span class="fu">grid.arrange</span>(<span class="fu">plot_anscombe</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;y1&quot;</span>, cor_1, <span class="st">&quot;R2&quot;</span>), </span>
+<span id="cb46-42"><a href="exploratory_data_analysis.html#cb46-42" tabindex="-1"></a>            <span class="fu">plot_anscombe</span>(<span class="st">&quot;x2&quot;</span>, <span class="st">&quot;y2&quot;</span>, cor_2, <span class="st">&quot;R2&quot;</span>), </span>
+<span id="cb46-43"><a href="exploratory_data_analysis.html#cb46-43" tabindex="-1"></a>            <span class="fu">plot_anscombe</span>(<span class="st">&quot;x3&quot;</span>, <span class="st">&quot;y3&quot;</span>, cor_3, <span class="st">&quot;R2&quot;</span>), </span>
+<span id="cb46-44"><a href="exploratory_data_analysis.html#cb46-44" tabindex="-1"></a>            <span class="fu">plot_anscombe</span>(<span class="st">&quot;x4&quot;</span>, <span class="st">&quot;y4&quot;</span>, cor_4, <span class="st">&quot;R2&quot;</span>), </span>
+<span id="cb46-45"><a href="exploratory_data_analysis.html#cb46-45" tabindex="-1"></a>            <span class="at">ncol=</span><span class="dv">2</span>, </span>
+<span id="cb46-46"><a href="exploratory_data_analysis.html#cb46-46" tabindex="-1"></a>            <span class="at">nrow=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+## ℹ Please use tidy evaluation idioms with `aes()`.
+## ℹ See also `vignette(&quot;ggplot2-in-packages&quot;)` for more information.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="figure"><span style="display:block;" id="fig:anscombe-data"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/anscombe-data-1.png" alt="앤스콤 셋" width="672"  />
+<p class="caption">
+Figure 1.7: 앤스콤 셋
+</p>
+</div>
+<p>이 네 가지 다른 플롯은 모든 <code>x</code> 및 <code>y</code> 변수(각각 9와 7.501)에 대해 동일한 <strong>평균</strong>과 동일한 정도의 상관 관계를 가집니다. <code>summary(anscombe_data)</code>를 입력하여 모든 측정값을 확인할 수 있습니다.</p>
+<p>이것이 상관 관계를 분석할 때 관계를 플롯하는 것이 매우 중요한 이유입니다.</p>
+<p>이 데이터는 나중에 다시 다룰 것입니다. 개선될 수 있거든요! 먼저, 정보 이론의 몇 가지 개념을 소개하겠습니다.</p>
+<hr />
+</div>
+</div>
+<div id="정보-이론에-기반한-상관-관계" class="section level3 hasAnchor" number="1.2.3">
+<h3><span class="header-section-number">1.2.3</span> 정보 이론에 기반한 상관 관계<a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이러한 관계는 <a href="https://en.wikipedia.org/wiki/Information_theory"><strong>정보 이론</strong></a> 개념을 통해 더 잘 측정할 수 있습니다. 이를 기반으로 상관 관계를 측정하는 여러 알고리즘 중 하나는 Maximal Information-based nonparametric exploration의 약어인 <strong>MINE</strong>입니다.</p>
+<p>R에서의 구현은 <a href="https://cran.r-project.org/web/packages/minerva/index.html">minerva</a> 패키지에서 찾을 수 있습니다. Python과 같은 다른 언어에서도 사용할 수 있습니다.</p>
+<hr />
+<div id="r-예시-완벽한-관계" class="section level4 hasAnchor" number="1.2.3.1">
+<h4><span class="header-section-number">1.2.3.1</span> R 예시: 완벽한 관계<a href="exploratory_data_analysis.html#r-예시-완벽한-관계" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>함수(음의 지수 함수)를 기반으로 한 비선형 관계를 플롯하고 MIC 값을 인쇄해 보겠습니다.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="exploratory_data_analysis.html#cb48-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="at">length.out=</span><span class="dv">500</span>)</span>
+<span id="cb48-2"><a href="exploratory_data_analysis.html#cb48-2" tabindex="-1"></a>df_exp<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">x=</span>x, <span class="at">y=</span><span class="fu">dexp</span>(x, <span class="at">rate=</span><span class="fl">0.65</span>))</span>
+<span id="cb48-3"><a href="exploratory_data_analysis.html#cb48-3" tabindex="-1"></a><span class="fu">ggplot</span>(df_exp, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:mic-non-linear-relationship"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/mic-non-linear-relationship-1.png" alt="완벽한 관계" width="384"  />
+<p class="caption">
+Figure 1.8: 완벽한 관계
+</p>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="exploratory_data_analysis.html#cb49-1" tabindex="-1"></a><span class="co"># [1,2] 위치는 두 변수의 상관 관계를 포함하며, 각 변수 자체와의 상관 관계는 제외됩니다.</span></span>
+<span id="cb49-2"><a href="exploratory_data_analysis.html#cb49-2" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="exploratory_data_analysis.html#cb49-3" tabindex="-1"></a><span class="co"># 선형 상관 관계 계산</span></span>
+<span id="cb49-4"><a href="exploratory_data_analysis.html#cb49-4" tabindex="-1"></a>res_cor_R2<span class="ot">=</span><span class="fu">cor</span>(df_exp)[<span class="dv">1</span>,<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb49-5"><a href="exploratory_data_analysis.html#cb49-5" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;R2: %s&quot;</span>, <span class="fu">round</span>(res_cor_R2,<span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;R2: 0.39&quot;</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="exploratory_data_analysis.html#cb51-1" tabindex="-1"></a><span class="co"># 이제 MIC 측정값 계산</span></span>
+<span id="cb51-2"><a href="exploratory_data_analysis.html#cb51-2" tabindex="-1"></a>res_mine<span class="ot">=</span><span class="fu">mine</span>(df_exp)</span>
+<span id="cb51-3"><a href="exploratory_data_analysis.html#cb51-3" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;MIC: %s&quot;</span>, res_mine<span class="sc">$</span>MIC[<span class="dv">1</span>,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;MIC: 1&quot;</code></pre>
+<p><strong>MIC</strong> 값은 0에서 1까지입니다. 0은 상관 관계가 없음을 의미하고 1은 가장 높은 상관 관계를 의미합니다. 해석은 R-제곱과 동일합니다.</p>
+<hr />
+</div>
+<div id="결과-분석" class="section level4 hasAnchor" number="1.2.3.2">
+<h4><span class="header-section-number">1.2.3.2</span> 결과 분석<a href="exploratory_data_analysis.html#결과-분석" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>MIC=1</code>은 두 변수 사이에 완벽한 상관 관계가 있음을 나타냅니다. 만약 <strong>특성 공학</strong>을 수행하고 있다면 이 변수는 포함되어야 합니다.</p>
+<p>단순한 상관 관계를 넘어 MIC가 말하는 것은 “이 두 변수는 <strong>함수적 관계</strong>를 보여줍니다”입니다.</p>
+<p>기계 학습 용어(및 과도하게 단순화하자면): “변수 <code>y</code>는 변수 <code>x</code>에 종속되며, 그 관계를 모델링할 수 있는 함수(우리가 어떤 함수인지는 모르는)를 찾을 수 있습니다.”</p>
+<p>이 관계는 실제로 함수, 즉 지수 함수를 기반으로 생성되었기 때문에 까다롭습니다.</p>
+<p>하지만 다른 예제로 계속 진행해 봅시다…</p>
+<hr />
+</div>
+</div>
+<div id="노이즈-추가" class="section level3 hasAnchor" number="1.2.4">
+<h3><span class="header-section-number">1.2.4</span> 노이즈 추가<a href="exploratory_data_analysis.html#노이즈-추가" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>노이즈</strong>는 원래 신호에 추가되는 원치 않는 신호입니다. 기계 학습에서 노이즈는 모델이 혼란스러워지는 데 일조합니다. 구체적으로 말하자면, 동일한 두 개의 입력 사례(예: 고객)가 서로 다른 결과(하나는 구매하고 다른 하나는 구매하지 않음)를 갖는 경우입니다.</p>
+<p>이제 <code>y_noise_1</code> 변수를 생성하여 노이즈를 추가할 것입니다.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="exploratory_data_analysis.html#cb53-1" tabindex="-1"></a>df_exp<span class="sc">$</span>y_noise_1<span class="ot">=</span><span class="fu">jitter</span>(df_exp<span class="sc">$</span>y, <span class="at">factor =</span> <span class="dv">1000</span>, <span class="at">amount =</span> <span class="cn">NULL</span>)</span>
+<span id="cb53-2"><a href="exploratory_data_analysis.html#cb53-2" tabindex="-1"></a><span class="fu">ggplot</span>(df_exp, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y_noise_1)) <span class="sc">+</span> </span>
+<span id="cb53-3"><a href="exploratory_data_analysis.html#cb53-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:noisy-relationship"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/noisy-relationship-1.png" alt="노이즈 추가" width="384"  />
+<p class="caption">
+Figure 1.9: 노이즈 추가
+</p>
+</div>
+<p>상관 관계와 MIC를 다시 계산하고, 두 경우 모두 전체 행렬을 출력합니다. 이 행렬은 각 입력 변수가 자신을 포함한 다른 모든 변수에 대해 갖는 상관 관계/MIC 지표를 보여줍니다.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="exploratory_data_analysis.html#cb54-1" tabindex="-1"></a><span class="co"># R 제곱 계산</span></span>
+<span id="cb54-2"><a href="exploratory_data_analysis.html#cb54-2" tabindex="-1"></a>res_R2<span class="ot">=</span><span class="fu">cor</span>(df_exp)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb54-3"><a href="exploratory_data_analysis.html#cb54-3" tabindex="-1"></a>res_R2</span></code></pre></div>
+<pre><code>##                   x         y y_noise_1
+## x         1.0000000 0.3899148 0.3911297
+## y         0.3899148 1.0000000 0.9907958
+## y_noise_1 0.3911297 0.9907958 1.0000000</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="exploratory_data_analysis.html#cb56-1" tabindex="-1"></a><span class="co"># mine 계산</span></span>
+<span id="cb56-2"><a href="exploratory_data_analysis.html#cb56-2" tabindex="-1"></a>res_mine_2<span class="ot">=</span><span class="fu">mine</span>(df_exp)</span>
+<span id="cb56-3"><a href="exploratory_data_analysis.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="exploratory_data_analysis.html#cb56-4" tabindex="-1"></a><span class="co"># MIC 출력</span></span>
+<span id="cb56-5"><a href="exploratory_data_analysis.html#cb56-5" tabindex="-1"></a>res_mine_2<span class="sc">$</span>MIC</span></code></pre></div>
+<pre><code>##                   x         y y_noise_1
+## x         1.0000000 1.0000000 0.7332235
+## y         1.0000000 1.0000000 0.7361198
+## y_noise_1 0.7332235 0.7361198 1.0000000</code></pre>
+<p>데이터에 노이즈를 추가하자 MIC 값은 1에서 0.7226365(-27%)로 감소했는데, 이는 훌륭합니다!</p>
+<p>R2도 0.3899148에서 0.3866319(-0.8%)로 약간 감소했습니다.</p>
+<p><strong>결론:</strong> MIC는 R2보다 노이즈가 있는 관계를 훨씬 더 잘 반영하며, 상관 관계가 있는 연관성을 찾는 데 유용합니다.</p>
+<p><strong>마지막 예시에 대해:</strong> 함수를 기반으로 데이터를 생성하는 것은 교육 목적으로만 사용됩니다. 그러나 변수의 노이즈 개념은 출처에 관계없이 <strong>거의 모든 데이터셋</strong>에서 매우 일반적입니다. 변수에 노이즈를 추가하기 위해 아무것도 할 필요가 없습니다. 이미 거기에 있습니다.
+기계 학습 모델은 데이터의 <em>실제</em> 형태에 접근하여 이 노이즈를 처리합니다.</p>
+<p>두 변수 간의 관계에 존재하는 정보의 의미를 파악하는 데 MIC 측정을 사용하는 것이 매우 유용합니다.</p>
+<hr />
+</div>
+<div id="비선형성-측정-mic-r2" class="section level3 hasAnchor" number="1.2.5">
+<h3><span class="header-section-number">1.2.5</span> 비선형성 측정 (MIC-R2)<a href="exploratory_data_analysis.html#비선형성-측정-mic-r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>mine</code> 함수는 여러 지표를 반환합니다. 우리는 <strong>MIC</strong>만 확인했지만, 알고리즘의 특성상(원본 논문 <span class="citation">(<a href="#ref-ReshefEtAl2011">Reshef et al. 2011</a>)</span>을 확인할 수 있습니다) 더 흥미로운 지표들을 계산합니다. <code>res_mine_2</code> 객체를 검사하여 모든 지표를 확인해 보세요.</p>
+<p>그중 하나는 <strong>비선형성</strong>의 척도로 사용되는 <code>MICR2</code>입니다. 이는 MIC - R2를 수행하여 계산됩니다. R2가 선형성을 측정하므로, 높은 <code>MICR2</code>는 비선형 관계를 나타냅니다.</p>
+<p>MICR2를 수동으로 계산하여 확인할 수 있습니다. 다음 두 행렬은 동일한 결과를 반환합니다.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="exploratory_data_analysis.html#cb58-1" tabindex="-1"></a><span class="co"># MIC r2: 비선형성 지표</span></span>
+<span id="cb58-2"><a href="exploratory_data_analysis.html#cb58-2" tabindex="-1"></a><span class="fu">round</span>(res_mine_2<span class="sc">$</span>MICR2, <span class="dv">3</span>)</span>
+<span id="cb58-3"><a href="exploratory_data_analysis.html#cb58-3" tabindex="-1"></a><span class="co"># MIC r2 수동 계산</span></span>
+<span id="cb58-4"><a href="exploratory_data_analysis.html#cb58-4" tabindex="-1"></a><span class="fu">round</span>(res_mine_2<span class="sc">$</span>MIC<span class="sc">-</span>res_R2, <span class="dv">3</span>)</span></code></pre></div>
+<p>비선형 관계는 모델을 구축하기가 더 어렵습니다. 특히 의사 결정 트리나 선형 회귀와 같은 선형 알고리즘을 사용하는 경우에는 더욱 그렇습니다.</p>
+<p>다른 사람에게 관계를 설명해야 한다고 상상해 보세요. 그렇게 하려면 “더 많은 단어”가 필요할 것입니다. “A는 B가 증가함에 따라 증가하고 비율은 항상 3배입니다”(A=1이면 B=3, 선형)라고 말하는 것이 더 쉽습니다.</p>
+<p>다음과 비교해 보세요: “A는 B가 증가함에 따라 증가하지만, B가 값 10에 도달할 때까지 A는 거의 0에 가깝다가 300으로 올라갑니다. 그리고 B가 15에 도달하면 A는 1000으로 갑니다.”</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="exploratory_data_analysis.html#cb59-1" tabindex="-1"></a><span class="co"># 데이터 예시 생성</span></span>
+<span id="cb59-2"><a href="exploratory_data_analysis.html#cb59-2" tabindex="-1"></a>df_example<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">x=</span>df_exp<span class="sc">$</span>x, </span>
+<span id="cb59-3"><a href="exploratory_data_analysis.html#cb59-3" tabindex="-1"></a>                      <span class="at">y_exp=</span>df_exp<span class="sc">$</span>y, </span>
+<span id="cb59-4"><a href="exploratory_data_analysis.html#cb59-4" tabindex="-1"></a>                      <span class="at">y_linear=</span><span class="dv">3</span><span class="sc">*</span>df_exp<span class="sc">$</span>x<span class="sc">+</span><span class="dv">2</span>)</span>
+<span id="cb59-5"><a href="exploratory_data_analysis.html#cb59-5" tabindex="-1"></a></span>
+<span id="cb59-6"><a href="exploratory_data_analysis.html#cb59-6" tabindex="-1"></a><span class="co"># mine 지표 가져오기</span></span>
+<span id="cb59-7"><a href="exploratory_data_analysis.html#cb59-7" tabindex="-1"></a>res_mine_3<span class="ot">=</span><span class="fu">mine</span>(df_example)</span>
+<span id="cb59-8"><a href="exploratory_data_analysis.html#cb59-8" tabindex="-1"></a></span>
+<span id="cb59-9"><a href="exploratory_data_analysis.html#cb59-9" tabindex="-1"></a><span class="co"># 결과를 출력할 라벨 생성</span></span>
+<span id="cb59-10"><a href="exploratory_data_analysis.html#cb59-10" tabindex="-1"></a>results_linear <span class="ot">=</span> </span>
+<span id="cb59-11"><a href="exploratory_data_analysis.html#cb59-11" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">&quot;MIC: %s </span><span class="sc">\n</span><span class="st"> MIC-R2 (비선형성): %s&quot;</span>,</span>
+<span id="cb59-12"><a href="exploratory_data_analysis.html#cb59-12" tabindex="-1"></a>          res_mine_3<span class="sc">$</span>MIC[<span class="dv">1</span>,<span class="dv">3</span>],</span>
+<span id="cb59-13"><a href="exploratory_data_analysis.html#cb59-13" tabindex="-1"></a>          <span class="fu">round</span>(res_mine_3<span class="sc">$</span>MICR2[<span class="dv">1</span>,<span class="dv">3</span>],<span class="dv">2</span>)</span>
+<span id="cb59-14"><a href="exploratory_data_analysis.html#cb59-14" tabindex="-1"></a>          )</span>
+<span id="cb59-15"><a href="exploratory_data_analysis.html#cb59-15" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="exploratory_data_analysis.html#cb59-16" tabindex="-1"></a>results_exp <span class="ot">=</span> </span>
+<span id="cb59-17"><a href="exploratory_data_analysis.html#cb59-17" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">&quot;MIC: %s </span><span class="sc">\n</span><span class="st"> MIC-R2 (비선형성): %s&quot;</span>, </span>
+<span id="cb59-18"><a href="exploratory_data_analysis.html#cb59-18" tabindex="-1"></a>          res_mine_3<span class="sc">$</span>MIC[<span class="dv">1</span>,<span class="dv">2</span>],</span>
+<span id="cb59-19"><a href="exploratory_data_analysis.html#cb59-19" tabindex="-1"></a>          <span class="fu">round</span>(res_mine_3<span class="sc">$</span>MICR2[<span class="dv">1</span>,<span class="dv">2</span>],<span class="dv">4</span>)</span>
+<span id="cb59-20"><a href="exploratory_data_analysis.html#cb59-20" tabindex="-1"></a>          )</span>
+<span id="cb59-21"><a href="exploratory_data_analysis.html#cb59-21" tabindex="-1"></a></span>
+<span id="cb59-22"><a href="exploratory_data_analysis.html#cb59-22" tabindex="-1"></a><span class="co"># 결과 플로팅</span></span>
+<span id="cb59-23"><a href="exploratory_data_analysis.html#cb59-23" tabindex="-1"></a><span class="co"># 지수 변수 플롯 생성</span></span>
+<span id="cb59-24"><a href="exploratory_data_analysis.html#cb59-24" tabindex="-1"></a>p_exp<span class="ot">=</span><span class="fu">ggplot</span>(df_example, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y_exp)) <span class="sc">+</span> </span>
+<span id="cb59-25"><a href="exploratory_data_analysis.html#cb59-25" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb59-26"><a href="exploratory_data_analysis.html#cb59-26" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">11</span>, <span class="at">y =</span><span class="fl">0.4</span>, <span class="at">label =</span> results_exp) <span class="sc">+</span> </span>
+<span id="cb59-27"><a href="exploratory_data_analysis.html#cb59-27" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb59-28"><a href="exploratory_data_analysis.html#cb59-28" tabindex="-1"></a></span>
+<span id="cb59-29"><a href="exploratory_data_analysis.html#cb59-29" tabindex="-1"></a><span class="co"># 선형 변수 플롯 생성</span></span>
+<span id="cb59-30"><a href="exploratory_data_analysis.html#cb59-30" tabindex="-1"></a>p_linear<span class="ot">=</span><span class="fu">ggplot</span>(df_example, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y_linear)) <span class="sc">+</span> </span>
+<span id="cb59-31"><a href="exploratory_data_analysis.html#cb59-31" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb59-32"><a href="exploratory_data_analysis.html#cb59-32" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">8</span>, <span class="at">y =</span> <span class="dv">55</span>, </span>
+<span id="cb59-33"><a href="exploratory_data_analysis.html#cb59-33" tabindex="-1"></a>            <span class="at">label =</span> results_linear) <span class="sc">+</span> </span>
+<span id="cb59-34"><a href="exploratory_data_analysis.html#cb59-34" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb59-35"><a href="exploratory_data_analysis.html#cb59-35" tabindex="-1"></a></span>
+<span id="cb59-36"><a href="exploratory_data_analysis.html#cb59-36" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_exp,p_linear,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:measuring-non-linearity"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/measuring-non-linearity-1.png" alt="관계 비교" width="768"  />
+<p class="caption">
+Figure 1.10: 관계 비교
+</p>
+</div>
+<p>두 플롯 모두 MIC=1을 가지는 완벽한 상관 관계(또는 관계)를 보여줍니다.
+비선형성에 관해서는, MICR2는 예상대로 <code>y_exp</code>에서 0.6101, <code>y_linear</code>에서는 0으로 동작합니다.</p>
+<p>이 점은 중요한데, <strong>MIC는 선형 관계에서 R2처럼 동작</strong>하며, 이전에 보았듯이 <strong>비선형</strong> 관계에도 매우 잘 적응하여 관계를 프로파일링하는 특정 점수 지표(<code>MICR2</code>)를 검색하기 때문입니다.</p>
+</div>
+<div id="앤스콤-쿼텟에서-정보-측정하기" class="section level3 hasAnchor" number="1.2.6">
+<h3><span class="header-section-number">1.2.6</span> 앤스콤 쿼텟에서 정보 측정하기<a href="exploratory_data_analysis.html#앤스콤-쿼텟에서-정보-측정하기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>앞서 검토했던 예시를 기억하시나요? 앤스콤 쿼텟의 모든 쌍은 <strong>R2가 0.86</strong>으로 나옵니다. 그러나 플롯을 기반으로 볼 때 모든 쌍이 좋은 상관 관계나 유사한 <code>x</code>와 <code>y</code>의 분포를 보이는 것은 아니었습니다.</p>
+<p>그러나 정보 이론에 기반한 메트릭으로 관계를 측정하면 어떻게 될까요? 네, 다시 MIC입니다.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="exploratory_data_analysis.html#cb60-1" tabindex="-1"></a><span class="co"># 모든 쌍에 대한 MIC 계산</span></span>
+<span id="cb60-2"><a href="exploratory_data_analysis.html#cb60-2" tabindex="-1"></a>mic_1<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x1, anscombe_data<span class="sc">$</span>y1, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">$</span>MIC</span>
+<span id="cb60-3"><a href="exploratory_data_analysis.html#cb60-3" tabindex="-1"></a>mic_2<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x2, anscombe_data<span class="sc">$</span>y2, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">$</span>MIC</span>
+<span id="cb60-4"><a href="exploratory_data_analysis.html#cb60-4" tabindex="-1"></a>mic_3<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x3, anscombe_data<span class="sc">$</span>y3, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">$</span>MIC</span>
+<span id="cb60-5"><a href="exploratory_data_analysis.html#cb60-5" tabindex="-1"></a>mic_4<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x4, anscombe_data<span class="sc">$</span>y4, <span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">$</span>MIC</span>
+<span id="cb60-6"><a href="exploratory_data_analysis.html#cb60-6" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="exploratory_data_analysis.html#cb60-7" tabindex="-1"></a><span class="co"># 2x2 그리드에 MIC 플로팅</span></span>
+<span id="cb60-8"><a href="exploratory_data_analysis.html#cb60-8" tabindex="-1"></a><span class="fu">grid.arrange</span>(<span class="fu">plot_anscombe</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;y1&quot;</span>, mic_1, <span class="st">&quot;MIC&quot;</span>), <span class="fu">plot_anscombe</span>(<span class="st">&quot;x2&quot;</span>, <span class="st">&quot;y2&quot;</span>, mic_2,<span class="st">&quot;MIC&quot;</span>), <span class="fu">plot_anscombe</span>(<span class="st">&quot;x3&quot;</span>, <span class="st">&quot;y3&quot;</span>, mic_3,<span class="st">&quot;MIC&quot;</span>), <span class="fu">plot_anscombe</span>(<span class="st">&quot;x4&quot;</span>, <span class="st">&quot;y4&quot;</span>, mic_4,<span class="st">&quot;MIC&quot;</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;
+## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<div class="figure"><span style="display:block;" id="fig:anscombe-set-information"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/anscombe-set-information-1.png" alt="MIC 통계량" width="672"  />
+<p class="caption">
+Figure 1.11: MIC 통계량
+</p>
+</div>
+<p>보시다시피 <code>alpha</code> 값을 0.8로 늘렸습니다. 이는 작은 샘플을 분석할 때 문서에 따라 좋은 방법입니다. 기본값은 0.6이고 최대값은 1입니다.</p>
+<p>이 경우 MIC 값은 쌍 <code>x4 - y4</code>에서 가장 가짜 관계를 발견했습니다. 플롯당 몇 개의 케이스(11행) 때문에 MIC가 다른 모든 쌍에 대해 동일했을 수 있습니다. 더 많은 케이스가 있으면 다른 MIC 값이 표시됩니다.</p>
+<p>그러나 MIC를 <strong>MIC-R2</strong>(비선형성 측정)와 결합하면 새로운 통찰력이 나타납니다.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="exploratory_data_analysis.html#cb62-1" tabindex="-1"></a><span class="co"># 모든 쌍에 대한 MIC 계산, 입력이 두 개의 벡터일 때는 &quot;MIC-R2&quot; 객체에 하이픈이 있고 데이터 프레임을 사용할 때는 &quot;MICR2&quot;인 것에 유의하세요.</span></span>
+<span id="cb62-2"><a href="exploratory_data_analysis.html#cb62-2" tabindex="-1"></a>mic_r2_1<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x1, anscombe_data<span class="sc">$</span>y1, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">$</span><span class="st">`</span><span class="at">MIC-R2</span><span class="st">`</span></span>
+<span id="cb62-3"><a href="exploratory_data_analysis.html#cb62-3" tabindex="-1"></a>mic_r2_2<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x2, anscombe_data<span class="sc">$</span>y2, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">$</span><span class="st">`</span><span class="at">MIC-R2</span><span class="st">`</span></span>
+<span id="cb62-4"><a href="exploratory_data_analysis.html#cb62-4" tabindex="-1"></a>mic_r2_3<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x3, anscombe_data<span class="sc">$</span>y3, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">$</span><span class="st">`</span><span class="at">MIC-R2</span><span class="st">`</span></span>
+<span id="cb62-5"><a href="exploratory_data_analysis.html#cb62-5" tabindex="-1"></a>mic_r2_4<span class="ot">=</span><span class="fu">mine</span>(anscombe_data<span class="sc">$</span>x4, anscombe_data<span class="sc">$</span>y4, <span class="at">alpha =</span> <span class="fl">0.8</span>)<span class="sc">$</span><span class="st">`</span><span class="at">MIC-R2</span><span class="st">`</span></span>
+<span id="cb62-6"><a href="exploratory_data_analysis.html#cb62-6" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="exploratory_data_analysis.html#cb62-7" tabindex="-1"></a><span class="co"># mic_r2에 따라 정렬</span></span>
+<span id="cb62-8"><a href="exploratory_data_analysis.html#cb62-8" tabindex="-1"></a>df_mic_r2<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">pair=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">mic_r2=</span><span class="fu">c</span>(mic_r2_1,mic_r2_2,mic_r2_3,mic_r2_4)) <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="sc">-</span>mic_r2)</span>
+<span id="cb62-9"><a href="exploratory_data_analysis.html#cb62-9" tabindex="-1"></a>df_mic_r2</span></code></pre></div>
+<pre><code>##   pair     mic_r2
+## 1    2  0.3277882
+## 2    3  0.3277062
+## 3    1  0.3274878
+## 4    4 -0.2272103</code></pre>
+<p><strong>비선형성</strong>에 따라 내림차순으로 정렬하면 결과는 플롯과 일치합니다: 2 &gt; 3 &gt; 1 &gt; 4.
+쌍 4에 대한 이상한 점, 음수입니다. 이는 MIC가 R2보다 낮기 때문입니다. 플롯할 가치가 있는 관계입니다.</p>
+<hr />
+</div>
+<div id="비단조성-측정-mas-측정" class="section level3 hasAnchor" number="1.2.7">
+<h3><span class="header-section-number">1.2.7</span> 비단조성 측정: MAS 측정<a href="exploratory_data_analysis.html#비단조성-측정-mas-측정" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>MINE는 <strong>MAS</strong>(최대 비대칭 점수)를 사용하여 시계열의 비단조성을 프로파일링하는 데에도 도움이 될 수 있습니다.</p>
+<p>단조 시계열은 경향이 바뀌지 않고 항상 위 또는 아래로 이동하는 시계열입니다. 이에 대한 자세한 내용은 <span class="citation">(<a href="#ref-monotonic_function">Wikipedia 2017b</a>)</span>에서 확인할 수 있습니다.</p>
+<p>다음 예시는 비단조 <code>y_1</code>와 단조 <code>y_2</code>의 두 시계열을 시뮬레이션합니다.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="exploratory_data_analysis.html#cb64-1" tabindex="-1"></a><span class="co"># 샘플 데이터 생성 (시계열 시뮬레이션)</span></span>
+<span id="cb64-2"><a href="exploratory_data_analysis.html#cb64-2" tabindex="-1"></a>time_x<span class="ot">=</span><span class="fu">sort</span>(<span class="fu">runif</span>(<span class="at">n=</span><span class="dv">1000</span>, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>))</span>
+<span id="cb64-3"><a href="exploratory_data_analysis.html#cb64-3" tabindex="-1"></a>y_1<span class="ot">=</span><span class="dv">4</span><span class="sc">*</span>(time_x<span class="fl">-0.5</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb64-4"><a href="exploratory_data_analysis.html#cb64-4" tabindex="-1"></a>y_2<span class="ot">=</span><span class="dv">4</span><span class="sc">*</span>(time_x<span class="fl">-0.5</span>)<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb64-5"><a href="exploratory_data_analysis.html#cb64-5" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="exploratory_data_analysis.html#cb64-6" tabindex="-1"></a><span class="co"># 두 시계열에 대한 MAS 계산</span></span>
+<span id="cb64-7"><a href="exploratory_data_analysis.html#cb64-7" tabindex="-1"></a>mas_y1<span class="ot">=</span><span class="fu">round</span>(<span class="fu">mine</span>(time_x,y_1)<span class="sc">$</span>MAS,<span class="dv">2</span>)</span>
+<span id="cb64-8"><a href="exploratory_data_analysis.html#cb64-8" tabindex="-1"></a>mas_y2<span class="ot">=</span><span class="fu">mine</span>(time_x,y_2)<span class="sc">$</span>MAS</span>
+<span id="cb64-9"><a href="exploratory_data_analysis.html#cb64-9" tabindex="-1"></a></span>
+<span id="cb64-10"><a href="exploratory_data_analysis.html#cb64-10" tabindex="-1"></a><span class="co"># 모두 함께 넣기</span></span>
+<span id="cb64-11"><a href="exploratory_data_analysis.html#cb64-11" tabindex="-1"></a>df_mono<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">time_x=</span>time_x, <span class="at">y_1=</span>y_1, <span class="at">y_2=</span>y_2)</span>
+<span id="cb64-12"><a href="exploratory_data_analysis.html#cb64-12" tabindex="-1"></a></span>
+<span id="cb64-13"><a href="exploratory_data_analysis.html#cb64-13" tabindex="-1"></a><span class="co"># 플로팅</span></span>
+<span id="cb64-14"><a href="exploratory_data_analysis.html#cb64-14" tabindex="-1"></a>label_p_y_1 <span class="ot">=</span> </span>
+<span id="cb64-15"><a href="exploratory_data_analysis.html#cb64-15" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">&quot;MAS=%s (goes down </span><span class="sc">\n</span><span class="st"> and up =&gt; not-monotonic)&quot;</span>, </span>
+<span id="cb64-16"><a href="exploratory_data_analysis.html#cb64-16" tabindex="-1"></a>          mas_y1)</span>
+<span id="cb64-17"><a href="exploratory_data_analysis.html#cb64-17" tabindex="-1"></a></span>
+<span id="cb64-18"><a href="exploratory_data_analysis.html#cb64-18" tabindex="-1"></a>p_y_1<span class="ot">=</span><span class="fu">ggplot</span>(df_mono, <span class="fu">aes</span>(<span class="at">x=</span>time_x, <span class="at">y=</span>y_1)) <span class="sc">+</span> </span>
+<span id="cb64-19"><a href="exploratory_data_analysis.html#cb64-19" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb64-20"><a href="exploratory_data_analysis.html#cb64-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()  <span class="sc">+</span> </span>
+<span id="cb64-21"><a href="exploratory_data_analysis.html#cb64-21" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">0.45</span>, <span class="at">y =</span><span class="fl">0.75</span>, </span>
+<span id="cb64-22"><a href="exploratory_data_analysis.html#cb64-22" tabindex="-1"></a>            <span class="at">label =</span> label_p_y_1)</span>
+<span id="cb64-23"><a href="exploratory_data_analysis.html#cb64-23" tabindex="-1"></a></span>
+<span id="cb64-24"><a href="exploratory_data_analysis.html#cb64-24" tabindex="-1"></a>label_p_y_2<span class="ot">=</span></span>
+<span id="cb64-25"><a href="exploratory_data_analysis.html#cb64-25" tabindex="-1"></a>  <span class="fu">sprintf</span>(<span class="st">&quot;MAS=%s (goes up =&gt; monotonic)&quot;</span>, mas_y2)</span>
+<span id="cb64-26"><a href="exploratory_data_analysis.html#cb64-26" tabindex="-1"></a></span>
+<span id="cb64-27"><a href="exploratory_data_analysis.html#cb64-27" tabindex="-1"></a>p_y_2<span class="ot">=</span><span class="fu">ggplot</span>(df_mono, <span class="fu">aes</span>(<span class="at">x=</span>time_x, <span class="at">y=</span>y_2)) <span class="sc">+</span> </span>
+<span id="cb64-28"><a href="exploratory_data_analysis.html#cb64-28" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;steelblue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb64-29"><a href="exploratory_data_analysis.html#cb64-29" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb64-30"><a href="exploratory_data_analysis.html#cb64-30" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">0.43</span>, <span class="at">y =</span><span class="fl">0.35</span>, </span>
+<span id="cb64-31"><a href="exploratory_data_analysis.html#cb64-31" tabindex="-1"></a>            <span class="at">label =</span> label_p_y_2)</span>
+<span id="cb64-32"><a href="exploratory_data_analysis.html#cb64-32" tabindex="-1"></a></span>
+<span id="cb64-33"><a href="exploratory_data_analysis.html#cb64-33" tabindex="-1"></a><span class="fu">grid.arrange</span>(p_y_1,p_y_2,<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:monotonic-non-monotonic-function"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/monotonic-non-monotonic-function-1.png" alt="함수의 단조성" width="768"  />
+<p class="caption">
+Figure 1.12: 함수의 단조성
+</p>
+</div>
+<p>다른 관점에서 MAS는 주기적 관계를 감지하는 데에도 유용합니다. 예시를 통해 이를 설명해 보겠습니다.</p>
+<div class="figure"><span style="display:block;" id="fig:periodical-function"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/periodical-function-1.png" alt="함수의 주기성" width="768"  />
+<p class="caption">
+Figure 1.13: 함수의 주기성
+</p>
+</div>
+<div id="더-실제적인-예시-시계열" class="section level4 hasAnchor" number="1.2.7.1">
+<h4><span class="header-section-number">1.2.7.1</span> 더 실제적인 예시: 시계열<a href="exploratory_data_analysis.html#더-실제적인-예시-시계열" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>세 개의 시계열(<code>y1</code>, <code>y2</code>, <code>y3</code>)을 포함하는 다음 사례를 고려해 보겠습니다. 이들은 비단조성 또는 전체 성장 추세에 따라 프로파일링할 수 있습니다.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="exploratory_data_analysis.html#cb65-1" tabindex="-1"></a><span class="co"># 데이터 읽기</span></span>
+<span id="cb65-2"><a href="exploratory_data_analysis.html#cb65-2" tabindex="-1"></a>df_time_series <span class="ot">=</span> </span>
+<span id="cb65-3"><a href="exploratory_data_analysis.html#cb65-3" tabindex="-1"></a>  <span class="fu">read.delim</span>(<span class="at">file=</span><span class="st">&quot;https://goo.gl/QDUjfd&quot;</span>)</span>
+<span id="cb65-4"><a href="exploratory_data_analysis.html#cb65-4" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="exploratory_data_analysis.html#cb65-5" tabindex="-1"></a><span class="co"># 플롯할 수 있도록 긴 형식으로 변환</span></span>
+<span id="cb65-6"><a href="exploratory_data_analysis.html#cb65-6" tabindex="-1"></a>df_time_series_long<span class="ot">=</span><span class="fu">melt</span>(df_time_series, <span class="at">id=</span><span class="st">&quot;time&quot;</span>)</span>
+<span id="cb65-7"><a href="exploratory_data_analysis.html#cb65-7" tabindex="-1"></a></span>
+<span id="cb65-8"><a href="exploratory_data_analysis.html#cb65-8" tabindex="-1"></a><span class="co"># 플로팅</span></span>
+<span id="cb65-9"><a href="exploratory_data_analysis.html#cb65-9" tabindex="-1"></a>plot_time_series <span class="ot">=</span> </span>
+<span id="cb65-10"><a href="exploratory_data_analysis.html#cb65-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data=</span>df_time_series_long,</span>
+<span id="cb65-11"><a href="exploratory_data_analysis.html#cb65-11" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x=</span>time, <span class="at">y=</span>value, <span class="at">colour=</span>variable)) <span class="sc">+</span></span>
+<span id="cb65-12"><a href="exploratory_data_analysis.html#cb65-12" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb65-13"><a href="exploratory_data_analysis.html#cb65-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb65-14"><a href="exploratory_data_analysis.html#cb65-14" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Set2&quot;</span>)</span>
+<span id="cb65-15"><a href="exploratory_data_analysis.html#cb65-15" tabindex="-1"></a></span>
+<span id="cb65-16"><a href="exploratory_data_analysis.html#cb65-16" tabindex="-1"></a>plot_time_series</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:correlation-time-series"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/correlation-time-series-1.png" alt="시계열 예제" width="480"  />
+<p class="caption">
+Figure 1.14: 시계열 예제
+</p>
+</div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="exploratory_data_analysis.html#cb66-1" tabindex="-1"></a><span class="co"># 시계열 데이터에 대한 MAS 값 계산 및 출력</span></span>
+<span id="cb66-2"><a href="exploratory_data_analysis.html#cb66-2" tabindex="-1"></a>mine_ts<span class="ot">=</span><span class="fu">mine</span>(df_time_series)</span>
+<span id="cb66-3"><a href="exploratory_data_analysis.html#cb66-3" tabindex="-1"></a>mine_ts<span class="sc">$</span>MAS </span></code></pre></div>
+<pre><code>##           time         y1         y2         y3
+## time 0.0000000 0.12031227 0.10538854 0.19115290
+## y1   0.1203123 0.00000000 0.06777813 0.08109624
+## y2   0.1053885 0.06777813 0.00000000 0.05700273
+## y3   0.1911529 0.08109624 0.05700273 0.00000000</code></pre>
+<p><code>time</code> 열을 봐야 하므로 각 시계열의 시간에 대한 MAS 값을 얻었습니다.
+<code>y2</code>는 가장 단조적(그리고 가장 덜 주기적)인 시계열이며, 이를 보면 확인할 수 있습니다. 항상 올라가는 것처럼 보입니다.</p>
+<p><strong>MAS 요약:</strong></p>
+<ul>
+<li>MAS ~ 0은 단조 또는 비주기적 함수(“항상” 위 또는 아래로 이동)를 나타냅니다.</li>
+<li>MAS ~ 1은 비단조 또는 주기적 함수를 나타냅니다.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="시계열-간의-상관-관계" class="section level3 hasAnchor" number="1.2.8">
+<h3><span class="header-section-number">1.2.8</span> 시계열 간의 상관 관계<a href="exploratory_data_analysis.html#시계열-간의-상관-관계" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>MIC 메트릭은 <strong>시계열의 상관 관계</strong>도 측정할 수 있습니다. 일반적인 목적의 도구는 아니지만 서로 다른 시계열을 빠르게 비교하는 데 유용할 수 있습니다.</p>
+<p>이 섹션은 MAS 예시에서 사용한 동일한 데이터를 기반으로 합니다.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="exploratory_data_analysis.html#cb68-1" tabindex="-1"></a><span class="co"># 3개의 시계열 다시 출력</span></span>
+<span id="cb68-2"><a href="exploratory_data_analysis.html#cb68-2" tabindex="-1"></a>plot_time_series</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:time-series"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/time-series-1.png" alt="시계열 예제" width="384"  />
+<p class="caption">
+Figure 1.15: 시계열 예제
+</p>
+</div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="exploratory_data_analysis.html#cb69-1" tabindex="-1"></a><span class="co"># MIC 값 출력</span></span>
+<span id="cb69-2"><a href="exploratory_data_analysis.html#cb69-2" tabindex="-1"></a>mine_ts<span class="sc">$</span>MIC</span></code></pre></div>
+<pre><code>##           time        y1        y2        y3
+## time 1.0000000 0.3770052 0.6896763 0.3408671
+## y1   0.3770052 1.0000000 0.6174925 0.7094427
+## y2   0.6896763 0.6174925 1.0000000 0.5176504
+## y3   0.3408671 0.7094427 0.5176504 1.0000000</code></pre>
+<p>이제 <code>y1</code> 열을 봐야 합니다. MIC 측정값에 따르면 마지막 플롯에 표시된 것과 동일한 내용을 확인할 수 있습니다.</p>
+<p><code>y1</code>은 <code>y2</code>(MIC=0.61)보다 <code>y3</code>(MIC=0.709)과 더 유사합니다.</p>
+<hr />
+<div id="더-나아가기-동적-시간-워핑" class="section level4 hasAnchor" number="1.2.8.1">
+<h4><span class="header-section-number">1.2.8.1</span> 더 나아가기: 동적 시간 워핑<a href="exploratory_data_analysis.html#더-나아가기-동적-시간-워핑" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>MIC는 속도가 다른 시계열이 있는 더 복잡한 시나리오에는 유용하지 않습니다. <a href="https://en.wikipedia.org/wiki/Dynamic_time_warping">동적 시간 워핑</a>(<strong>DTW</strong>) 기술을 사용해야 합니다.</p>
+<p>개념을 시각적으로 파악하기 위해 이미지를 사용해 보겠습니다.</p>
+<div class="figure"><span style="display:block;" id="fig:Dynamic-Time-warping"></span>
+<img src="exploratory_data_analysis/dynamic_time_warping.png" alt="동적 시간 워핑 (DTW)" width="300px"  />
+<p class="caption">
+Figure 1.16: 동적 시간 워핑 (DTW)
+</p>
+</div>
+<p>이미지 출처: <em>Dynamic time wrapping Converting images into time series for data mining</em> <span class="citation">(<a href="#ref-img_time_series">Izbicki 2011</a>)</span>.</p>
+<p>마지막 이미지는 시계열을 비교하는 두 가지 다른 접근 방식을 보여주며, <strong>유클리드</strong>는 MIC 측정값과 더 유사합니다. 반면 DTW는 서로 다른 시간에 발생하는 유사성을 추적할 수 있습니다.</p>
+<p><strong>R</strong>에서의 멋진 구현: <a href="http://dtw.r-forge.r-project.org">dtw 패키지</a>.</p>
+<p>시계열 간의 상관 관계를 찾는 것은 <strong>시계열 클러스터링</strong>을 수행하는 또 다른 방법입니다.</p>
+<hr />
+</div>
+</div>
+<div id="범주형-변수의-상관-관계" class="section level3 hasAnchor" number="1.2.9">
+<h3><span class="header-section-number">1.2.9</span> 범주형 변수의 상관 관계<a href="exploratory_data_analysis.html#범주형-변수의-상관-관계" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>MINE와 다른 많은 알고리즘은 수치형 데이터에서만 작동합니다. 모든 범주형 변수를 플래그(또는 더미 변수)로 변환하는 <strong>데이터 준비</strong> 트릭을 수행해야 합니다.</p>
+<p>원래 범주형 변수에 30개의 가능한 값이 있는 경우, 행에 해당 범주가 존재하는 경우 값 <code>1</code>을 보유하는 30개의 새 열이 생성됩니다.</p>
+<p>R의 <code>caret</code> 패키지를 사용하는 경우 이 변환은 두 줄의 코드만 필요합니다.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="exploratory_data_analysis.html#cb71-1" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb71-2"><a href="exploratory_data_analysis.html#cb71-2" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="exploratory_data_analysis.html#cb71-3" tabindex="-1"></a><span class="co"># 몇 개의 변수만 선택</span></span>
+<span id="cb71-4"><a href="exploratory_data_analysis.html#cb71-4" tabindex="-1"></a>heart_disease_2 <span class="ot">=</span> </span>
+<span id="cb71-5"><a href="exploratory_data_analysis.html#cb71-5" tabindex="-1"></a>  <span class="fu">select</span>(heart_disease, max_heart_rate, oldpeak, </span>
+<span id="cb71-6"><a href="exploratory_data_analysis.html#cb71-6" tabindex="-1"></a>          thal, chest_pain,exer_angina, has_heart_disease)</span>
+<span id="cb71-7"><a href="exploratory_data_analysis.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="exploratory_data_analysis.html#cb71-8" tabindex="-1"></a><span class="co"># 범주형에서 수치형으로의 이 변환은 단순히 </span></span>
+<span id="cb71-9"><a href="exploratory_data_analysis.html#cb71-9" tabindex="-1"></a><span class="co"># 더 깔끔한 플롯을 만들기 위한 것입니다.</span></span>
+<span id="cb71-10"><a href="exploratory_data_analysis.html#cb71-10" tabindex="-1"></a>heart_disease_2<span class="sc">$</span>has_heart_disease<span class="ot">=</span></span>
+<span id="cb71-11"><a href="exploratory_data_analysis.html#cb71-11" tabindex="-1"></a>  <span class="fu">ifelse</span>(heart_disease_2<span class="sc">$</span>has_heart_disease<span class="sc">==</span><span class="st">&quot;yes&quot;</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb71-12"><a href="exploratory_data_analysis.html#cb71-12" tabindex="-1"></a></span>
+<span id="cb71-13"><a href="exploratory_data_analysis.html#cb71-13" tabindex="-1"></a><span class="co"># R의 모든 범주형 변수(factor 및 </span></span>
+<span id="cb71-14"><a href="exploratory_data_analysis.html#cb71-14" tabindex="-1"></a><span class="co"># character)를 수치형 변수로 변환합니다.</span></span>
+<span id="cb71-15"><a href="exploratory_data_analysis.html#cb71-15" tabindex="-1"></a><span class="co"># 원본을 건너뛰어 데이터를 사용할 준비가 되도록 합니다.</span></span>
+<span id="cb71-16"><a href="exploratory_data_analysis.html#cb71-16" tabindex="-1"></a>dmy <span class="ot">=</span> <span class="fu">dummyVars</span>(<span class="st">&quot; ~ .&quot;</span>, <span class="at">data =</span> heart_disease_2)</span>
+<span id="cb71-17"><a href="exploratory_data_analysis.html#cb71-17" tabindex="-1"></a></span>
+<span id="cb71-18"><a href="exploratory_data_analysis.html#cb71-18" tabindex="-1"></a>heart_disease_3 <span class="ot">=</span> </span>
+<span id="cb71-19"><a href="exploratory_data_analysis.html#cb71-19" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="fu">predict</span>(dmy, <span class="at">newdata =</span> heart_disease_2))</span>
+<span id="cb71-20"><a href="exploratory_data_analysis.html#cb71-20" tabindex="-1"></a></span>
+<span id="cb71-21"><a href="exploratory_data_analysis.html#cb71-21" tabindex="-1"></a><span class="co"># 중요: 이 메시지를 받으면 </span></span>
+<span id="cb71-22"><a href="exploratory_data_analysis.html#cb71-22" tabindex="-1"></a><span class="co"># `Error: Missing values present in input variable &#39;x&#39;. </span></span>
+<span id="cb71-23"><a href="exploratory_data_analysis.html#cb71-23" tabindex="-1"></a><span class="co"># Consider using use = &#39;pairwise.complete.obs&#39;.`</span></span>
+<span id="cb71-24"><a href="exploratory_data_analysis.html#cb71-24" tabindex="-1"></a><span class="co"># 데이터에 결측값이 있기 때문입니다.</span></span>
+<span id="cb71-25"><a href="exploratory_data_analysis.html#cb71-25" tabindex="-1"></a><span class="co"># 먼저 영향 분석 없이 NA를 생략하지 마세요.</span></span>
+<span id="cb71-26"><a href="exploratory_data_analysis.html#cb71-26" tabindex="-1"></a><span class="co"># 이 경우에는 중요하지 않습니다. </span></span>
+<span id="cb71-27"><a href="exploratory_data_analysis.html#cb71-27" tabindex="-1"></a>heart_disease_4<span class="ot">=</span><span class="fu">na.omit</span>(heart_disease_3)</span>
+<span id="cb71-28"><a href="exploratory_data_analysis.html#cb71-28" tabindex="-1"></a>  </span>
+<span id="cb71-29"><a href="exploratory_data_analysis.html#cb71-29" tabindex="-1"></a><span class="co"># mic 계산!</span></span>
+<span id="cb71-30"><a href="exploratory_data_analysis.html#cb71-30" tabindex="-1"></a>mine_res_hd<span class="ot">=</span><span class="fu">mine</span>(heart_disease_4)</span></code></pre></div>
+<p>샘플 인쇄…</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="exploratory_data_analysis.html#cb72-1" tabindex="-1"></a>mine_res_hd<span class="sc">$</span>MIC[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##                max_heart_rate   oldpeak     thal.3     thal.6     thal.7
+## max_heart_rate      0.9999920 0.2440874 0.24448436 0.11965365 0.18392352
+## oldpeak             0.2440874 0.9999283 0.17511070 0.11086221 0.15706631
+## thal.3              0.2444844 0.1751107 0.99233512 0.07257079 0.70987597
+## thal.6              0.1196536 0.1108622 0.07257079 0.32665312 0.04419397
+## thal.7              0.1839235 0.1570663 0.70987597 0.04419397 0.96395831</code></pre>
+<p>여기서 <code>thal.3</code> 열은 <code>thal=3</code>일 때 1의 값을 가집니다.</p>
+<hr />
+<div id="멋진-플롯-인쇄" class="section level4 hasAnchor" number="1.2.9.1">
+<h4><span class="header-section-number">1.2.9.1</span> 멋진 플롯 인쇄!<a href="exploratory_data_analysis.html#멋진-플롯-인쇄" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R에서 <code>corrplot</code> 패키지를 사용합니다. 이 패키지는 <code>cor</code> 객체(클래식 상관 관계 행렬) 또는 다른 행렬을 플롯할 수 있습니다. 이 경우 <strong>MIC</strong> 행렬을 플롯하지만, 예를 들어 <strong>MAS</strong> 또는 상관 관계의 제곱 행렬을 반환하는 다른 메트릭도 사용할 수 있습니다.</p>
+<p>두 플롯은 동일한 데이터를 기반으로 하지만 상관 관계를 다른 방식으로 표시합니다.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="exploratory_data_analysis.html#cb74-1" tabindex="-1"></a><span class="co"># 행렬을 플롯하는 라이브러리</span></span>
+<span id="cb74-2"><a href="exploratory_data_analysis.html#cb74-2" tabindex="-1"></a><span class="fu">library</span>(corrplot) </span></code></pre></div>
+<pre><code>## corrplot 0.95 loaded</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="exploratory_data_analysis.html#cb76-1" tabindex="-1"></a><span class="co"># color pallete brewer.pal을 사용합니다.</span></span>
+<span id="cb76-2"><a href="exploratory_data_analysis.html#cb76-2" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer) </span>
+<span id="cb76-3"><a href="exploratory_data_analysis.html#cb76-3" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="exploratory_data_analysis.html#cb76-4" tabindex="-1"></a><span class="co"># 대각선(변수 자체)을 제외한 </span></span>
+<span id="cb76-5"><a href="exploratory_data_analysis.html#cb76-5" tabindex="-1"></a><span class="co"># 스케일의 최대값을 시각화하는 해킹</span></span>
+<span id="cb76-6"><a href="exploratory_data_analysis.html#cb76-6" tabindex="-1"></a><span class="fu">diag</span>(mine_res_hd<span class="sc">$</span>MIC)<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb76-7"><a href="exploratory_data_analysis.html#cb76-7" tabindex="-1"></a></span>
+<span id="cb76-8"><a href="exploratory_data_analysis.html#cb76-8" tabindex="-1"></a><span class="co"># 원이 있는 상관 관계 플롯. </span></span>
+<span id="cb76-9"><a href="exploratory_data_analysis.html#cb76-9" tabindex="-1"></a><span class="fu">corrplot</span>(mine_res_hd<span class="sc">$</span>MIC, </span>
+<span id="cb76-10"><a href="exploratory_data_analysis.html#cb76-10" tabindex="-1"></a>        <span class="at">method=</span><span class="st">&quot;circle&quot;</span>,</span>
+<span id="cb76-11"><a href="exploratory_data_analysis.html#cb76-11" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">brewer.pal</span>(<span class="at">n=</span><span class="dv">10</span>, <span class="at">name=</span><span class="st">&quot;PuOr&quot;</span>),</span>
+<span id="cb76-12"><a href="exploratory_data_analysis.html#cb76-12" tabindex="-1"></a>        <span class="co"># 상단 대각선만 표시</span></span>
+<span id="cb76-13"><a href="exploratory_data_analysis.html#cb76-13" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;lower&quot;</span>, </span>
+<span id="cb76-14"><a href="exploratory_data_analysis.html#cb76-14" tabindex="-1"></a>        <span class="co"># 레이블 색상, 크기 및 회전</span></span>
+<span id="cb76-15"><a href="exploratory_data_analysis.html#cb76-15" tabindex="-1"></a>        <span class="at">tl.col=</span><span class="st">&quot;red&quot;</span>,</span>
+<span id="cb76-16"><a href="exploratory_data_analysis.html#cb76-16" tabindex="-1"></a>        <span class="at">tl.cex =</span> <span class="fl">0.9</span>, </span>
+<span id="cb76-17"><a href="exploratory_data_analysis.html#cb76-17" tabindex="-1"></a>        <span class="at">tl.srt=</span><span class="dv">90</span>, </span>
+<span id="cb76-18"><a href="exploratory_data_analysis.html#cb76-18" tabindex="-1"></a>        <span class="co"># 대각선(변수 자체)을 인쇄하지 않음</span></span>
+<span id="cb76-19"><a href="exploratory_data_analysis.html#cb76-19" tabindex="-1"></a>        <span class="at">diag=</span><span class="cn">FALSE</span>, </span>
+<span id="cb76-20"><a href="exploratory_data_analysis.html#cb76-20" tabindex="-1"></a>        <span class="co"># 모든 행렬(이 경우 mic)을 허용합니다. </span></span>
+<span id="cb76-21"><a href="exploratory_data_analysis.html#cb76-21" tabindex="-1"></a>        <span class="co">#(상관 요소가 아님)</span></span>
+<span id="cb76-22"><a href="exploratory_data_analysis.html#cb76-22" tabindex="-1"></a>        <span class="at">is.corr =</span> F </span>
+<span id="cb76-23"><a href="exploratory_data_analysis.html#cb76-23" tabindex="-1"></a>       </span>
+<span id="cb76-24"><a href="exploratory_data_analysis.html#cb76-24" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:correlation-information-theory-1"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/correlation-information-theory-1.png" alt="상관 관계 플롯" width="672"  />
+<p class="caption">
+Figure 1.17: 상관 관계 플롯
+</p>
+</div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="exploratory_data_analysis.html#cb77-1" tabindex="-1"></a><span class="co"># 색상 및 상관 관계 MIC가 있는 상관 관계 플롯</span></span>
+<span id="cb77-2"><a href="exploratory_data_analysis.html#cb77-2" tabindex="-1"></a><span class="fu">corrplot</span>(mine_res_hd<span class="sc">$</span>MIC, </span>
+<span id="cb77-3"><a href="exploratory_data_analysis.html#cb77-3" tabindex="-1"></a>        <span class="at">method=</span><span class="st">&quot;color&quot;</span>,</span>
+<span id="cb77-4"><a href="exploratory_data_analysis.html#cb77-4" tabindex="-1"></a>        <span class="at">type=</span><span class="st">&quot;lower&quot;</span>, </span>
+<span id="cb77-5"><a href="exploratory_data_analysis.html#cb77-5" tabindex="-1"></a>        <span class="at">number.cex=</span><span class="fl">0.7</span>,</span>
+<span id="cb77-6"><a href="exploratory_data_analysis.html#cb77-6" tabindex="-1"></a>        <span class="co"># 상관 계수 추가</span></span>
+<span id="cb77-7"><a href="exploratory_data_analysis.html#cb77-7" tabindex="-1"></a>        <span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb77-8"><a href="exploratory_data_analysis.html#cb77-8" tabindex="-1"></a>        <span class="at">tl.col=</span><span class="st">&quot;red&quot;</span>, </span>
+<span id="cb77-9"><a href="exploratory_data_analysis.html#cb77-9" tabindex="-1"></a>        <span class="at">tl.srt=</span><span class="dv">90</span>, </span>
+<span id="cb77-10"><a href="exploratory_data_analysis.html#cb77-10" tabindex="-1"></a>        <span class="at">tl.cex =</span> <span class="fl">0.9</span>,</span>
+<span id="cb77-11"><a href="exploratory_data_analysis.html#cb77-11" tabindex="-1"></a>        <span class="at">diag=</span><span class="cn">FALSE</span>, </span>
+<span id="cb77-12"><a href="exploratory_data_analysis.html#cb77-12" tabindex="-1"></a>        <span class="at">is.corr =</span> F </span>
+<span id="cb77-13"><a href="exploratory_data_analysis.html#cb77-13" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:correlation-information-theory-2"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/correlation-information-theory-2.png" alt="상관 관계 플롯" width="672"  />
+<p class="caption">
+Figure 1.18: 상관 관계 플롯
+</p>
+</div>
+<p>첫 번째 매개변수 <code>-mine_res_hd$MIC-</code>를 원하는 행렬로 변경하고 자신의 데이터와 함께 다시 사용하면 됩니다.</p>
+<hr />
+</div>
+<div id="이러한-종류의-플롯에-대한-의견" class="section level4 hasAnchor" number="1.2.9.2">
+<h4><span class="header-section-number">1.2.9.2</span> 이러한 종류의 플롯에 대한 의견<a href="exploratory_data_analysis.html#이러한-종류의-플롯에-대한-의견" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이러한 플롯은 변수 수가 많지 않을 때만 유용합니다. 또는 모든 변수가 수치형이어야 한다는 점을 염두에 두고 먼저 변수 선택을 수행하는 경우에 유용합니다.</p>
+<p>선택에 범주형 변수가 있다면 먼저 이를 수치형으로 변환한 다음 변수 간의 관계를 검토하여 특정 범주형 변수의 값이 특정 결과와 어떻게 더 관련되어 있는지 (이 경우처럼) 미리 엿볼 수 있습니다.</p>
+<hr />
+</div>
+<div id="플롯에서-얻을-수-있는-몇-가지-통찰력은-어떠한가요" class="section level4 hasAnchor" number="1.2.9.3">
+<h4><span class="header-section-number">1.2.9.3</span> 플롯에서 얻을 수 있는 몇 가지 통찰력은 어떠한가요?<a href="exploratory_data_analysis.html#플롯에서-얻을-수-있는-몇-가지-통찰력은-어떠한가요" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>예측하려는 변수가 <code>has_heart_disease</code>이므로 흥미로운 점이 나타납니다. 심장 질환을 앓는 것은 <code>thal=6</code> 값보다 <code>thal=3</code>과 더 밀접하게 관련되어 있습니다.</p>
+<p>변수 <code>chest_pain</code>에 대한 동일한 분석에서, 4의 값은 1의 값보다 더 위험합니다.</p>
+<p>다른 플롯으로 확인할 수도 있습니다.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="exploratory_data_analysis.html#cb78-1" tabindex="-1"></a><span class="fu">cross_plot</span>(heart_disease, <span class="at">input =</span> <span class="st">&quot;chest_pain&quot;</span>, <span class="at">target =</span> <span class="st">&quot;has_heart_disease&quot;</span>, <span class="at">plot_type =</span> <span class="st">&quot;percentual&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:profiling-target-variable"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/profiling-target-variable-1.png" alt="cross-plot을 사용한 시각적 분석" width="288"  />
+<p class="caption">
+Figure 1.19: cross-plot을 사용한 시각적 분석
+</p>
+</div>
+<p>환자가 <code>chest_pain=4</code>인 경우 심장 질환 발병 가능성은 72.9%입니다. <code>chest_pain=1</code>인 경우(72.9% 대 30.4%)보다 2배 이상 높습니다.</p>
+<hr />
+<p><strong>몇 가지 생각…</strong></p>
+<p>데이터는 동일하지만 데이터를 탐색하는 접근 방식은 다릅니다. 예측 모델을 만들 때도 마찬가지입니다. <em>N차원</em> 공간의 입력 데이터는 서포트 벡터 머신, 랜덤 포레스트 등 다양한 모델을 통해 접근할 수 있습니다.</p>
+<p>마치 사진가가 다른 각도나 다른 카메라로 촬영하는 것과 같습니다. 대상은 항상 동일하지만, 관점에 따라 다른 정보를 제공합니다.</p>
+<p>원시 테이블과 다양한 플롯을 결합하면 더욱 현실적이고 보완적인 객관적인 시각을 얻을 수 있습니다.</p>
+<hr />
+</div>
+</div>
+<div id="정보-이론에-기반한-상관-관계-분석-selecting_best_vars_mic" class="section level3 hasAnchor" number="1.2.10">
+<h3><span class="header-section-number">1.2.10</span> 정보 이론에 기반한 상관 관계 분석 {#selecting_best_vars_mic}<a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계-분석-selecting_best_vars_mic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>MIC 측정값을 기반으로 <code>mine</code> 함수는 예측할 열의 인덱스(또는 단 하나의 변수에 대한 모든 상관 관계를 얻기 위해)를 받을 수 있습니다.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="exploratory_data_analysis.html#cb79-1" tabindex="-1"></a><span class="co"># 예측할 변수의 인덱스 가져오기: has_heart_disease</span></span>
+<span id="cb79-2"><a href="exploratory_data_analysis.html#cb79-2" tabindex="-1"></a>target<span class="ot">=</span><span class="st">&quot;has_heart_disease&quot;</span></span>
+<span id="cb79-3"><a href="exploratory_data_analysis.html#cb79-3" tabindex="-1"></a>index_target<span class="ot">=</span><span class="fu">grep</span>(target, <span class="fu">colnames</span>(heart_disease_4))</span>
+<span id="cb79-4"><a href="exploratory_data_analysis.html#cb79-4" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="exploratory_data_analysis.html#cb79-5" tabindex="-1"></a><span class="co"># master는 모든 상관 관계를 계산하기 위해</span></span>
+<span id="cb79-6"><a href="exploratory_data_analysis.html#cb79-6" tabindex="-1"></a><span class="co"># 인덱스 열 번호를 가져옵니다.</span></span>
+<span id="cb79-7"><a href="exploratory_data_analysis.html#cb79-7" tabindex="-1"></a>mic_predictive<span class="ot">=</span><span class="fu">mine</span>(heart_disease_4, </span>
+<span id="cb79-8"><a href="exploratory_data_analysis.html#cb79-8" tabindex="-1"></a>                    <span class="at">master =</span> index_target)<span class="sc">$</span>MIC</span>
+<span id="cb79-9"><a href="exploratory_data_analysis.html#cb79-9" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="exploratory_data_analysis.html#cb79-10" tabindex="-1"></a><span class="co"># 결과를 포함하는 데이터 프레임 생성, </span></span>
+<span id="cb79-11"><a href="exploratory_data_analysis.html#cb79-11" tabindex="-1"></a><span class="co"># 상관 관계에 따라 내림차순으로 정렬하고 </span></span>
+<span id="cb79-12"><a href="exploratory_data_analysis.html#cb79-12" tabindex="-1"></a><span class="co"># 대상 자체와의 상관 관계 제외</span></span>
+<span id="cb79-13"><a href="exploratory_data_analysis.html#cb79-13" tabindex="-1"></a>df_predictive <span class="ot">=</span> </span>
+<span id="cb79-14"><a href="exploratory_data_analysis.html#cb79-14" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">variable=</span><span class="fu">rownames</span>(mic_predictive), </span>
+<span id="cb79-15"><a href="exploratory_data_analysis.html#cb79-15" tabindex="-1"></a>                       <span class="at">mic=</span>mic_predictive[,<span class="dv">1</span>], </span>
+<span id="cb79-16"><a href="exploratory_data_analysis.html#cb79-16" tabindex="-1"></a>                       <span class="at">stringsAsFactors =</span> F) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-17"><a href="exploratory_data_analysis.html#cb79-17" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>mic) <span class="sc">%&gt;%</span> </span>
+<span id="cb79-18"><a href="exploratory_data_analysis.html#cb79-18" tabindex="-1"></a>  <span class="fu">filter</span>(variable<span class="sc">!=</span>target)</span>
+<span id="cb79-19"><a href="exploratory_data_analysis.html#cb79-19" tabindex="-1"></a></span>
+<span id="cb79-20"><a href="exploratory_data_analysis.html#cb79-20" tabindex="-1"></a><span class="co"># MIC 측정값을 기반으로 변수 중요도를 보여주는</span></span>
+<span id="cb79-21"><a href="exploratory_data_analysis.html#cb79-21" tabindex="-1"></a><span class="co"># 다채로운 플롯 생성</span></span>
+<span id="cb79-22"><a href="exploratory_data_analysis.html#cb79-22" tabindex="-1"></a><span class="fu">ggplot</span>(df_predictive, </span>
+<span id="cb79-23"><a href="exploratory_data_analysis.html#cb79-23" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(variable, mic),<span class="at">y=</span>mic, <span class="at">fill=</span>variable)</span>
+<span id="cb79-24"><a href="exploratory_data_analysis.html#cb79-24" tabindex="-1"></a>        ) <span class="sc">+</span> </span>
+<span id="cb79-25"><a href="exploratory_data_analysis.html#cb79-25" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&#39;identity&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb79-26"><a href="exploratory_data_analysis.html#cb79-26" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb79-27"><a href="exploratory_data_analysis.html#cb79-27" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb79-28"><a href="exploratory_data_analysis.html#cb79-28" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb79-29"><a href="exploratory_data_analysis.html#cb79-29" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Variable Importance (based on MIC)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb79-30"><a href="exploratory_data_analysis.html#cb79-30" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:importance-variable-ranking"></span>
+<img src="01_exploratory_data_analysis_files/figure-html/importance-variable-ranking-1.png" alt="정보 이론을 사용한 상관 관계" width="576"  />
+<p class="caption">
+Figure 1.20: 정보 이론을 사용한 상관 관계
+</p>
+</div>
+<p>상관 관계가 있는 입력 특성을 제외하기 위해 모든 변수 간의 상관 관계를 실행하는 것이 권장되긴 합니다.</p>
+<hr />
+<div id="mine-사용을-위한-실용적인-조언" class="section level4 hasAnchor" number="1.2.10.1">
+<h4><span class="header-section-number">1.2.10.1</span> <code>mine</code> 사용을 위한 실용적인 조언<a href="exploratory_data_analysis.html#mine-사용을-위한-실용적인-조언" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>완료하는 데 너무 오랜 시간이 걸린다면 <strong>샘플링</strong>을 고려하십시오.
+데이터 양이 너무 적다면 <code>alpha</code> 매개변수에 더 높은 숫자를 설정하는 것을 고려하십시오. 기본값은 0.6입니다.
+또한, 코어가 4개인 경우 <code>n.cores=3</code>으로 설정하여 <strong>병렬로 실행</strong>할 수 있습니다. 병렬 프로세스를 실행할 때 운영 체제에서 추가 코어를 사용하므로 이는 일반적인 좋은 방법입니다.</p>
+<hr />
+</div>
+</div>
+<div id="mine만-이런-기능을-제공하나요" class="section level3 hasAnchor" number="1.2.11">
+<h3><span class="header-section-number">1.2.11</span> MINE만 이런 기능을 제공하나요?<a href="exploratory_data_analysis.html#mine만-이런-기능을-제공하나요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>아닙니다. 우리는 MINE 스위트만 사용했지만, <a href="http://www.scholarpedia.org/article/Mutual_information">상호 정보</a>와 관련된 다른 알고리즘도 있습니다.
+R에서는 <a href="https://cran.r-project.org/web/packages/entropy/entropy.pdf">entropy</a> 및 <a href="https://artax.karlin.mff.cuni.cz/r-help/library/infotheo/html/mutinformation.html">infotheo</a> 패키지 등이 있습니다.</p>
+<p><code>funModeling</code> 패키지(버전 1.6.6부터)는 섹션 <a href="https://www.google.com/search?q=%23select_features_var_rank_info">정보 이론을 사용하여 최고의 특성 순위 지정</a>에서 본 것처럼 여러 정보 이론 메트릭을 계산하는 <code>var_rank_info</code> 함수를 도입합니다.</p>
+<p><strong>Python</strong>에서는 scikit-learn을 통해 상호 정보를 계산할 수 있습니다. <a href="stackoverflow.com/questions/20491028/optimal-way-to-compute-pairwise-mutual-information-using-numpy">여기 예제가 있습니다</a>.</p>
+<p>개념은 도구를 초월합니다.</p>
+<hr />
+<div id="또-다른-상관-관계-예제-상호-정보" class="section level4 hasAnchor" number="1.2.11.1">
+<h4><span class="header-section-number">1.2.11.1</span> 또 다른 상관 관계 예제 (상호 정보)<a href="exploratory_data_analysis.html#또-다른-상관-관계-예제-상호-정보" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이번에는 <code>infotheo</code> 패키지를 사용할 것입니다. 먼저 패키지에 있는 <code>discretize</code> 함수(또는 bining)를 적용하는 <strong>데이터 준비</strong> 단계를 수행해야 합니다. 이 함수는 모든 수치형 변수를 동일 빈도 기준에 따라 범주형으로 변환합니다.</p>
+<p>다음 코드는 이전에 본 것처럼 상관 관계 행렬을 생성하지만, 상호 정보 지수를 기반으로 합니다.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="exploratory_data_analysis.html#cb80-1" tabindex="-1"></a><span class="fu">library</span>(infotheo)</span>
+<span id="cb80-2"><a href="exploratory_data_analysis.html#cb80-2" tabindex="-1"></a><span class="co"># 모든 변수 이산화</span></span>
+<span id="cb80-3"><a href="exploratory_data_analysis.html#cb80-3" tabindex="-1"></a>heart_disease_4_disc<span class="ot">=</span><span class="fu">discretize</span>(heart_disease_4) </span>
+<span id="cb80-4"><a href="exploratory_data_analysis.html#cb80-4" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="exploratory_data_analysis.html#cb80-5" tabindex="-1"></a><span class="co"># 상호 정보를 기반으로 &quot;상관 관계&quot; 계산</span></span>
+<span id="cb80-6"><a href="exploratory_data_analysis.html#cb80-6" tabindex="-1"></a>heart_info<span class="ot">=</span><span class="fu">mutinformation</span>(heart_disease_4_disc, <span class="at">method=</span> <span class="st">&quot;emp&quot;</span>)</span>
+<span id="cb80-7"><a href="exploratory_data_analysis.html#cb80-7" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="exploratory_data_analysis.html#cb80-8" tabindex="-1"></a><span class="co"># 대각선(변수 자체)을 제외한 스케일의 최대값을 시각화하는 해킹</span></span>
+<span id="cb80-9"><a href="exploratory_data_analysis.html#cb80-9" tabindex="-1"></a><span class="fu">diag</span>(heart_info)<span class="ot">=</span><span class="dv">0</span></span>
+<span id="cb80-10"><a href="exploratory_data_analysis.html#cb80-10" tabindex="-1"></a></span>
+<span id="cb80-11"><a href="exploratory_data_analysis.html#cb80-11" tabindex="-1"></a><span class="co"># Infotheo 패키지의 색상 및 상관 관계 상호 정보가 있는 상관 관계 플롯. 이 줄은 오른쪽의 플롯만 검색합니다. </span></span>
+<span id="cb80-12"><a href="exploratory_data_analysis.html#cb80-12" tabindex="-1"></a><span class="fu">corrplot</span>(heart_info, <span class="at">method=</span><span class="st">&quot;color&quot;</span>,<span class="at">type=</span><span class="st">&quot;lower&quot;</span>, <span class="at">number.cex=</span><span class="fl">0.6</span>,<span class="at">addCoef.col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">tl.col=</span><span class="st">&quot;red&quot;</span>, <span class="at">tl.srt=</span><span class="dv">90</span>, <span class="at">tl.cex =</span> <span class="fl">0.9</span>, <span class="at">diag=</span><span class="cn">FALSE</span>, <span class="at">is.corr =</span> F)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:Comparing-MIC-and-mutual-information-index"></span>
+<img src="exploratory_data_analysis/mic_mutual_info.png" alt="변수 중요도 비교" width="100%" />
+<p class="caption">
+Figure 1.21: 변수 중요도 비교
+</p>
+</div>
+<p>상호 정보에 기반한 상관 관계 점수는 MIC와 매우 유사하게 관계 순위를 매기지 않습니까?</p>
+<hr />
+</div>
+</div>
+<div id="정보-측정-일반적인-관점" class="section level3 hasAnchor" number="1.2.12">
+<h3><span class="header-section-number">1.2.12</span> 정보 측정: 일반적인 관점<a href="exploratory_data_analysis.html#정보-측정-일반적인-관점" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>상관 관계 외에도, MIC 또는 기타 정보 측정 지표는 _함수적 관계_가 있는지 여부를 측정합니다.</p>
+<p>높은 MIC 값은 두 변수 간의 관계가 함수로 설명될 수 있음을 나타냅니다. 그 함수 또는 예측 모델을 찾는 것이 우리의 임무입니다.</p>
+<p>이 분석은 N-변수로 확장되며, 이 책은 최상의 변수 선택 장에서 다른 알고리즘을 소개합니다.</p>
+<p>일부 예측 모델은 다른 모델보다 성능이 좋지만, 관계가 완전히 노이즈가 많다면 아무리 발전된 알고리즘이라도 결국 좋지 않은 결과로 이어질 것입니다.</p>
+<hr />
+<p><strong>정보 이론</strong>에 대한 더 많은 내용이 나올 것입니다. 지금은 다음 교육용 강의를 확인하십시오:</p>
+<ul>
+<li>7분 입문 영상 <a href="https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3D2s3aJfRr9gE%C2%A0">https://www.youtube.com/watch?v=2s3aJfRr9gE </a></li>
+<li><a href="http://alex.smola.org/teaching/cmu2013-10-701x/slides/R8-information_theory.pdf">http://alex.smola.org/teaching/cmu2013-10-701x/slides/R8-information_theory.pdf</a></li>
+<li><a href="http://www.scholarpedia.org/article/Mutual_information">http://www.scholarpedia.org/article/Mutual_information</a></li>
+</ul>
+<hr />
+</div>
+<div id="결론" class="section level3 hasAnchor" number="1.2.13">
+<h3><span class="header-section-number">1.2.13</span> 결론<a href="exploratory_data_analysis.html#결론" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>앤스콤 쿼텟은 플롯과 함께 _원시 통계량_을 얻는 좋은 방법을 가르쳐주었습니다.</p>
+<p>우리는 <strong>노이즈</strong>가 두 변수 간의 관계에 어떻게 영향을 미칠 수 있는지 알 수 있었고, 이러한 현상은 항상 데이터에 나타납니다. 데이터의 노이즈는 예측 모델을 혼란스럽게 만듭니다.</p>
+<p>노이즈는 오류와 관련이 있으며, 정보 이론에 기반한 측정값(예:
+<strong>상호 정보</strong> 및 <strong>최대 정보 계수</strong>)을 통해 연구할 수 있으며, 이는 일반적인 R 제곱보다 한 단계 더 나아갑니다. <span class="citation">(<a href="#ref-Caban2012">Caban et al. 2012</a>)</span>에는 MINE를 특성 선택기로 사용하는 임상 연구가 있습니다.</p>
+<p>이러한 방법은 가장 중요한 변수의 순위를 매기기 위해 예측 모델에 의존하지 않는 방법으로 <strong>특성 공학</strong>에 적용할 수 있습니다. 또한 시계열을 클러스터링하는 데에도 적용할 수 있습니다.</p>
+<p>더 읽어보기: <a href="https://www.google.com/search?q=%23selecting_best_variables">최상의 변수 선택</a></p>
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+
+</div>
+</div>
+</div>
+<h3>참고 문헌 (References)<a href="참고-문헌-references.html#참고-문헌-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Caban2012" class="csl-entry">
+Caban, Jesus J., Ulas Bagci, Alem Mehari, Shoaib Alam, Joseph R. Fontana, Gregory J. Kato, and Daniel J. Mollura. 2012. <span>“Characterizing Non-Linear Dependencies Among Pairs of Clinical Variables and Imaging Data.”</span> <em>Conf Proc IEEE Eng Med Biol Soc</em> 2012 (August): 2700–2703. <a href="https://doi.org/10.1109/EMBC.2012.6346521">https://doi.org/10.1109/EMBC.2012.6346521</a>.
+</div>
+<div id="ref-skew_kurt_2" class="csl-entry">
+Handbook, Engineering Statistics. 2013. <span>“Measures of Skewness and Kurtosis.”</span> <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm">http://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm</a>.
+</div>
+<div id="ref-img_time_series" class="csl-entry">
+Izbicki, Mike. 2011. <span>“Converting Images into Time Series for Data Mining.”</span> <a href="https://izbicki.me/blog/converting-images-into-time-series-for-data-mining.html">https://izbicki.me/blog/converting-images-into-time-series-for-data-mining.html</a>.
+</div>
+<div id="ref-skew_kurt_1" class="csl-entry">
+McNeese, Bill. 2016. <span>“Are the Skewness and Kurtosis Useful Statistics?”</span> <a href="https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics">https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics</a>.
+</div>
+<div id="ref-ReshefEtAl2011" class="csl-entry">
+Reshef, David N., Yakir A. Reshef, Hilary K. Finucane, Sharon R. Grossman, Gilean McVean, Peter J. Turnbaugh, Eric S. Lander, Michael Mitzenmacher, and Pardis C. Sabeti. 2011. <span>“Detecting Novel Associations in Large Data Sets.”</span> <em>Science</em> 334 (6062): 1518–24. <a href="https://doi.org/10.1126/science.1205438">https://doi.org/10.1126/science.1205438</a>.
+</div>
+<div id="ref-monotonic_function" class="csl-entry">
+———. 2017b. <span>“Monotonic Function.”</span> <a href="https://en.wikipedia.org/wiki/Monotonic_function">https://en.wikipedia.org/wiki/Monotonic_function</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data_preparation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/pablo14/data-science-live-book/edit/master/01_exploratory_data_analysis.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 도서 다운로드 | 데이터 과학 라이브 북 (Data Science Live Book)</title>
+  <meta name="description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="generator" content="bookdown 0.46.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 도서 다운로드 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+  <meta property="og:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="github-repo" content="pablo14/data-science-live-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 도서 다운로드 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta name="twitter:site" content="@pabloc_ds" />
+  <meta name="twitter:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="twitter:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+
+<meta name="author" content="Pablo Casas (번역: fkt)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="introduction/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="appendix.html"/>
+<link rel="next" href="참고-문헌-references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-82047152-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science Live Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>서문 (Preface)</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#종이책-킨들-amazon"><i class="fa fa-check"></i>종이책 &amp; 킨들 (Amazon)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#왜-이-책인가요"><i class="fa fa-check"></i>왜 이 책인가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#배움을-향한-여정"><i class="fa fa-check"></i>배움을 향한 여정</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#이-책이-나에게-맞을까요-이해할-수-있을까요"><i class="fa fa-check"></i>이 책이 나에게 맞을까요? 이해할 수 있을까요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#프로그래밍-언어"><i class="fa fa-check"></i>프로그래밍 언어</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기계와-인공지능이-세상을-지배하게-될까요"><i class="fa fa-check"></i>기계와 인공지능이 세상을 지배하게 될까요? 😱</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#시작하려면-무엇이-필요한가요"><i class="fa fa-check"></i>시작하려면 무엇이 필요한가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#연락은-어떻게-하나요"><i class="fa fa-check"></i>연락은 어떻게 하나요? 📩</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#감사의-말"><i class="fa fa-check"></i>감사의 말</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#책-정보"><i class="fa fa-check"></i>책 정보</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html"><i class="fa fa-check"></i><b>1</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#profiling"><i class="fa fa-check"></i><b>1.1</b> 프로파일링: 숫자의 목소리</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#데이터셋-상태-dataset-health-status"><i class="fa fa-check"></i><b>1.1.1</b> 데이터셋 상태 {#dataset-health-status}</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수-프로파일링-profiling-categorical-variables"><i class="fa fa-check"></i><b>1.1.2</b> 범주형 변수 프로파일링 {#profiling-categorical-variables}</a></li>
+<li class="chapter" data-level="1.1.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#수치형-변수-프로파일링"><i class="fa fa-check"></i><b>1.1.3</b> 수치형 변수 프로파일링</a></li>
+<li class="chapter" data-level="1.1.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#최종-생각"><i class="fa fa-check"></i><b>1.1.4</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#상관-관계-및-관계-httpswww.google.comsearchq23correlation"><i class="fa fa-check"></i><b>1.2</b> 상관 관계 및 관계 {https://www.google.com/search?q=%23correlation}</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#이-장의-내용은-무엇일까요"><i class="fa fa-check"></i><b>1.2.1</b> 이 장의 내용은 무엇일까요?</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#선형-상관-관계-linear-correlation"><i class="fa fa-check"></i><b>1.2.2</b> 선형 상관 관계 {#linear-correlation}</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계"><i class="fa fa-check"></i><b>1.2.3</b> 정보 이론에 기반한 상관 관계</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#노이즈-추가"><i class="fa fa-check"></i><b>1.2.4</b> 노이즈 추가</a></li>
+<li class="chapter" data-level="1.2.5" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비선형성-측정-mic-r2"><i class="fa fa-check"></i><b>1.2.5</b> 비선형성 측정 (MIC-R2)</a></li>
+<li class="chapter" data-level="1.2.6" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#앤스콤-쿼텟에서-정보-측정하기"><i class="fa fa-check"></i><b>1.2.6</b> 앤스콤 쿼텟에서 정보 측정하기</a></li>
+<li class="chapter" data-level="1.2.7" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비단조성-측정-mas-측정"><i class="fa fa-check"></i><b>1.2.7</b> 비단조성 측정: MAS 측정</a></li>
+<li class="chapter" data-level="1.2.8" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#시계열-간의-상관-관계"><i class="fa fa-check"></i><b>1.2.8</b> 시계열 간의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.9" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수의-상관-관계"><i class="fa fa-check"></i><b>1.2.9</b> 범주형 변수의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.10" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계-분석-selecting_best_vars_mic"><i class="fa fa-check"></i><b>1.2.10</b> 정보 이론에 기반한 상관 관계 분석 {#selecting_best_vars_mic}</a></li>
+<li class="chapter" data-level="1.2.11" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#mine만-이런-기능을-제공하나요"><i class="fa fa-check"></i><b>1.2.11</b> MINE만 이런 기능을 제공하나요?</a></li>
+<li class="chapter" data-level="1.2.12" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-측정-일반적인-관점"><i class="fa fa-check"></i><b>1.2.12</b> 정보 측정: 일반적인 관점</a></li>
+<li class="chapter" data-level="1.2.13" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#결론"><i class="fa fa-check"></i><b>1.2.13</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data_preparation.html"><a href="data_preparation.html"><i class="fa fa-check"></i><b>2</b> 데이터 준비</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data_preparation.html"><a href="data_preparation.html#data_types"><i class="fa fa-check"></i><b>2.1</b> 데이터 유형 처리</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요"><i class="fa fa-check"></i><b>2.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data_preparation.html"><a href="data_preparation.html#데이터-유형의-세계"><i class="fa fa-check"></i><b>2.1.2</b> 데이터 유형의 세계</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data_preparation.html"><a href="data_preparation.html#알고리즘별-데이터-유형"><i class="fa fa-check"></i><b>2.1.3</b> 알고리즘별 데이터 유형</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수를-숫자형으로-변환하기"><i class="fa fa-check"></i><b>2.1.4</b> 범주형 변수를 숫자형으로 변환하기</a></li>
+<li class="chapter" data-level="2.1.5" data-path="data_preparation.html"><a href="data_preparation.html#범주형인가요-수치형인가요-생각해-봅시다."><i class="fa fa-check"></i><b>2.1.5</b> 범주형인가요, 수치형인가요? 생각해 봅시다.</a></li>
+<li class="chapter" data-level="2.1.6" data-path="data_preparation.html"><a href="data_preparation.html#discretizing_numerical_variables"><i class="fa fa-check"></i><b>2.1.6</b> 수치형 변수 이산화 (Discretizing numerical variables)</a></li>
+<li class="chapter" data-level="2.1.7" data-path="data_preparation.html"><a href="data_preparation.html#discretization_new_data"><i class="fa fa-check"></i><b>2.1.7</b> 새로운 데이터에서의 이산화</a></li>
+<li class="chapter" data-level="2.1.8" data-path="data_preparation.html"><a href="data_preparation.html#data-discretization"><i class="fa fa-check"></i><b>2.1.8</b> 자동 데이터 프레임 이산화</a></li>
+<li class="chapter" data-level="2.1.9" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-1"><i class="fa fa-check"></i><b>2.1.9</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.1.10" data-path="data_preparation.html"><a href="data_preparation.html#보너스-트랙"><i class="fa fa-check"></i><b>2.1.10</b> 보너스 트랙 💥</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_descriptive_stats"><i class="fa fa-check"></i><b>2.2</b> 기술 통계에서의 고카디널리티 변수</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-1"><i class="fa fa-check"></i><b>2.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data_preparation.html"><a href="data_preparation.html#기술-통계에서의-고카디널리티"><i class="fa fa-check"></i><b>2.2.2</b> 기술 통계에서의 고카디널리티</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data_preparation.html"><a href="data_preparation.html#최종-코멘트"><i class="fa fa-check"></i><b>2.2.3</b> 최종 코멘트</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_predictive_modeling"><i class="fa fa-check"></i><b>2.3</b> High Cardinality Variable in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-2"><i class="fa fa-check"></i><b>2.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data_preparation.html"><a href="data_preparation.html#하지만-변수를-재그룹화하는-것이-필요할까요"><i class="fa fa-check"></i><b>2.3.2</b> 하지만 변수를 재그룹화하는 것이 필요할까요?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data_preparation.html"><a href="data_preparation.html#analyze-binary-outcome-vs-categorical-variable"><i class="fa fa-check"></i><b>2.3.3</b> 사례 🔍</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델링을-위한-분석"><i class="fa fa-check"></i><b>2.3.4</b> 예측 모델링을 위한 분석 🔮</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-운영-환경에-있을-때-새로운-카테고리-처리하기"><i class="fa fa-check"></i><b>2.3.5</b> 예측 모델이 운영 환경에 있을 때 새로운 카테고리 처리하기</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-고카디널리티를-처리하나요-파트-1"><i class="fa fa-check"></i><b>2.3.6</b> 예측 모델이 고카디널리티를 처리하나요? 파트 1</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_in_predictive_models_part_2"><i class="fa fa-check"></i><b>2.3.7</b> 예측 모델이 고카디널리티를 처리하지 않나요? 파트 2</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-또는-다중-공선성-타겟-변수"><i class="fa fa-check"></i><b>2.3.8</b> 수치형 또는 다중 공선성 타겟 변수 📏</a></li>
+<li class="chapter" data-level="2.3.9" data-path="data_preparation.html"><a href="data_preparation.html#그룹화에서-얻은-추가-선물-은-무엇인가요"><i class="fa fa-check"></i><b>2.3.9</b> 그룹화에서 얻은 “추가 선물 🎁”은 무엇인가요?</a></li>
+<li class="chapter" data-level="2.3.10" data-path="data_preparation.html"><a href="data_preparation.html#대표성-또는-샘플-크기"><i class="fa fa-check"></i><b>2.3.10</b> 대표성 또는 샘플 크기</a></li>
+<li class="chapter" data-level="2.3.11" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-2"><i class="fa fa-check"></i><b>2.3.11</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.3.12" data-path="data_preparation.html"><a href="data_preparation.html#추가-읽기"><i class="fa fa-check"></i><b>2.3.12</b> 추가 읽기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data_preparation.html"><a href="data_preparation.html#treatment_outliers"><i class="fa fa-check"></i><b>2.4</b> 이상치 처리 (Treatment of outliers)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-3"><i class="fa fa-check"></i><b>2.4.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="data_preparation.html"><a href="data_preparation.html#이상치에-대한-직관"><i class="fa fa-check"></i><b>2.4.2</b> 이상치에 대한 직관</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data_preparation.html"><a href="data_preparation.html#덥고-추운-날씨의-경계는-어디일까요"><i class="fa fa-check"></i><b>2.4.3</b> 덥고 추운 날씨의 경계는 어디일까요?</a></li>
+<li class="chapter" data-level="2.4.4" data-path="data_preparation.html"><a href="data_preparation.html#이상치의-영향"><i class="fa fa-check"></i><b>2.4.4</b> 이상치의 영향</a></li>
+<li class="chapter" data-level="2.4.5" data-path="data_preparation.html"><a href="data_preparation.html#how_to_deal_with_outliers_in_r"><i class="fa fa-check"></i><b>2.4.5</b> R에서 이상치를 처리하는 방법</a></li>
+<li class="chapter" data-level="2.4.6" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-감지하는-방법"><i class="fa fa-check"></i><b>2.4.6</b> 1단계: 이상치를 감지하는 방법 🔎</a></li>
+<li class="chapter" data-level="2.4.7" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-어떻게-할까요"><i class="fa fa-check"></i><b>2.4.7</b> 2단계: 이상치를 어떻게 할까요? 🛠️</a></li>
+<li class="chapter" data-level="2.4.8" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-3"><i class="fa fa-check"></i><b>2.4.8</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data_preparation.html"><a href="data_preparation.html#missing_data"><i class="fa fa-check"></i><b>2.5</b> 결측 데이터: 분석, 처리 및 대치</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-4"><i class="fa fa-check"></i><b>2.5.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-정보를-나타낼-때"><i class="fa fa-check"></i><b>2.5.2</b> 빈 값이 정보를 나타낼 때</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-진짜-빈-값일-때"><i class="fa fa-check"></i><b>2.5.3</b> 빈 값이 진짜 빈 값일 때</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data_preparation.html"><a href="data_preparation.html#전체-행-제외하기"><i class="fa fa-check"></i><b>2.5.4</b> 전체 행 제외하기</a></li>
+<li class="chapter" data-level="2.5.5" data-path="data_preparation.html"><a href="data_preparation.html#열-제외하기"><i class="fa fa-check"></i><b>2.5.5</b> 열 제외하기</a></li>
+<li class="chapter" data-level="2.5.6" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수의-빈-값-처리하기"><i class="fa fa-check"></i><b>2.5.6</b> 범주형 변수의 빈 값 처리하기</a></li>
+<li class="chapter" data-level="2.5.7" data-path="data_preparation.html"><a href="data_preparation.html#결측값에-어떤-패턴이-있나요"><i class="fa fa-check"></i><b>2.5.7</b> 결측값에 어떤 패턴이 있나요?</a></li>
+<li class="chapter" data-level="2.5.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-변수의-결측값-처리하기"><i class="fa fa-check"></i><b>2.5.8</b> 수치형 변수의 결측값 처리하기</a></li>
+<li class="chapter" data-level="2.5.9" data-path="data_preparation.html"><a href="data_preparation.html#고급-대치-방법-advanced-imputation-methods"><i class="fa fa-check"></i><b>2.5.9</b> 고급 대치 방법 (Advanced imputation methods)</a></li>
+<li class="chapter" data-level="2.5.10" data-path="data_preparation.html"><a href="data_preparation.html#결론-1"><i class="fa fa-check"></i><b>2.5.10</b> 결론</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="data_preparation.html"><a href="data_preparation.html#considerations-involving-time"><i class="fa fa-check"></i><b>2.6</b> 시간과 관련된 고려 사항</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-5"><i class="fa fa-check"></i><b>2.6.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html"><i class="fa fa-check"></i><b>3</b> 최적 변수 선택</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#general_aspects_selecting_best_variables"><i class="fa fa-check"></i><b>3.1</b> 최적 변수 선택의 일반적 측면</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#무엇에-대한-내용인가요-6"><i class="fa fa-check"></i><b>3.1.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#직관"><i class="fa fa-check"></i><b>3.2</b> 직관</a></li>
+<li class="chapter" data-level="3.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#최적의-선택"><i class="fa fa-check"></i><b>3.3</b> “최적”의 선택?</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-순위-더-깊이-알아보기"><i class="fa fa-check"></i><b>3.3.1</b> 변수 순위 더 깊이 알아보기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#선택의-특성"><i class="fa fa-check"></i><b>3.4</b> 선택의 특성</a></li>
+<li class="chapter" data-level="3.5" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-개선하기"><i class="fa fa-check"></i><b>3.5</b> 변수 개선하기</a></li>
+<li class="chapter" data-level="3.6" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#도메인-지식에-의한-정제"><i class="fa fa-check"></i><b>3.6</b> 도메인 지식에 의한 정제</a></li>
+<li class="chapter" data-level="3.7" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수는-그룹으로-작용합니다"><i class="fa fa-check"></i><b>3.7</b> 변수는 그룹으로 작용합니다</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#r-사례-그룹으로-작용하는-변수"><i class="fa fa-check"></i><b>3.7.1</b> R 사례: 그룹으로 작용하는 변수</a></li>
+<li class="chapter" data-level="3.7.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#작은-사례-정보-이론-기반"><i class="fa fa-check"></i><b>3.7.2</b> 작은 사례 (정보 이론 기반)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#결론-2"><i class="fa fa-check"></i><b>3.7.3</b> 결론</a></li>
+<li class="chapter" data-level="3.7.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#select_features_var_rank_info"><i class="fa fa-check"></i><b>3.7.4</b> 정보 이론을 사용한 최적 특성 순위 매기기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#입력-변수-간의-상관관계"><i class="fa fa-check"></i><b>3.8</b> 입력 변수 간의 상관관계</a></li>
+<li class="chapter" data-level="3.9" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#단순하게-유지하기"><i class="fa fa-check"></i><b>3.9</b> 단순하게 유지하기</a></li>
+<li class="chapter" data-level="3.10" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#클러스터링에서의-변수-선택"><i class="fa fa-check"></i><b>3.10</b> 클러스터링에서의 변수 선택?</a></li>
+<li class="chapter" data-level="3.11" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#실무에서-최적-변수-선택하기"><i class="fa fa-check"></i><b>3.11</b> 실무에서 최적 변수 선택하기</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#짧은-답변"><i class="fa fa-check"></i><b>3.11.1</b> 짧은 답변</a></li>
+<li class="chapter" data-level="3.11.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#긴-답변"><i class="fa fa-check"></i><b>3.11.2</b> 긴 답변</a></li>
+<li class="chapter" data-level="3.11.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#자신만의-지식-창출하기"><i class="fa fa-check"></i><b>3.11.3</b> 자신만의 지식 창출하기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#타겟-프로파일링"><i class="fa fa-check"></i><b>3.12</b> 타겟 프로파일링</a>
+<ul>
+<li class="chapter" data-level="3.12.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#profiling_target_cross_plot"><i class="fa fa-check"></i><b>3.12.1</b> <code>cross_plot</code> 사용하기 (dataViz)</a></li>
+<li class="chapter" data-level="3.12.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-boxplots"><i class="fa fa-check"></i><b>3.12.2</b> 박스 플롯 사용하기</a></li>
+<li class="chapter" data-level="3.12.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-density-histograms"><i class="fa fa-check"></i><b>3.12.3</b> 밀도 히스토그램 사용하기</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="model-performance.html"><a href="model-performance.html"><i class="fa fa-check"></i><b>4</b> 모델 성능 평가</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="model-performance.html"><a href="model-performance.html#knowing_the_error"><i class="fa fa-check"></i><b>4.1</b> 오차 알기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-10"><i class="fa fa-check"></i><b>4.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="model-performance.html"><a href="model-performance.html#예상치-못한-동작-줄이기"><i class="fa fa-check"></i><b>4.1.2</b> 예상치 못한 동작 줄이기</a></li>
+<li class="chapter" data-level="4.1.3" data-path="model-performance.html"><a href="model-performance.html#교차-검증cross-validation-cv으로-설명해-보겠습니다"><i class="fa fa-check"></i><b>4.1.3</b> 교차 검증(Cross-Validation, CV)으로 설명해 보겠습니다</a></li>
+<li class="chapter" data-level="4.1.4" data-path="model-performance.html"><a href="model-performance.html#그렇다면-오차란-무엇인가요"><i class="fa fa-check"></i><b>4.1.4</b> 그렇다면 오차란 무엇인가요?</a></li>
+<li class="chapter" data-level="4.1.5" data-path="model-performance.html"><a href="model-performance.html#실무에-대한-제언이-있나요"><i class="fa fa-check"></i><b>4.1.5</b> 실무에 대한 제언이 있나요?</a></li>
+<li class="chapter" data-level="4.1.6" data-path="model-performance.html"><a href="model-performance.html#잊지-마세요-데이터-준비"><i class="fa fa-check"></i><b>4.1.6</b> 잊지 마세요: 데이터 준비</a></li>
+<li class="chapter" data-level="4.1.7" data-path="model-performance.html"><a href="model-performance.html#마지막-생각"><i class="fa fa-check"></i><b>4.1.7</b> 마지막 생각</a></li>
+<li class="chapter" data-level="4.1.8" data-path="model-performance.html"><a href="model-performance.html#더-읽어보기"><i class="fa fa-check"></i><b>4.1.8</b> 더 읽어보기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="model-performance.html"><a href="model-performance.html#out-of-time_validation"><i class="fa fa-check"></i><b>4.2</b> 시간 외 검증 (Out-of-Time Validation)</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-11"><i class="fa fa-check"></i><b>4.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="model-performance.html"><a href="model-performance.html#어떤-종류의-데이터인가요-1"><i class="fa fa-check"></i><b>4.2.2</b> 어떤 종류의 데이터인가요?</a></li>
+<li class="chapter" data-level="4.2.3" data-path="model-performance.html"><a href="model-performance.html#시간-외-검증-예시"><i class="fa fa-check"></i><b>4.2.3</b> 시간 외 검증 예시</a></li>
+<li class="chapter" data-level="4.2.4" data-path="model-performance.html"><a href="model-performance.html#이득-및-리프트-분석gain-and-lift-analysis-사용하기"><i class="fa fa-check"></i><b>4.2.4</b> 이득 및 리프트 분석(Gain and Lift Analysis) 사용하기</a></li>
+<li class="chapter" data-level="4.2.5" data-path="model-performance.html"><a href="model-performance.html#수치형-타겟-변수는-어떤가요"><i class="fa fa-check"></i><b>4.2.5</b> 수치형 타겟 변수는 어떤가요?</a></li>
+<li class="chapter" data-level="4.2.6" data-path="model-performance.html"><a href="model-performance.html#마지막-생각-1"><i class="fa fa-check"></i><b>4.2.6</b> 마지막 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="model-performance.html"><a href="model-performance.html#gain_and_lift"><i class="fa fa-check"></i><b>4.3</b> 이득 및 리프트 분석 (Gain and Lift Analysis)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-12"><i class="fa fa-check"></i><b>4.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.3.2" data-path="model-performance.html"><a href="model-performance.html#어떻게-해석하나요"><i class="fa fa-check"></i><b>4.3.2</b> 어떻게 해석하나요?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="model-performance.html"><a href="model-performance.html#모델을-사용하지-않는다면-어떨까요"><i class="fa fa-check"></i><b>4.3.3</b> 모델을 사용하지 않는다면 어떨까요?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-performance.html"><a href="model-performance.html#scoring_data"><i class="fa fa-check"></i><b>4.4</b> 데이터 스코어링 (Scoring Data)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="model-performance.html"><a href="model-performance.html#숨겨진-직관"><i class="fa fa-check"></i><b>4.4.1</b> 숨겨진 직관</a></li>
+<li class="chapter" data-level="4.4.2" data-path="model-performance.html"><a href="model-performance.html#예제를-살펴봅시다"><i class="fa fa-check"></i><b>4.4.2</b> 예제를 살펴봅시다</a></li>
+<li class="chapter" data-level="4.4.3" data-path="model-performance.html"><a href="model-performance.html#모든-것은-절단점cut-point에-달려-있습니다"><i class="fa fa-check"></i><b>4.4.3</b> 모든 것은 절단점(cut point)에 달려 있습니다 📏</a></li>
+<li class="chapter" data-level="4.4.4" data-path="model-performance.html"><a href="model-performance.html#최선과-최악의-시나리오"><i class="fa fa-check"></i><b>4.4.4</b> 최선과 최악의 시나리오</a></li>
+<li class="chapter" data-level="4.4.5" data-path="model-performance.html"><a href="model-performance.html#분류기-비교"><i class="fa fa-check"></i><b>4.4.5</b> 분류기 비교</a></li>
+<li class="chapter" data-level="4.4.6" data-path="model-performance.html"><a href="model-performance.html#r로-직접-해보기"><i class="fa fa-check"></i><b>4.4.6</b> R로 직접 해보기!</a></li>
+<li class="chapter" data-level="4.4.7" data-path="model-performance.html"><a href="model-performance.html#결론-4"><i class="fa fa-check"></i><b>4.4.7</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>5</b> 부록 (APPENDIX)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="appendix.html"><a href="appendix.html#appendix-percentiles"><i class="fa fa-check"></i><b>5.1</b> 백분위수의 마법</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="appendix.html"><a href="appendix.html#백분위수를-계산하는-방법"><i class="fa fa-check"></i><b>5.1.1</b> 백분위수를 계산하는 방법</a></li>
+<li class="chapter" data-level="5.1.2" data-path="appendix.html"><a href="appendix.html#사용자-정의-분위수-계산"><i class="fa fa-check"></i><b>5.1.2</b> 사용자 정의 분위수 계산</a></li>
+<li class="chapter" data-level="5.1.3" data-path="appendix.html"><a href="appendix.html#대부분의-값이-어디에-있는지-표시하기"><i class="fa fa-check"></i><b>5.1.3</b> 대부분의 값이 어디에 있는지 표시하기</a></li>
+<li class="chapter" data-level="5.1.4" data-path="appendix.html"><a href="appendix.html#백분위수-시각화"><i class="fa fa-check"></i><b>5.1.4</b> 백분위수 시각화</a></li>
+<li class="chapter" data-level="5.1.5" data-path="appendix.html"><a href="appendix.html#순위-및-상위하위-x-개념"><i class="fa fa-check"></i><b>5.1.5</b> 순위 및 상위/하위 ‘X%’ 개념</a></li>
+<li class="chapter" data-level="5.1.6" data-path="appendix.html"><a href="appendix.html#데이터-스코어링에서의-백분위수"><i class="fa fa-check"></i><b>5.1.6</b> 데이터 스코어링에서의 백분위수</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="appendix.html"><a href="appendix.html#funmodeling-quick-start"><i class="fa fa-check"></i><b>5.2</b> <code>funModeling</code> 퀵스타트</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="appendix.html"><a href="appendix.html#블랙박스-열어보기"><i class="fa fa-check"></i><b>5.2.1</b> 블랙박스 열어보기</a></li>
+<li class="chapter" data-level="5.2.2" data-path="appendix.html"><a href="appendix.html#탐색적-데이터-분석-eda"><i class="fa fa-check"></i><b>5.2.2</b> 탐색적 데이터 분석 (EDA)</a></li>
+<li class="chapter" data-level="5.2.3" data-path="appendix.html"><a href="appendix.html#상관관계"><i class="fa fa-check"></i><b>5.2.3</b> 상관관계</a></li>
+<li class="chapter" data-level="5.2.4" data-path="appendix.html"><a href="appendix.html#데이터-준비"><i class="fa fa-check"></i><b>5.2.4</b> 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.5" data-path="appendix.html"><a href="appendix.html#이상치outliers-데이터-준비"><i class="fa fa-check"></i><b>5.2.5</b> 이상치(Outliers) 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.6" data-path="appendix.html"><a href="appendix.html#예측-모델-성능"><i class="fa fa-check"></i><b>5.2.6</b> 예측 모델 성능</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="download-book.html"><a href="download-book.html"><i class="fa fa-check"></i><b>6</b> 도서 다운로드</a></li>
+<li class="chapter" data-level="" data-path="참고-문헌-references.html"><a href="참고-문헌-references.html"><i class="fa fa-check"></i>참고 문헌 (References)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">데이터 과학 라이브 북 (Data Science Live Book)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="download-book" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> 도서 다운로드<a href="download-book.html#download-book" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>이 책이 마음에 드셨고 프로젝트를 지원하고 싶으시다면, PDF, mobi, Kindle 버전의 휴대용 <strong>데이터 과학 라이브 북(Data Science Live Book)</strong>을 영구 소장하실 수 있습니다. 세 가지 버전을 모두 드립니다! 🙂.</p>
+<p><br></p>
+<p><strong>Gumroad</strong>를 통한 안전 결제 🔐:</p>
+<p><em>참고: 결제 중에 ‘Ghostery’ 애드온을 비활성화해 보세요. 알려진 문제가 있습니다.</em></p>
+<hr />
+<script src="https://gumroad.com/js/gumroad-embed.js"></script>
+<div class="gumroad-product-embed" data-gumroad-product-id="tORBv">
+<a href="https://gumroad.com/l/tORBv">불러오는 중…</a>
+</div>
+<hr />
+<p>위 양식이 나타나지 않거나 Gumroad 사이트에서 직접 구매하고 싶다면 다음 링크를 클릭하세요: <a href="https://gumroad.com/l/tORBv" class="uri">https://gumroad.com/l/tORBv</a></p>
+<hr />
+<p><strong>아마존에서 종이책과 킨들 버전 구매 가능!</strong></p>
+<p>이 책은 현재 아마존에서 구매 가능합니다. <strong><a href="https://www.amazon.com/dp/9874269049">확인해 보세요!</a></strong> 📗 🚀.</p>
+<hr />
+<p><em>온라인 버전과 PDF, mobi 또는 Kindle 버전 사이에 차이가 있나요?</em></p>
+<p>아니요, 동일합니다. 데이터 과학 라이브 북은 언제나 완전히 접근 가능하며, 실제로는 오픈 소스(<code>Attribution-NonCommercial-ShareAlike 4.0 International</code>)입니다.</p>
+<p><em>새 버전이 출시되면 어떻게 되나요? / 최신 버전에 접근할 수 있나요?</em></p>
+<p>물론입니다! 구매 후 새로운 버전이 출시될 때마다 이메일로 알림을 받게 됩니다 (이 알림은 원치 않으시면 수신 거부하실 수 있습니다).</p>
+<p>가격은 원하는 만큼 지불하는 방식(name-your-price)이며, 최소 가격은 미화 5달러입니다. 즐거운 독서 되세요! 🚀</p>
+<p><em>어떻게 연락할 수 있나요?</em></p>
+<p>저에게 연락하고 싶으시다면 pcasas.biz <at> gmail.com으로 메일을 보내주세요. 새로운 주제 제안부터 이곳에서 배운 개념을 적용한 좋은 경험 공유까지, 어떤 이유로든 환영합니다!</p>
+<p>😟: <em>기여하고 싶지만 충분한 돈이 없습니다. 하지만 휴대용 버전이 정말 갖고 싶어요.</em>
+걱정 마세요, 우리 모두 힘든 시기가 있을 수 있으니까요. pcasas.biz (at) gmail.com으로 연락주세요 😉.</p>
+<p>아르헨티나, 핀란드(및 다른 몇몇 국가들)의 대학 교육 사례와 같이, 가능할 때마다 교육에 대한 무료 접근권을 가지는 것이 좋다고 생각합니다. 그래서 공부하고 새로운 지평을 탐구하고 싶은 사람이라면 누구나 그렇게 할 수 있어야 합니다. 돈이 지식을 습득하는 데 장벽이 되어서는 안 됩니다.</p>
+<p><a href="https://twitter.com/pabloc_ds">트위터</a>에서 최신 소식을 확인하세요.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appendix.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="참고-문헌-references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/pablo14/data-science-live-book/edit/master/40_download_pdf_ebook.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

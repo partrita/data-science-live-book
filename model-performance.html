@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 모델 성능 평가 | 데이터 과학 라이브 북 (Data Science Live Book)</title>
+  <meta name="description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="generator" content="bookdown 0.46.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 모델 성능 평가 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+  <meta property="og:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="github-repo" content="pablo14/data-science-live-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 모델 성능 평가 | 데이터 과학 라이브 북 (Data Science Live Book)" />
+  <meta name="twitter:site" content="@pabloc_ds" />
+  <meta name="twitter:description" content="나이에 상관없이 누구나 배울 수 있는 데이터 분석, 데이터 준비 및 머신러닝에 대한 직관적이고 실용적인 접근법!" />
+  <meta name="twitter:image" content="https://livebook.datascienceheroes.com/introduction/data_science_live_book_cover.png" />
+
+<meta name="author" content="Pablo Casas (번역: fkt)" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="introduction/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="selecting_best_variables.html"/>
+<link rel="next" href="appendix.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-82047152-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data Science Live Book</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>서문 (Preface)</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#종이책-킨들-amazon"><i class="fa fa-check"></i>종이책 &amp; 킨들 (Amazon)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#왜-이-책인가요"><i class="fa fa-check"></i>왜 이 책인가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#배움을-향한-여정"><i class="fa fa-check"></i>배움을 향한 여정</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#이-책이-나에게-맞을까요-이해할-수-있을까요"><i class="fa fa-check"></i>이 책이 나에게 맞을까요? 이해할 수 있을까요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#프로그래밍-언어"><i class="fa fa-check"></i>프로그래밍 언어</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#기계와-인공지능이-세상을-지배하게-될까요"><i class="fa fa-check"></i>기계와 인공지능이 세상을 지배하게 될까요? 😱</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#시작하려면-무엇이-필요한가요"><i class="fa fa-check"></i>시작하려면 무엇이 필요한가요?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#연락은-어떻게-하나요"><i class="fa fa-check"></i>연락은 어떻게 하나요? 📩</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#감사의-말"><i class="fa fa-check"></i>감사의 말</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#책-정보"><i class="fa fa-check"></i>책 정보</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html"><i class="fa fa-check"></i><b>1</b> 탐색적 데이터 분석</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#profiling"><i class="fa fa-check"></i><b>1.1</b> 프로파일링: 숫자의 목소리</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#데이터셋-상태-dataset-health-status"><i class="fa fa-check"></i><b>1.1.1</b> 데이터셋 상태 {#dataset-health-status}</a></li>
+<li class="chapter" data-level="1.1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수-프로파일링-profiling-categorical-variables"><i class="fa fa-check"></i><b>1.1.2</b> 범주형 변수 프로파일링 {#profiling-categorical-variables}</a></li>
+<li class="chapter" data-level="1.1.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#수치형-변수-프로파일링"><i class="fa fa-check"></i><b>1.1.3</b> 수치형 변수 프로파일링</a></li>
+<li class="chapter" data-level="1.1.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#최종-생각"><i class="fa fa-check"></i><b>1.1.4</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#상관-관계-및-관계-httpswww.google.comsearchq23correlation"><i class="fa fa-check"></i><b>1.2</b> 상관 관계 및 관계 {https://www.google.com/search?q=%23correlation}</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#이-장의-내용은-무엇일까요"><i class="fa fa-check"></i><b>1.2.1</b> 이 장의 내용은 무엇일까요?</a></li>
+<li class="chapter" data-level="1.2.2" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#선형-상관-관계-linear-correlation"><i class="fa fa-check"></i><b>1.2.2</b> 선형 상관 관계 {#linear-correlation}</a></li>
+<li class="chapter" data-level="1.2.3" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계"><i class="fa fa-check"></i><b>1.2.3</b> 정보 이론에 기반한 상관 관계</a></li>
+<li class="chapter" data-level="1.2.4" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#노이즈-추가"><i class="fa fa-check"></i><b>1.2.4</b> 노이즈 추가</a></li>
+<li class="chapter" data-level="1.2.5" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비선형성-측정-mic-r2"><i class="fa fa-check"></i><b>1.2.5</b> 비선형성 측정 (MIC-R2)</a></li>
+<li class="chapter" data-level="1.2.6" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#앤스콤-쿼텟에서-정보-측정하기"><i class="fa fa-check"></i><b>1.2.6</b> 앤스콤 쿼텟에서 정보 측정하기</a></li>
+<li class="chapter" data-level="1.2.7" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#비단조성-측정-mas-측정"><i class="fa fa-check"></i><b>1.2.7</b> 비단조성 측정: MAS 측정</a></li>
+<li class="chapter" data-level="1.2.8" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#시계열-간의-상관-관계"><i class="fa fa-check"></i><b>1.2.8</b> 시계열 간의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.9" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#범주형-변수의-상관-관계"><i class="fa fa-check"></i><b>1.2.9</b> 범주형 변수의 상관 관계</a></li>
+<li class="chapter" data-level="1.2.10" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-이론에-기반한-상관-관계-분석-selecting_best_vars_mic"><i class="fa fa-check"></i><b>1.2.10</b> 정보 이론에 기반한 상관 관계 분석 {#selecting_best_vars_mic}</a></li>
+<li class="chapter" data-level="1.2.11" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#mine만-이런-기능을-제공하나요"><i class="fa fa-check"></i><b>1.2.11</b> MINE만 이런 기능을 제공하나요?</a></li>
+<li class="chapter" data-level="1.2.12" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#정보-측정-일반적인-관점"><i class="fa fa-check"></i><b>1.2.12</b> 정보 측정: 일반적인 관점</a></li>
+<li class="chapter" data-level="1.2.13" data-path="exploratory_data_analysis.html"><a href="exploratory_data_analysis.html#결론"><i class="fa fa-check"></i><b>1.2.13</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data_preparation.html"><a href="data_preparation.html"><i class="fa fa-check"></i><b>2</b> 데이터 준비</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data_preparation.html"><a href="data_preparation.html#data_types"><i class="fa fa-check"></i><b>2.1</b> 데이터 유형 처리</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요"><i class="fa fa-check"></i><b>2.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="data_preparation.html"><a href="data_preparation.html#데이터-유형의-세계"><i class="fa fa-check"></i><b>2.1.2</b> 데이터 유형의 세계</a></li>
+<li class="chapter" data-level="2.1.3" data-path="data_preparation.html"><a href="data_preparation.html#알고리즘별-데이터-유형"><i class="fa fa-check"></i><b>2.1.3</b> 알고리즘별 데이터 유형</a></li>
+<li class="chapter" data-level="2.1.4" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수를-숫자형으로-변환하기"><i class="fa fa-check"></i><b>2.1.4</b> 범주형 변수를 숫자형으로 변환하기</a></li>
+<li class="chapter" data-level="2.1.5" data-path="data_preparation.html"><a href="data_preparation.html#범주형인가요-수치형인가요-생각해-봅시다."><i class="fa fa-check"></i><b>2.1.5</b> 범주형인가요, 수치형인가요? 생각해 봅시다.</a></li>
+<li class="chapter" data-level="2.1.6" data-path="data_preparation.html"><a href="data_preparation.html#discretizing_numerical_variables"><i class="fa fa-check"></i><b>2.1.6</b> 수치형 변수 이산화 (Discretizing numerical variables)</a></li>
+<li class="chapter" data-level="2.1.7" data-path="data_preparation.html"><a href="data_preparation.html#discretization_new_data"><i class="fa fa-check"></i><b>2.1.7</b> 새로운 데이터에서의 이산화</a></li>
+<li class="chapter" data-level="2.1.8" data-path="data_preparation.html"><a href="data_preparation.html#data-discretization"><i class="fa fa-check"></i><b>2.1.8</b> 자동 데이터 프레임 이산화</a></li>
+<li class="chapter" data-level="2.1.9" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-1"><i class="fa fa-check"></i><b>2.1.9</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.1.10" data-path="data_preparation.html"><a href="data_preparation.html#보너스-트랙"><i class="fa fa-check"></i><b>2.1.10</b> 보너스 트랙 💥</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_descriptive_stats"><i class="fa fa-check"></i><b>2.2</b> 기술 통계에서의 고카디널리티 변수</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-1"><i class="fa fa-check"></i><b>2.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="data_preparation.html"><a href="data_preparation.html#기술-통계에서의-고카디널리티"><i class="fa fa-check"></i><b>2.2.2</b> 기술 통계에서의 고카디널리티</a></li>
+<li class="chapter" data-level="2.2.3" data-path="data_preparation.html"><a href="data_preparation.html#최종-코멘트"><i class="fa fa-check"></i><b>2.2.3</b> 최종 코멘트</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_predictive_modeling"><i class="fa fa-check"></i><b>2.3</b> High Cardinality Variable in Predictive Modeling</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-2"><i class="fa fa-check"></i><b>2.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="data_preparation.html"><a href="data_preparation.html#하지만-변수를-재그룹화하는-것이-필요할까요"><i class="fa fa-check"></i><b>2.3.2</b> 하지만 변수를 재그룹화하는 것이 필요할까요?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="data_preparation.html"><a href="data_preparation.html#analyze-binary-outcome-vs-categorical-variable"><i class="fa fa-check"></i><b>2.3.3</b> 사례 🔍</a></li>
+<li class="chapter" data-level="2.3.4" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델링을-위한-분석"><i class="fa fa-check"></i><b>2.3.4</b> 예측 모델링을 위한 분석 🔮</a></li>
+<li class="chapter" data-level="2.3.5" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-운영-환경에-있을-때-새로운-카테고리-처리하기"><i class="fa fa-check"></i><b>2.3.5</b> 예측 모델이 운영 환경에 있을 때 새로운 카테고리 처리하기</a></li>
+<li class="chapter" data-level="2.3.6" data-path="data_preparation.html"><a href="data_preparation.html#예측-모델이-고카디널리티를-처리하나요-파트-1"><i class="fa fa-check"></i><b>2.3.6</b> 예측 모델이 고카디널리티를 처리하나요? 파트 1</a></li>
+<li class="chapter" data-level="2.3.7" data-path="data_preparation.html"><a href="data_preparation.html#high_cardinality_in_predictive_models_part_2"><i class="fa fa-check"></i><b>2.3.7</b> 예측 모델이 고카디널리티를 처리하지 않나요? 파트 2</a></li>
+<li class="chapter" data-level="2.3.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-또는-다중-공선성-타겟-변수"><i class="fa fa-check"></i><b>2.3.8</b> 수치형 또는 다중 공선성 타겟 변수 📏</a></li>
+<li class="chapter" data-level="2.3.9" data-path="data_preparation.html"><a href="data_preparation.html#그룹화에서-얻은-추가-선물-은-무엇인가요"><i class="fa fa-check"></i><b>2.3.9</b> 그룹화에서 얻은 “추가 선물 🎁”은 무엇인가요?</a></li>
+<li class="chapter" data-level="2.3.10" data-path="data_preparation.html"><a href="data_preparation.html#대표성-또는-샘플-크기"><i class="fa fa-check"></i><b>2.3.10</b> 대표성 또는 샘플 크기</a></li>
+<li class="chapter" data-level="2.3.11" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-2"><i class="fa fa-check"></i><b>2.3.11</b> 최종 생각</a></li>
+<li class="chapter" data-level="2.3.12" data-path="data_preparation.html"><a href="data_preparation.html#추가-읽기"><i class="fa fa-check"></i><b>2.3.12</b> 추가 읽기</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="data_preparation.html"><a href="data_preparation.html#treatment_outliers"><i class="fa fa-check"></i><b>2.4</b> 이상치 처리 (Treatment of outliers)</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-3"><i class="fa fa-check"></i><b>2.4.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="data_preparation.html"><a href="data_preparation.html#이상치에-대한-직관"><i class="fa fa-check"></i><b>2.4.2</b> 이상치에 대한 직관</a></li>
+<li class="chapter" data-level="2.4.3" data-path="data_preparation.html"><a href="data_preparation.html#덥고-추운-날씨의-경계는-어디일까요"><i class="fa fa-check"></i><b>2.4.3</b> 덥고 추운 날씨의 경계는 어디일까요?</a></li>
+<li class="chapter" data-level="2.4.4" data-path="data_preparation.html"><a href="data_preparation.html#이상치의-영향"><i class="fa fa-check"></i><b>2.4.4</b> 이상치의 영향</a></li>
+<li class="chapter" data-level="2.4.5" data-path="data_preparation.html"><a href="data_preparation.html#how_to_deal_with_outliers_in_r"><i class="fa fa-check"></i><b>2.4.5</b> R에서 이상치를 처리하는 방법</a></li>
+<li class="chapter" data-level="2.4.6" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-감지하는-방법"><i class="fa fa-check"></i><b>2.4.6</b> 1단계: 이상치를 감지하는 방법 🔎</a></li>
+<li class="chapter" data-level="2.4.7" data-path="data_preparation.html"><a href="data_preparation.html#단계-이상치를-어떻게-할까요"><i class="fa fa-check"></i><b>2.4.7</b> 2단계: 이상치를 어떻게 할까요? 🛠️</a></li>
+<li class="chapter" data-level="2.4.8" data-path="data_preparation.html"><a href="data_preparation.html#최종-생각-3"><i class="fa fa-check"></i><b>2.4.8</b> 최종 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="data_preparation.html"><a href="data_preparation.html#missing_data"><i class="fa fa-check"></i><b>2.5</b> 결측 데이터: 분석, 처리 및 대치</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-4"><i class="fa fa-check"></i><b>2.5.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-정보를-나타낼-때"><i class="fa fa-check"></i><b>2.5.2</b> 빈 값이 정보를 나타낼 때</a></li>
+<li class="chapter" data-level="2.5.3" data-path="data_preparation.html"><a href="data_preparation.html#빈-값이-진짜-빈-값일-때"><i class="fa fa-check"></i><b>2.5.3</b> 빈 값이 진짜 빈 값일 때</a></li>
+<li class="chapter" data-level="2.5.4" data-path="data_preparation.html"><a href="data_preparation.html#전체-행-제외하기"><i class="fa fa-check"></i><b>2.5.4</b> 전체 행 제외하기</a></li>
+<li class="chapter" data-level="2.5.5" data-path="data_preparation.html"><a href="data_preparation.html#열-제외하기"><i class="fa fa-check"></i><b>2.5.5</b> 열 제외하기</a></li>
+<li class="chapter" data-level="2.5.6" data-path="data_preparation.html"><a href="data_preparation.html#범주형-변수의-빈-값-처리하기"><i class="fa fa-check"></i><b>2.5.6</b> 범주형 변수의 빈 값 처리하기</a></li>
+<li class="chapter" data-level="2.5.7" data-path="data_preparation.html"><a href="data_preparation.html#결측값에-어떤-패턴이-있나요"><i class="fa fa-check"></i><b>2.5.7</b> 결측값에 어떤 패턴이 있나요?</a></li>
+<li class="chapter" data-level="2.5.8" data-path="data_preparation.html"><a href="data_preparation.html#수치형-변수의-결측값-처리하기"><i class="fa fa-check"></i><b>2.5.8</b> 수치형 변수의 결측값 처리하기</a></li>
+<li class="chapter" data-level="2.5.9" data-path="data_preparation.html"><a href="data_preparation.html#고급-대치-방법-advanced-imputation-methods"><i class="fa fa-check"></i><b>2.5.9</b> 고급 대치 방법 (Advanced imputation methods)</a></li>
+<li class="chapter" data-level="2.5.10" data-path="data_preparation.html"><a href="data_preparation.html#결론-1"><i class="fa fa-check"></i><b>2.5.10</b> 결론</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="data_preparation.html"><a href="data_preparation.html#considerations-involving-time"><i class="fa fa-check"></i><b>2.6</b> 시간과 관련된 고려 사항</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="data_preparation.html"><a href="data_preparation.html#무엇에-대한-내용인가요-5"><i class="fa fa-check"></i><b>2.6.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html"><i class="fa fa-check"></i><b>3</b> 최적 변수 선택</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#general_aspects_selecting_best_variables"><i class="fa fa-check"></i><b>3.1</b> 최적 변수 선택의 일반적 측면</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#무엇에-대한-내용인가요-6"><i class="fa fa-check"></i><b>3.1.1</b> 무엇에 대한 내용인가요?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#직관"><i class="fa fa-check"></i><b>3.2</b> 직관</a></li>
+<li class="chapter" data-level="3.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#최적의-선택"><i class="fa fa-check"></i><b>3.3</b> “최적”의 선택?</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-순위-더-깊이-알아보기"><i class="fa fa-check"></i><b>3.3.1</b> 변수 순위 더 깊이 알아보기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#선택의-특성"><i class="fa fa-check"></i><b>3.4</b> 선택의 특성</a></li>
+<li class="chapter" data-level="3.5" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수-개선하기"><i class="fa fa-check"></i><b>3.5</b> 변수 개선하기</a></li>
+<li class="chapter" data-level="3.6" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#도메인-지식에-의한-정제"><i class="fa fa-check"></i><b>3.6</b> 도메인 지식에 의한 정제</a></li>
+<li class="chapter" data-level="3.7" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#변수는-그룹으로-작용합니다"><i class="fa fa-check"></i><b>3.7</b> 변수는 그룹으로 작용합니다</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#r-사례-그룹으로-작용하는-변수"><i class="fa fa-check"></i><b>3.7.1</b> R 사례: 그룹으로 작용하는 변수</a></li>
+<li class="chapter" data-level="3.7.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#작은-사례-정보-이론-기반"><i class="fa fa-check"></i><b>3.7.2</b> 작은 사례 (정보 이론 기반)</a></li>
+<li class="chapter" data-level="3.7.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#결론-2"><i class="fa fa-check"></i><b>3.7.3</b> 결론</a></li>
+<li class="chapter" data-level="3.7.4" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#select_features_var_rank_info"><i class="fa fa-check"></i><b>3.7.4</b> 정보 이론을 사용한 최적 특성 순위 매기기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#입력-변수-간의-상관관계"><i class="fa fa-check"></i><b>3.8</b> 입력 변수 간의 상관관계</a></li>
+<li class="chapter" data-level="3.9" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#단순하게-유지하기"><i class="fa fa-check"></i><b>3.9</b> 단순하게 유지하기</a></li>
+<li class="chapter" data-level="3.10" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#클러스터링에서의-변수-선택"><i class="fa fa-check"></i><b>3.10</b> 클러스터링에서의 변수 선택?</a></li>
+<li class="chapter" data-level="3.11" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#실무에서-최적-변수-선택하기"><i class="fa fa-check"></i><b>3.11</b> 실무에서 최적 변수 선택하기</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#짧은-답변"><i class="fa fa-check"></i><b>3.11.1</b> 짧은 답변</a></li>
+<li class="chapter" data-level="3.11.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#긴-답변"><i class="fa fa-check"></i><b>3.11.2</b> 긴 답변</a></li>
+<li class="chapter" data-level="3.11.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#자신만의-지식-창출하기"><i class="fa fa-check"></i><b>3.11.3</b> 자신만의 지식 창출하기</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#타겟-프로파일링"><i class="fa fa-check"></i><b>3.12</b> 타겟 프로파일링</a>
+<ul>
+<li class="chapter" data-level="3.12.1" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#profiling_target_cross_plot"><i class="fa fa-check"></i><b>3.12.1</b> <code>cross_plot</code> 사용하기 (dataViz)</a></li>
+<li class="chapter" data-level="3.12.2" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-boxplots"><i class="fa fa-check"></i><b>3.12.2</b> 박스 플롯 사용하기</a></li>
+<li class="chapter" data-level="3.12.3" data-path="selecting_best_variables.html"><a href="selecting_best_variables.html#target-profiling-using-density-histograms"><i class="fa fa-check"></i><b>3.12.3</b> 밀도 히스토그램 사용하기</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="model-performance.html"><a href="model-performance.html"><i class="fa fa-check"></i><b>4</b> 모델 성능 평가</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="model-performance.html"><a href="model-performance.html#knowing_the_error"><i class="fa fa-check"></i><b>4.1</b> 오차 알기</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-10"><i class="fa fa-check"></i><b>4.1.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.1.2" data-path="model-performance.html"><a href="model-performance.html#예상치-못한-동작-줄이기"><i class="fa fa-check"></i><b>4.1.2</b> 예상치 못한 동작 줄이기</a></li>
+<li class="chapter" data-level="4.1.3" data-path="model-performance.html"><a href="model-performance.html#교차-검증cross-validation-cv으로-설명해-보겠습니다"><i class="fa fa-check"></i><b>4.1.3</b> 교차 검증(Cross-Validation, CV)으로 설명해 보겠습니다</a></li>
+<li class="chapter" data-level="4.1.4" data-path="model-performance.html"><a href="model-performance.html#그렇다면-오차란-무엇인가요"><i class="fa fa-check"></i><b>4.1.4</b> 그렇다면 오차란 무엇인가요?</a></li>
+<li class="chapter" data-level="4.1.5" data-path="model-performance.html"><a href="model-performance.html#실무에-대한-제언이-있나요"><i class="fa fa-check"></i><b>4.1.5</b> 실무에 대한 제언이 있나요?</a></li>
+<li class="chapter" data-level="4.1.6" data-path="model-performance.html"><a href="model-performance.html#잊지-마세요-데이터-준비"><i class="fa fa-check"></i><b>4.1.6</b> 잊지 마세요: 데이터 준비</a></li>
+<li class="chapter" data-level="4.1.7" data-path="model-performance.html"><a href="model-performance.html#마지막-생각"><i class="fa fa-check"></i><b>4.1.7</b> 마지막 생각</a></li>
+<li class="chapter" data-level="4.1.8" data-path="model-performance.html"><a href="model-performance.html#더-읽어보기"><i class="fa fa-check"></i><b>4.1.8</b> 더 읽어보기</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="model-performance.html"><a href="model-performance.html#out-of-time_validation"><i class="fa fa-check"></i><b>4.2</b> 시간 외 검증 (Out-of-Time Validation)</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-11"><i class="fa fa-check"></i><b>4.2.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.2.2" data-path="model-performance.html"><a href="model-performance.html#어떤-종류의-데이터인가요-1"><i class="fa fa-check"></i><b>4.2.2</b> 어떤 종류의 데이터인가요?</a></li>
+<li class="chapter" data-level="4.2.3" data-path="model-performance.html"><a href="model-performance.html#시간-외-검증-예시"><i class="fa fa-check"></i><b>4.2.3</b> 시간 외 검증 예시</a></li>
+<li class="chapter" data-level="4.2.4" data-path="model-performance.html"><a href="model-performance.html#이득-및-리프트-분석gain-and-lift-analysis-사용하기"><i class="fa fa-check"></i><b>4.2.4</b> 이득 및 리프트 분석(Gain and Lift Analysis) 사용하기</a></li>
+<li class="chapter" data-level="4.2.5" data-path="model-performance.html"><a href="model-performance.html#수치형-타겟-변수는-어떤가요"><i class="fa fa-check"></i><b>4.2.5</b> 수치형 타겟 변수는 어떤가요?</a></li>
+<li class="chapter" data-level="4.2.6" data-path="model-performance.html"><a href="model-performance.html#마지막-생각-1"><i class="fa fa-check"></i><b>4.2.6</b> 마지막 생각</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="model-performance.html"><a href="model-performance.html#gain_and_lift"><i class="fa fa-check"></i><b>4.3</b> 이득 및 리프트 분석 (Gain and Lift Analysis)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="model-performance.html"><a href="model-performance.html#무엇에-대한-내용인가요-12"><i class="fa fa-check"></i><b>4.3.1</b> 무엇에 대한 내용인가요?</a></li>
+<li class="chapter" data-level="4.3.2" data-path="model-performance.html"><a href="model-performance.html#어떻게-해석하나요"><i class="fa fa-check"></i><b>4.3.2</b> 어떻게 해석하나요?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="model-performance.html"><a href="model-performance.html#모델을-사용하지-않는다면-어떨까요"><i class="fa fa-check"></i><b>4.3.3</b> 모델을 사용하지 않는다면 어떨까요?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="model-performance.html"><a href="model-performance.html#scoring_data"><i class="fa fa-check"></i><b>4.4</b> 데이터 스코어링 (Scoring Data)</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="model-performance.html"><a href="model-performance.html#숨겨진-직관"><i class="fa fa-check"></i><b>4.4.1</b> 숨겨진 직관</a></li>
+<li class="chapter" data-level="4.4.2" data-path="model-performance.html"><a href="model-performance.html#예제를-살펴봅시다"><i class="fa fa-check"></i><b>4.4.2</b> 예제를 살펴봅시다</a></li>
+<li class="chapter" data-level="4.4.3" data-path="model-performance.html"><a href="model-performance.html#모든-것은-절단점cut-point에-달려-있습니다"><i class="fa fa-check"></i><b>4.4.3</b> 모든 것은 절단점(cut point)에 달려 있습니다 📏</a></li>
+<li class="chapter" data-level="4.4.4" data-path="model-performance.html"><a href="model-performance.html#최선과-최악의-시나리오"><i class="fa fa-check"></i><b>4.4.4</b> 최선과 최악의 시나리오</a></li>
+<li class="chapter" data-level="4.4.5" data-path="model-performance.html"><a href="model-performance.html#분류기-비교"><i class="fa fa-check"></i><b>4.4.5</b> 분류기 비교</a></li>
+<li class="chapter" data-level="4.4.6" data-path="model-performance.html"><a href="model-performance.html#r로-직접-해보기"><i class="fa fa-check"></i><b>4.4.6</b> R로 직접 해보기!</a></li>
+<li class="chapter" data-level="4.4.7" data-path="model-performance.html"><a href="model-performance.html#결론-4"><i class="fa fa-check"></i><b>4.4.7</b> 결론</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>5</b> 부록 (APPENDIX)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="appendix.html"><a href="appendix.html#appendix-percentiles"><i class="fa fa-check"></i><b>5.1</b> 백분위수의 마법</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="appendix.html"><a href="appendix.html#백분위수를-계산하는-방법"><i class="fa fa-check"></i><b>5.1.1</b> 백분위수를 계산하는 방법</a></li>
+<li class="chapter" data-level="5.1.2" data-path="appendix.html"><a href="appendix.html#사용자-정의-분위수-계산"><i class="fa fa-check"></i><b>5.1.2</b> 사용자 정의 분위수 계산</a></li>
+<li class="chapter" data-level="5.1.3" data-path="appendix.html"><a href="appendix.html#대부분의-값이-어디에-있는지-표시하기"><i class="fa fa-check"></i><b>5.1.3</b> 대부분의 값이 어디에 있는지 표시하기</a></li>
+<li class="chapter" data-level="5.1.4" data-path="appendix.html"><a href="appendix.html#백분위수-시각화"><i class="fa fa-check"></i><b>5.1.4</b> 백분위수 시각화</a></li>
+<li class="chapter" data-level="5.1.5" data-path="appendix.html"><a href="appendix.html#순위-및-상위하위-x-개념"><i class="fa fa-check"></i><b>5.1.5</b> 순위 및 상위/하위 ‘X%’ 개념</a></li>
+<li class="chapter" data-level="5.1.6" data-path="appendix.html"><a href="appendix.html#데이터-스코어링에서의-백분위수"><i class="fa fa-check"></i><b>5.1.6</b> 데이터 스코어링에서의 백분위수</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="appendix.html"><a href="appendix.html#funmodeling-quick-start"><i class="fa fa-check"></i><b>5.2</b> <code>funModeling</code> 퀵스타트</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="appendix.html"><a href="appendix.html#블랙박스-열어보기"><i class="fa fa-check"></i><b>5.2.1</b> 블랙박스 열어보기</a></li>
+<li class="chapter" data-level="5.2.2" data-path="appendix.html"><a href="appendix.html#탐색적-데이터-분석-eda"><i class="fa fa-check"></i><b>5.2.2</b> 탐색적 데이터 분석 (EDA)</a></li>
+<li class="chapter" data-level="5.2.3" data-path="appendix.html"><a href="appendix.html#상관관계"><i class="fa fa-check"></i><b>5.2.3</b> 상관관계</a></li>
+<li class="chapter" data-level="5.2.4" data-path="appendix.html"><a href="appendix.html#데이터-준비"><i class="fa fa-check"></i><b>5.2.4</b> 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.5" data-path="appendix.html"><a href="appendix.html#이상치outliers-데이터-준비"><i class="fa fa-check"></i><b>5.2.5</b> 이상치(Outliers) 데이터 준비</a></li>
+<li class="chapter" data-level="5.2.6" data-path="appendix.html"><a href="appendix.html#예측-모델-성능"><i class="fa fa-check"></i><b>5.2.6</b> 예측 모델 성능</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="download-book.html"><a href="download-book.html"><i class="fa fa-check"></i><b>6</b> 도서 다운로드</a></li>
+<li class="chapter" data-level="" data-path="참고-문헌-references.html"><a href="참고-문헌-references.html"><i class="fa fa-check"></i>참고 문헌 (References)</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">데이터 과학 라이브 북 (Data Science Live Book)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="model-performance" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> 모델 성능 평가<a href="model-performance.html#model-performance" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>이 장에서는 예측 모델에서 <strong>오차의 방법론적 측면</strong>, <strong>교차 검증(cross-validation)</strong> 데이터를 통해 오차를 측정하는 방법, 그리고 <strong>부트스트래핑(bootstrapping)</strong> 기법과의 유사성을 다룹니다. 또한 이러한 전략들이 _랜덤 포레스트(random forest)_나 _그레디언트 부스팅 머신(gradient boosting machines)_과 같은 일부 예측 모델 내부에서 어떻게 사용되는지 살펴봅니다.</p>
+<p>또한 시간이 포함된 모델을 검증하는 방법에 대한 내용도 포함되어 있는데, 이는 전통적인 훈련/테스트(train/test) 검증과 유사합니다.</p>
+<p><br></p>
+<div id="knowing_the_error" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 오차 알기<a href="model-performance.html#knowing_the_error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>모델 검증의 방법론적 측면</strong></p>
+<p><img src="model_performance/magnifier.png" alt="" width="30%" /></p>
+<p><br></p>
+<div id="무엇에-대한-내용인가요-10" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> 무엇에 대한 내용인가요?<a href="model-performance.html#무엇에-대한-내용인가요-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>예측 모델을 구축한 후, 그 품질에 대해 얼마나 확신할 수 있을까요? 모델이 (노이즈를 제외한) 일반적인 패턴(정보)을 잘 포착했을까요?</p>
+<p><br></p>
+<div id="어떤-종류의-데이터인가요" class="section level4 hasAnchor" number="4.1.1.1">
+<h4><span class="header-section-number">4.1.1.1</span> 어떤 종류의 데이터인가요?<a href="model-performance.html#어떤-종류의-데이터인가요" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이 접근 방식은 <a href="model-performance.html#out-of-time_validation">시간 외 검증(Out-of-Time Validation)</a>에서 다루는 방식과는 다릅니다. 이 방식은 날짜별로 사례를 필터링할 수 없는 경우, 예를 들어 더 이상 새로운 정보가 생성되지 않는 특정 시점의 데이터 스냅샷을 가지고 있는 경우에도 사용할 수 있습니다.</p>
+<p>예를 들어 소수의 인원을 대상으로 한 건강 데이터 연구, 설문 조사 또는 연습 목적으로 인터넷에서 사용할 수 있는 일부 데이터 등이 있습니다. 새로운 사례를 추가하는 것이 비용이 많이 들거나, 실용적이지 않거나, 비윤리적이거나, 심지어 불가능할 수도 있습니다. <code>funModeling</code> 패키지에 포함된 <code>heart_disease</code> 데이터가 그러한 예입니다.</p>
+<p><br></p>
+</div>
+</div>
+<div id="예상치-못한-동작-줄이기" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 예상치 못한 동작 줄이기<a href="model-performance.html#예상치-못한-동작-줄이기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>모델이 훈련될 때, 그것은 실체의 일부분만을 봅니다. 그것은 전체를 다 볼 수 없는 모집단의 샘플입니다.</p>
+<p>모델을 검증하는 방법에는 여러 가지가 있습니다 (정확도 / ROC 곡선 / 리프트 / 이득 등). 이러한 지표들은 모두 <strong>분산에 부수적</strong>이며, 이는 <strong>서로 다른 값을 얻게 됨</strong>을 의미합니다. 일부 사례를 제거한 다음 새로운 모델을 맞춤(fit)시키면, <em>약간</em> 다른 값을 보게 될 것입니다.</p>
+<p>정확도 <code>81</code>을 달성한 모델을 구축했다고 가정해 봅시다. 이제 사례의 10%를 제거하고 새로운 모델을 맞춤시키면, 정확도는 <code>78.4</code>가 됩니다. <strong>진짜 정확도는 무엇일까요?</strong> 100% 데이터를 사용하여 얻은 것일까요, 아니면 90%를 기반으로 한 다른 것일까요? 예를 들어, 모델이 운영 체제(production environment)에서 실시간으로 실행된다면 <strong>다른 사례들</strong>을 보게 될 것이고 정확도 지점은 새로운 지점으로 이동할 것입니다.</p>
+<p><em>그렇다면 실제 값은 무엇일까요? 보고해야 할 값은요?</em> <strong>재샘플링(Re-sampling)</strong>과 <strong>교차 검증(cross-validation)</strong> 기술은 가장 신뢰할 수 있는 값에 가까운 근사치를 얻기 위해 서로 다른 샘플링 및 테스트 기준을 기반으로 평균을 낼 것입니다.</p>
+<p><br></p>
+<p><strong>그런데 왜 사례를 제거하나요?</strong></p>
+<p>그렇게 사례를 제거하는 것은 의미가 없어 보일 수 있지만, 정확도 지표가 얼마나 민감한지에 대한 아이디어를 제공합니다. 우리는 <em><em>알 수 없는 모집단</em></em>으로부터 추출된 샘플을 가지고 작업하고 있다는 점을 기억하십시오.</p>
+<p>만약 우리가 연구하고 있는 모든 사례의 100%를 포함하는 완전한 결정론적 모델이 있고 모든 사례에서 100% 정확하게 예측했다면, 이 모든 것이 필요하지 않았을 것입니다.</p>
+<p>우리는 항상 샘플을 분석하기 때문에 반복, 재샘플링, 교차 검증 등을 통해 데이터의 _실제적이고 알려지지 않은 진실성_에 더 가까워져야 할 뿐입니다…</p>
+<p><br></p>
+</div>
+<div id="교차-검증cross-validation-cv으로-설명해-보겠습니다" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> 교차 검증(Cross-Validation, CV)으로 설명해 보겠습니다<a href="model-performance.html#교차-검증cross-validation-cv으로-설명해-보겠습니다" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure"><span style="display:block;" id="fig:Cross-Validation"></span>
+<img src="model_performance/k-fold_cross_validation.png" alt="k-폴드 교차 검증" width="80%"  />
+<p class="caption">
+Figure 4.1: k-폴드 교차 검증
+</p>
+</div>
+<p><em>이미지 출처: Sebastian Raschka</em> 참고 <span class="citation">(<a href="#ref-evaluate_model">Raschka 2017</a>)</span></p>
+<p><br></p>
+<div id="cv-요약" class="section level4 hasAnchor" number="4.1.3.1">
+<h4><span class="header-section-number">4.1.3.1</span> CV 요약<a href="model-performance.html#cv-요약" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>데이터를 똑같은 크기의 무작위 그룹(예: <code>10</code>개)으로 나눕니다. 이러한 그룹을 흔히 <code>'k'</code>라는 글자로 표현되는 <code>폴드(fold)</code>라고 부릅니다.</li>
+<li><code>9</code>개의 폴드를 선택하여 모델을 구축한 다음, 제외된 나머지 폴드에 모델을 적용합니다. 이를 통해 정확도, ROC, Kappa 등 원하는 성능 지표를 얻게 됩니다. 이 예제에서는 정확도를 사용하고 있습니다.</li>
+<li>이 과정을 <code>k</code>번(이 예제에서는 <code>10</code>번) 반복합니다. 그러면 <code>10</code>개의 서로 다른 정확도를 얻게 됩니다. 최종 결과는 이들의 평균이 됩니다.</li>
+</ul>
+<p>이 평균값은 모델이 좋은지 아닌지를 평가하는 기준이 되며, 보고서에도 포함될 수 있습니다.</p>
+<p><br></p>
+</div>
+<div id="실전-사례" class="section level4 hasAnchor" number="4.1.3.2">
+<h4><span class="header-section-number">4.1.3.2</span> 실전 사례<a href="model-performance.html#실전-사례" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>iris</code> 데이터 프레임에는 150개의 행이 있습니다. <a href="http://topepo.github.io/caret/index.html">caret 패키지</a>를 사용하여 <code>교차 검증</code>으로 <code>랜덤 포레스트</code>를 구축하면 내부적으로 10개의 랜덤 포레스트가 생성됩니다. 각 모델은 135개의 행(9/10 * 150)을 기반으로 구축되고, 나머지 15개(1/10 * 150)의 사례를 기반으로 정확도를 보고합니다. 이 절차는 10번 반복됩니다.</p>
+<p>출력의 이 부분:</p>
+<div class="figure"><span style="display:block;" id="fig:caret-cross-validation-output"></span>
+<img src="model_performance/caret_cross_validation_output.png" alt="caret 교차 검증 출력" width="86%"  />
+<p class="caption">
+Figure 4.2: caret 교차 검증 출력
+</p>
+</div>
+<p><code>Summary of sample sizes: 135, 135, 135, 135, 135, 135, ...</code>에서 각 135는 훈련 샘플을 나타냅니다. 총 10개가 있지만 출력은 잘렸습니다.</p>
+<p>단일 숫자(평균)보다는 분포를 볼 수 있습니다:</p>
+<div class="figure"><span style="display:block;" id="fig:Accuracy-predictive-models"></span>
+<img src="model_performance/accuracy_distribution_plot.png" alt="정확도 분포의 시각적 분석" width="50%"  />
+<p class="caption">
+Figure 4.3: 정확도 분포의 시각적 분석
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:Accuracy-predictive-models-2"></span>
+<img src="model_performance/accuracy_distribution.png" alt="정확도 분포" width="70%"  />
+<p class="caption">
+Figure 4.4: 정확도 분포
+</p>
+</div>
+<ul>
+<li>최소/최대 정확도는 <code>~0.8</code>에서 <code>~1</code> 사이가 될 것입니다.</li>
+<li>평균은 <code>caret</code>에 의해 보고된 값입니다.</li>
+<li>50%의 확률로 정확도는 <code>~0.93</code>에서 <code>~1</code> 사이에 위치할 것입니다.</li>
+</ul>
+<p><code>forecast</code> 패키지의 개발자인 Rob Hyndman의 추천 강의: <em>왜 모든 통계학자가 교차 검증에 대해 알아야 하는가?</em> <span class="citation">(<a href="#ref-why_cross_validation">Hyndman 2010</a>)</span></p>
+<p><br></p>
+</div>
+</div>
+<div id="그렇다면-오차란-무엇인가요" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> 그렇다면 오차란 무엇인가요?<a href="model-performance.html#그렇다면-오차란-무엇인가요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>데이터의 <strong>편향(Bias)</strong>, <strong>분산(Variance)</strong>, 그리고 <strong><em>설명되지 않는 오차(inner noise)</em></strong>(또는 모델이 결코 줄일 수 없는 것)의 합입니다.</p>
+<p>이 세 가지 요소가 보고된 오차를 나타냅니다.</p>
+<div id="편향bias과-분산variance의-성질은-무엇인가요" class="section level4 hasAnchor" number="4.1.4.1">
+<h4><span class="header-section-number">4.1.4.1</span> 편향(Bias)과 분산(Variance)의 성질은 무엇인가요?<a href="model-performance.html#편향bias과-분산variance의-성질은-무엇인가요" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>모델이 제대로 작동하지 않을 때는 여러 가지 원인이 있을 수 있습니다:</p>
+<ul>
+<li><strong>모델이 너무 복잡함</strong>: 입력 변수가 아주 많을 때이며, 이는 <strong>높은 분산</strong>과 관련이 있습니다. 모델은 훈련 데이터에 과적합(overfit)되어, 보지 못한 데이터에 대해서는 과도한 세분화로 인해 정확도가 떨어지게 됩니다.</li>
+<li><strong>모델이 너무 단순함</strong>: 반대로, 모델이 너무 단순해서 데이터의 모든 정보를 포착하지 못할 수도 있습니다. 이는 <strong>높은 편향</strong>과 관련이 있습니다.</li>
+<li><strong>입력 데이터가 충분하지 않음</strong>: 데이터는 n차원 공간(<code>n</code>은 모든 입력+타겟 변수)에서 형태를 형성합니다. 점이 충분하지 않으면 이 형태가 제대로 만들어지지 않습니다.</li>
+</ul>
+<p><em>“머신러닝에서 더 좋은 것: 더 많은 데이터인가, 더 좋은 알고리즘인가”</em> <span class="citation">(<a href="#ref-more_data_or_better_algorithms">Amatriain 2015</a>)</span>에서 더 많은 정보를 확인하세요.</p>
+<div class="figure"><span style="display:block;" id="fig:bias-variance"></span>
+<img src="model_performance/bias_variance.png" alt="편향 vs. 분산 타협(tradeoff)" width="75%"  />
+<p class="caption">
+Figure 4.5: 편향 vs. 분산 타협(tradeoff)
+</p>
+</div>
+<p><em>이미지 출처: Scott Fortmann-Roe</em> <span class="citation">(<a href="#ref-bias_variance_tradeoff">Fortmann 2012</a>)</span>. 애니메이션을 통해 편향과 분산을 통한 오차를 직관적으로 이해할 수 있는 방법도 포함되어 있습니다.</p>
+<p><br></p>
+</div>
+<div id="복잡도-vs-정확도-타협-tradeoff" class="section level4 hasAnchor" number="4.1.4.2">
+<h4><span class="header-section-number">4.1.4.2</span> 복잡도 vs 정확도 타협 (Tradeoff)<a href="model-performance.html#복잡도-vs-정확도-타협-tradeoff" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="model_performance/complexity_accuracy_balance.png" alt="" width="100px" /></p>
+<p>편향과 분산은 하나가 내려가면 다른 하나가 올라가는 관계이므로 둘 사이에는 <strong>타협(tradeoff)</strong>이 존재합니다. 이에 대한 실전 사례로는 아카이케 정보 기준(Akaike Information Criterion, AIC) 모델 품질 측정법이 있습니다.</p>
+<p><strong>AIC</strong>는 <code>R</code>의 <code>forecast</code> 패키지에 있는 <code>auto.arima</code> 함수에서 최적의 <strong>시계열 모델</strong>을 선택하는 휴리스틱으로 사용됩니다 <span class="citation">(<a href="#ref-arima_modeling_in_r">Hyndman 2017</a>)</span>. AIC가 가장 낮은 모델을 선택합니다.</p>
+<p>값이 낮을수록 좋습니다. 예측 정확도가 높을수록 값은 낮아지지만, 매개변수의 수가 많아지면 값이 높아집니다.</p>
+<p><br></p>
+</div>
+<div id="부트스트래핑bootstrapping-vs-교차-검증cross-validation" class="section level4 hasAnchor" number="4.1.4.3">
+<h4><span class="header-section-number">4.1.4.3</span> 부트스트래핑(Bootstrapping) vs 교차 검증(Cross-Validation)<a href="model-performance.html#부트스트래핑bootstrapping-vs-교차-검증cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><strong>부트스트래핑</strong>은 주로 매개변수를 추정할 때 사용됩니다.</li>
+<li><strong>교차 검증</strong>은 서로 다른 예측 모델 중에서 선택할 때 주로 사용됩니다.</li>
+</ul>
+<p>참고: 편향과 분산에 대해 더 자세히 알고 싶다면 페이지 하단의 <span class="citation">(<a href="#ref-bias_variance_tradeoff">Fortmann 2012</a>)</span> 및 <span class="citation">(<a href="#ref-more_data_or_better_algorithms">Amatriain 2015</a>)</span>를 참조하십시오.</p>
+</div>
+</div>
+<div id="실무에-대한-제언이-있나요" class="section level3 hasAnchor" number="4.1.5">
+<h3><span class="header-section-number">4.1.5</span> 실무에 대한 제언이 있나요?<a href="model-performance.html#실무에-대한-제언이-있나요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>데이터에 따라 다르지만, <code>10-폴드 CV</code>에 반복을 추가한 <code>10-폴드 CV, 5회 반복</code>과 같은 예시를 흔히 볼 수 있습니다. 때로는 <code>5-폴드 CV, 3회 반복</code>도 사용됩니다.</p>
+<p>그리고 원하는 지표의 평균값을 사용합니다. 불균형한 타겟 변수에 대해 덜 편향된 <code>ROC</code>를 사용하는 것도 권장됩니다.</p>
+<p>이러한 검증 기법은 <strong>시간이 많이 소요</strong>되므로, “짧은” 시간 내에 모델 튜닝, 다양한 설정 테스트, 여러 변수 시도 등이 가능하도록 빠르게 실행되는 모델을 선택하는 것을 고려해 보십시오. <a href="https://en.wikipedia.org/wiki/Random_forest">랜덤 포레스트(Random Forest)</a>는 <strong>빠르고</strong> <strong>정확한</strong> 결과를 제공하는 훌륭한 옵션입니다. 랜덤 포레스트의 전반적인 성능에 대한 자세한 내용은 <span class="citation">(<a href="#ref-do_we_need_hundred_models">Fernandez-Delgado 2014</a>)</span>에서 확인할 수 있습니다.</p>
+<p>또 다른 좋은 옵션은 <strong>그레디언트 부스팅 머신(gradient boosting machines)</strong>입니다. 랜덤 포레스트보다 튜닝할 매개변수가 더 많지만, 적어도 R에서는 구현이 빠르게 작동합니다.</p>
+<div id="다시-편향과-분산으로-돌아가서" class="section level4 hasAnchor" number="4.1.5.1">
+<h4><span class="header-section-number">4.1.5.1</span> 다시 편향과 분산으로 돌아가서<a href="model-performance.html#다시-편향과-분산으로-돌아가서" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>랜덤 포레스트는 편향을 줄이는 데 집중하는 반면…</li>
+<li>그레디언트 부스팅 머신은 분산을 최소화하는 데 집중합니다. 더 많은 정보는 <em>“Gradient boosting machine vs random forest”</em> <span class="citation">(<a href="#ref-gbm_vs_random_forest">stats.stackexchange.com 2015</a>)</span>에서 확인하세요.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="잊지-마세요-데이터-준비" class="section level3 hasAnchor" number="4.1.6">
+<h3><span class="header-section-number">4.1.6</span> 잊지 마세요: 데이터 준비<a href="model-performance.html#잊지-마세요-데이터-준비" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>데이터를 변환하고 정제하여 입력 데이터를 미세하게 조정하는 것은 모델의 품질에 영향을 미칩니다. 때로는 매개변수를 통해 모델을 최적화하는 것보다 더 큰 영향을 미칩니다.</p>
+<p>이 점에 대해서는 <a href="data_preparation.html#data_preparation">데이터 준비(Data Preparation)</a> 장에서 자세히 알아보세요.</p>
+</div>
+<div id="마지막-생각" class="section level3 hasAnchor" number="4.1.7">
+<h3><span class="header-section-number">4.1.7</span> 마지막 생각<a href="model-performance.html#마지막-생각" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>재샘플링 / 교차 검증을 통해 모델을 검증하는 것은 데이터에 존재하는 “실제” 오차를 추정하는 데 도움이 됩니다. 모델이 향후에 실행된다면, 그것이 예상되는 오차가 될 것입니다.</li>
+<li>또 다른 장점은 <strong>모델 튜닝</strong>으로, 특정 모델에 대한 최적의 매개변수를 선택할 때 과적합을 피할 수 있습니다 (<a href="https://topepo.github.io/caret/model-training-and-tuning.html">caret 예시</a>). <strong>Python</strong>에서의 해당 내용은 <a href="http://scikit-learn.org/stable/modules/cross_validation.html">Scikit Learn</a>에 포함되어 있습니다.</li>
+<li>가장 좋은 테스트는 여러분의 데이터와 요구 사항에 맞게 여러분이 직접 만든 테스트입니다. 다양한 모델을 시도해 보고 시간 소요와 정확도 지표 사이의 타협점을 분석해 보십시오.</li>
+</ul>
+<blockquote>
+<p>이러한 재샘플링 기술은 stackoverflow.com과 같은 사이트나 협력적인 오픈 소스 소프트웨어 뒤에 있는 강력한 도구 중 하나일 수 있습니다. 편향이 적은 솔루션을 만들기 위해 많은 의견을 수렴하는 것이죠.</p>
+</blockquote>
+<p>하지만 각 의견은 신뢰할 수 있어야 합니다. 여러 의사에게 진단을 요청하는 상황을 상상해 보십시오.</p>
+<p><br></p>
+</div>
+<div id="더-읽어보기" class="section level3 hasAnchor" number="4.1.8">
+<h3><span class="header-section-number">4.1.8</span> 더 읽어보기<a href="model-performance.html#더-읽어보기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>튜토리얼: <a href="http://www.milanor.net/blog/cross-validation-for-predictive-analytics-using-r">R을 사용한 예측 분석을 위한 교차 검증</a></li>
+<li>Max Kuhn(caret 패키지 제작자)의 튜토리얼: <a href="http://appliedpredictivemodeling.com/blog/2014/11/27/vpuig01pqbklmi72b8lcl3ij5hj2qm">다양한 종류의 교차 검증 비교하기</a></li>
+<li>교차 검증 접근 방식은 시간 의존적 모델에도 적용될 수 있습니다. 다른 장인 <a href="model-performance.html#out-of-time_validation">시간 외 검증(Out-of-time Validation)</a>을 확인해 보세요.</li>
+</ul>
+<p><br></p>
+<hr />
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="out-of-time_validation" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 시간 외 검증 (Out-of-Time Validation)<a href="model-performance.html#out-of-time_validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="model_performance/calendar.png" alt="" width="100px" /></p>
+<div id="무엇에-대한-내용인가요-11" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> 무엇에 대한 내용인가요?<a href="model-performance.html#무엇에-대한-내용인가요-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>예측 모델을 구축한 후, 그것이 단지 보았던 데이터만을 기억하는 것이 아니라(과적합) 일반적인 패턴을 잘 포착했는지 어떻게 확신할 수 있을까요?</p>
+<p>운영 환경에서 실행되거나 실시간으로 작동할 때 모델이 잘 작동할까요? 예상되는 오차는 얼마일까요?</p>
+<p><br></p>
+</div>
+<div id="어떤-종류의-데이터인가요-1" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> 어떤 종류의 데이터인가요?<a href="model-performance.html#어떤-종류의-데이터인가요-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>데이터가 시간에 따라 생성되고, 매일 “웹사이트 페이지 방문”이나 “의료 센터에 도착하는 새로운 환자”와 같은 새로운 사례가 발생한다면, 가장 강력한 검증 방법 중 하나는 <strong>시간 외(Out-Of-Time)</strong> 접근 방식입니다.</p>
+<p><br></p>
+</div>
+<div id="시간-외-검증-예시" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> 시간 외 검증 예시<a href="model-performance.html#시간-외-검증-예시" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>방법은?</strong></p>
+<p>우리가 <strong>1월 1일</strong>에 모델을 구축하고 있다고 가정해 봅시다. 모델을 구축하기 위해 <strong>10월 31일</strong> 이전의 모든 데이터를 사용합니다. 이 두 날짜 사이에는 2개월의 간격이 있습니다.</p>
+<p>이진/두 클래스 변수(또는 다중 클래스)를 예측할 때, 이는 매우 명확합니다: <strong>10월 31일</strong> 이전의 데이터로 구축한 모델을 사용하여 그 정확한 날짜의 데이터에 점수(score)를 매기고, 그 후 두 달 동안 사용자/환자/개인/사례들이 어떻게 변했는지 측정합니다.</p>
+<p>이진 모델의 출력은 각 사례가 특정 클래스에 속할 가능성을 나타내는 숫자여야 하므로(<a href="model-performance.html#scoring_data">데이터 스코어링</a> 장 참조), 우리는 <strong>10월 31일에 모델이 “말한” 것과 “1월 1일”에 실제로 일어난 일을 비교</strong>하여 테스트합니다.</p>
+<p><br></p>
+<p>다음 <strong>검증 워크플로우</strong>는 시간이 포함된 예측 모델을 구축할 때 도움이 될 수 있습니다.</p>
+<div class="figure"><span style="display:block;" id="fig:model-performance-workflow"></span>
+<img src="model_performance/model_validation_workflow.png" alt="시간 의존적 문제를 위한 검증 워크플로우" width="100%"  />
+<p class="caption">
+Figure 4.6: 시간 의존적 문제를 위한 검증 워크플로우
+</p>
+</div>
+<p><em><a href="http://datascienceheroes.com/img/blog/model_validation_workflow.png">이미지 크게 보기.</a></em></p>
+<p><br></p>
+</div>
+<div id="이득-및-리프트-분석gain-and-lift-analysis-사용하기" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> 이득 및 리프트 분석(Gain and Lift Analysis) 사용하기<a href="model-performance.html#이득-및-리프트-분석gain-and-lift-analysis-사용하기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이 분석은 다른 장(<a href="model-performance.html#gain_and_lift">이득 및 리프트</a>)에서 설명되며, 시간 외 검증에 이어서 사용할 수 있습니다.</p>
+<p><code>10월 31일</code>에 <code>음성(negative)</code>이었던 사례들만 유지하면서, 해당 날짜에 모델이 반환한 <code>점수(score)</code>를 얻고, <code>타겟(target)</code> 변수는 <code>1월 1일</code>에 해당 사례들이 가졌던 값으로 설정합니다.</p>
+</div>
+<div id="수치형-타겟-변수는-어떤가요" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> 수치형 타겟 변수는 어떤가요?<a href="model-performance.html#수치형-타겟-변수는-어떤가요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이제 상식과 비즈니스 요구 사항이 더 중요해집니다. 수치형 결과는 어떤 값도 가질 수 있으며, 시간에 따라 증가하거나 감소할 수 있습니다. 따라서 무엇을 성공으로 간주할지 생각하는 데 도움이 되도록 이 두 가지 시나리오를 고려해야 할 수도 있습니다. 이것이 선형 회귀의 경우입니다.</p>
+<p><strong>시나리오 예시</strong>: 웹 앱 사용량(예: 홈뱅킹)을 측정한다고 했을 때, 일반적인 특징은 날짜가 지남에 따라 사용자가 더 많이 사용한다는 것입니다.</p>
+<p>예시:</p>
+<ul>
+<li>특정 성분의 혈중 농도 예측.</li>
+<li>페이지 방문 수 예측.</li>
+<li>시계열 분석.</li>
+</ul>
+<p>이러한 경우에도 <strong>“예상했던 것” vs. “실제인 것”</strong> 사이의 차이가 발생합니다.</p>
+<p>이 차이는 어떤 숫자든 될 수 있습니다. 이것이 오차(error) 또는 잔차(residuals)입니다.</p>
+<div class="figure"><span style="display:block;" id="fig:gain-lift-analysis-in-r"></span>
+<img src="model_performance/numerical_variable.png" alt="예측 및 오차 분석" width="100%"  />
+<p class="caption">
+Figure 4.7: 예측 및 오차 분석
+</p>
+</div>
+<p>모델이 좋다면, 이 오차는 <strong>백색 잡음(white noise)</strong>이어야 합니다. <span class="citation">(<a href="#ref-white_noise">Wikipedia 2017d</a>)</span> 내부의 “시계열 분석 및 회귀” 섹션에서 더 자세한 정보를 확인하세요. 주로 다음과 같은 논리적 특성이 있을 때 정규 곡선을 따릅니다:</p>
+<ul>
+<li>오차는 <strong>0 주변</strong>에 있어야 합니다. <em>모델의 오차는 0으로 수렴해야 합니다.</em></li>
+<li>이 오차의 표준 편차는 <strong>유한해야 합니다</strong>. 예측 불가능한 이상치를 피하기 위함입니다.</li>
+<li>오차들 사이에는 상관관계가 없어야 합니다.</li>
+<li><strong>정규 분포</strong>: 대부분의 오차가 0 주변에 있고, 오차가 커질수록 <strong>더 작은 비율</strong>로 나타날 것을 기대합니다. 즉, 더 큰 오차를 발견할 가능성은 기하급수적으로 감소합니다.</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:error-curve-in-r"></span>
+<img src="model_performance/normal_error_curve.png" alt="좋은 오차 곡선 (정규 분포)" width="60%"  />
+<p class="caption">
+Figure 4.8: 좋은 오차 곡선 (정규 분포)
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="마지막-생각-1" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> 마지막 생각<a href="model-performance.html#마지막-생각-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>시간 외 검증(Out-of-Time Validation)</strong>은 <strong>샘플링에 의존할 필요가 없는</strong> 데이터를 사용하여 운영 환경에서의 모델 실행을 시뮬레이션할 수 있는 강력한 검증 도구입니다.</p></li>
+<li><p><strong>오차 분석</strong>은 데이터 과학에서 큰 단원입니다. 이제 이와 관련된 핵심 개념을 다루는 다음 장으로 넘어갈 시간입니다: <a href="model-performance.html#knowing_the_error">오차 알기</a>.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+<div id="gain_and_lift" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> 이득 및 리프트 분석 (Gain and Lift Analysis)<a href="model-performance.html#gain_and_lift" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="무엇에-대한-내용인가요-12" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> 무엇에 대한 내용인가요?<a href="model-performance.html#무엇에-대한-내용인가요-12" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>두 지표 모두 예측 모델(이진 결과)의 품질을 검증하는 데 매우 유용합니다. <a href="model-performance.html#scoring_data">데이터 스코어링</a>에 대한 더 많은 정보를 확인하세요.</p>
+<p>최신 버전의 <code>funModeling</code>(&gt;= 1.3)이 설치되어 있는지 확인하십시오.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="model-performance.html#cb328-1" tabindex="-1"></a><span class="co"># funModeling 로드</span></span>
+<span id="cb328-2"><a href="model-performance.html#cb328-2" tabindex="-1"></a><span class="fu">library</span>(funModeling)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="model-performance.html#cb329-1" tabindex="-1"></a><span class="co"># GLM 모델 생성</span></span>
+<span id="cb329-2"><a href="model-performance.html#cb329-2" tabindex="-1"></a>fit_glm <span class="ot">=</span> <span class="fu">glm</span>(has_heart_disease <span class="sc">~</span> age <span class="sc">+</span> oldpeak, <span class="at">data =</span> heart_disease, <span class="at">family =</span> binomial)</span>
+<span id="cb329-3"><a href="model-performance.html#cb329-3" tabindex="-1"></a></span>
+<span id="cb329-4"><a href="model-performance.html#cb329-4" tabindex="-1"></a><span class="co"># 각 행의 스코어/확률값 가져오기</span></span>
+<span id="cb329-5"><a href="model-performance.html#cb329-5" tabindex="-1"></a>heart_disease<span class="sc">$</span>score <span class="ot">=</span> <span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> heart_disease, <span class="at">type =</span> <span class="st">&#39;response&#39;</span>)</span>
+<span id="cb329-6"><a href="model-performance.html#cb329-6" tabindex="-1"></a></span>
+<span id="cb329-7"><a href="model-performance.html#cb329-7" tabindex="-1"></a><span class="co"># 이득 및 리프트 곡선 그리기</span></span>
+<span id="cb329-8"><a href="model-performance.html#cb329-8" tabindex="-1"></a><span class="fu">gain_lift</span>(<span class="at">data =</span> heart_disease, <span class="at">score =</span> <span class="st">&#39;score&#39;</span>, <span class="at">target =</span> <span class="st">&#39;has_heart_disease&#39;</span>)</span></code></pre></div>
+<pre><code>## Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use &quot;none&quot; instead as
+## of ggplot2 3.3.4.
+## ℹ The deprecated feature was likely used in the funModeling package.
+##   Please report the issue at &lt;https://github.com/pablo14/funModeling/issues&gt;.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<pre><code>## Warning: The `guide` argument in `scale_*()` cannot be `FALSE`. This was deprecated in
+## ggplot2 3.3.4.
+## ℹ Please use &quot;none&quot; instead.
+## ℹ The deprecated feature was likely used in the funModeling package.
+##   Please report the issue at &lt;https://github.com/pablo14/funModeling/issues&gt;.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<div class="figure"><span style="display:block;" id="fig:model-performance-gain-curve"></span>
+<img src="04_assesing_model_performance_files/figure-html/model-performance-gain-curve-1.png" alt="이득 및 리프트 곡선" width="1152"  />
+<p class="caption">
+Figure 4.9: 이득 및 리프트 곡선
+</p>
+</div>
+<pre><code>##    Population   Gain Lift Score.Point
+## 1          10  20.86 2.09   0.8185793
+## 2          20  35.97 1.80   0.6967124
+## 3          30  48.92 1.63   0.5657817
+## 4          40  61.15 1.53   0.4901940
+## 5          50  69.06 1.38   0.4033640
+## 6          60  78.42 1.31   0.3344170
+## 7          70  87.77 1.25   0.2939878
+## 8          80  92.09 1.15   0.2473671
+## 9          90  96.40 1.07   0.1980453
+## 10        100 100.00 1.00   0.1195511</code></pre>
+</div>
+<div id="어떻게-해석하나요" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> 어떻게 해석하나요?<a href="model-performance.html#어떻게-해석하나요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>먼저, 각 사례는 점수 값인 덜 대표적인 클래스(less representative class)일 가능성에 따라 정렬됩니다.</p>
+<p>그 다음 <code>Gain</code> 열은 각 10%의 행(<code>Population</code> 열)에 대해 양성 클래스를 누적합니다.</p>
+<p>따라서 첫 번째 행은 다음과 같이 읽을 수 있습니다:</p>
+<p><em>“점수(score)순으로 정렬된 상위 10%의 인구는 전체 양성 사례의 20.86%를 포함합니다.”</em></p>
+<p>예를 들어, 우리가 이 모델을 기반으로 이메일을 보내고 사용자의 <strong>20%</strong>에게만 도달할 예산이 있다면, 몇 명의 응답을 기대할 수 있을까요? <strong>정답: 35.97%</strong></p>
+<p><br></p>
+</div>
+<div id="모델을-사용하지-않는다면-어떨까요" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> 모델을 사용하지 않는다면 어떨까요?<a href="model-performance.html#모델을-사용하지-않는다면-어떨까요" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>만약 우리가 <strong>모델을 사용하지 않고</strong> 무작위로 20%를 선택한다면, 우리는 몇 명의 사용자에게 도달해야 할까요? 당연히 20%입니다. 이것이 0%에서 시작하여 100%에서 끝나는 <strong>점선(dashed line)</strong>의 의미입니다. 다행히 예측 모델을 사용하면 무작위성보다 높은 성과를 낼 수 있습니다.</p>
+<p><strong>리프트(Lift)</strong> 열은 <code>이득(Gain)</code>과 <em>우연에 의한 이득</em> 사이의 비율을 나타냅니다. Population=20%를 예로 들면, 모델은 무작위보다 <strong>1.8배 더 좋습니다</strong>.</p>
+<p><br></p>
+<div id="절단점cut-point-사용하기" class="section level4 hasAnchor" number="4.3.3.1">
+<h4><span class="header-section-number">4.3.3.1</span> 절단점(Cut point) 사용하기 ✂️<a href="model-performance.html#절단점cut-point-사용하기" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>인구의 30%에 도달하는 점수 값은 무엇일까요?
+정답: <code>0.56</code></p>
+<p>절단점은 우리가 데이터를 세분화할 수 있게 해줍니다.</p>
+<p><br></p>
+</div>
+<div id="모델-비교하기" class="section level4 hasAnchor" number="4.3.3.2">
+<h4><span class="header-section-number">4.3.3.2</span> 모델 비교하기<a href="model-performance.html#모델-비교하기" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>좋은 모델에서는 이득이 모집단의 “초기”에 100%에 도달하며, 이는 클래스를 잘 분리하고 있음을 나타냅니다.</p>
+<p>모델을 비교할 때 빠른 지표는 모집단의 초기(10-30%) 이득이 더 높은지 확인하는 것입니다.</p>
+<p>결과적으로, 초기에 더 높은 이득을 가진 모델이 데이터에서 더 많은 정보를 포착한 것이 됩니다.</p>
+<p>설명을 위해…</p>
+<div class="figure"><span style="display:block;" id="fig:predictive-model-comparison"></span>
+<img src="model_performance/model_comparison.png" alt="두 모델의 이득 및 리프트 곡선 비교" width="100%"  />
+<p class="caption">
+Figure 4.10: 두 모델의 이득 및 리프트 곡선 비교
+</p>
+</div>
+<p><em><a href="http://datascienceheroes.com/img/blog/model_comparison.png">이미지 크게 보기.</a></em></p>
+<p><br></p>
+<p><strong>누적 이득 분석(Cumulative Gain Analysis)</strong>: 모델 1은 인구의 약 10% 지점에서 양성 사례의 ~20%에 도달하는 반면, 모델 2는 인구의 20%에 가까워져야 유사한 비율에 도달합니다. <em>모델 1이 더 좋습니다.</em></p>
+<p><strong>리프트 분석(Lift analysis)</strong>: 위와 동일하지만, 모든 리프트 숫자가 감소 패턴을 따르지 않는다는 점이 의심스럽습니다. 아마도 모델이 인구의 첫 번째 백분위수들을 제대로 정렬하지 못하고 있는 것일 수 있습니다.
+<a href="selecting_best_variables.html#profiling_target_cross_plot">cross_plot을 사용한 타겟 프로파일링</a> 장에서 보았던 것과 동일한 정렬 개념입니다.</p>
+<p><br></p>
+<hr />
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+<hr />
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="scoring_data" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> 데이터 스코어링 (Scoring Data)<a href="model-performance.html#scoring_data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="숨겨진-직관" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> 숨겨진 직관<a href="model-performance.html#숨겨진-직관" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이벤트는 일어날 수도 있고, 일어나지 않을 수도 있습니다. 비록 우리에게 <em>내일의 신문</em> 📰은 없지만, 내일이 어떨지에 대해 좋은 추측을 할 수는 있습니다.</p>
+<p><img src="scoring/cover.png" alt="" width="170px" /></p>
+<p>미래는 의심할 여지 없이 <em>불확실성</em>과 맞닿아 있으며, 이 불확실성은 추정될 수 있습니다.</p>
+<p><br></p>
+<div id="그리고-다양한-타겟들이-있습니다" class="section level4 hasAnchor" number="4.4.1.1">
+<h4><span class="header-section-number">4.4.1.1</span> 그리고 다양한 타겟들이 있습니다…<a href="model-performance.html#그리고-다양한-타겟들이-있습니다" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>현재 이 책은 고전적인 <code>예</code>/<code>아니오</code> 타겟(이진 또는 다중 클래스 예측이라고도 함)을 다룹니다.</p>
+<p>따라서 이 추정치는 이벤트가 발생할 <em>진실의 값(value of truth)</em>이며, 0과 1 사이의 확률값입니다.</p>
+</div>
+<div id="이진two-label-vs.-다중-클래스multi-label-결과" class="section level4 hasAnchor" number="4.4.1.2">
+<h4><span class="header-section-number">4.4.1.2</span> 이진(Two-label) vs. 다중 클래스(multi-label) 결과<a href="model-performance.html#이진two-label-vs.-다중-클래스multi-label-결과" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이 장은 이진 결과(두 개의 라벨 결과)를 위해 작성되었지만, <strong>다중 클래스(multi-label)</strong> 타겟은 이진 클래스의 일반적인 접근 방식으로 볼 수 있습니다.</p>
+<p>예를 들어 4개의 서로 다른 값을 가진 타겟이 있을 때, 특정 클래스에 속할 가능성을 예측하는 4개의 모델이 있을 수 있습니다. 그런 다음 이 4개 모델의 결과를 가져와 최종 클래스를 예측하는 더 상위의 모델이 있을 수 있습니다.</p>
+<p><br></p>
+</div>
+<div id="뭐라고요" class="section level4 hasAnchor" number="4.4.1.3">
+<h4><span class="header-section-number">4.4.1.3</span> 뭐라고요? 😯<a href="model-performance.html#뭐라고요" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>몇 가지 예시:
+- 이 고객이 이 제품을 구매할 것인가?
+- 이 환자가 호전될 것인가?
+- 향후 몇 주 동안 특정 이벤트가 발생할 것인가?</p>
+<p>이 질문들에 대한 대답은 참(True) 또는 거짓(False)이지만, <strong>본질은 스코어(score)</strong>, 즉 특정 이벤트가 발생할 가능성을 나타내는 숫자를 갖는 것입니다.</p>
+<p><br></p>
+</div>
+<div id="하지만-우리는-더-많은-통제가-필요합니다" class="section level4 hasAnchor" number="4.4.1.4">
+<h4><span class="header-section-number">4.4.1.4</span> 하지만 우리는 더 많은 통제가 필요합니다…<a href="model-performance.html#하지만-우리는-더-많은-통제가-필요합니다" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>많은 머신러닝 리소스들은 시작하기에 좋은 단순화된 버전, 즉 최종 클래스를 출력으로 얻는 방식을 보여줍니다. 예를 들어:</p>
+<p>단순화된 접근 방식:</p>
+<ul>
+<li>질문: <em>이 사람이 심장 질환을 앓게 될까요?</em></li>
+<li>답변: “아니오”</li>
+</ul>
+<p>하지만 “예/아니오” 답변 이전에 다른 무언가가 있으며, 그것이 바로 스코어입니다:</p>
+<ul>
+<li>질문: <em>이 사람이 심장 질환을 앓을 가능성은 얼마나 되나요?</em></li>
+<li>답변: “25%”</li>
+</ul>
+<p><br></p>
+<p>따라서 우리는 먼저 스코어를 얻고, 우리의 필요에 따라 <strong>절단점(cut point)</strong>을 설정합니다. 그리고 이것은 <strong>정말로</strong> 중요합니다.</p>
+</div>
+</div>
+<div id="예제를-살펴봅시다" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> 예제를 살펴봅시다<a href="model-performance.html#예제를-살펴봅시다" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure"><span style="display:block;" id="fig:scoring-1"></span>
+<img src="scoring/tbl_example_1.png" alt="간단한 데이터셋 예시" width="100%"  />
+<p class="caption">
+Figure 4.11: 간단한 데이터셋 예시
+</p>
+</div>
+<p>다음 내용을 보여주는 예제 테이블:</p>
+<ul>
+<li><code>id</code> = 식별자</li>
+<li><code>x1</code>, <code>x2</code>, <code>x3</code> = 입력 변수</li>
+<li><code>target</code> = 예측할 변수</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:scoring-machine-learning"></span>
+<img src="scoring/tbl_example_2.png" alt="스코어 얻기 (예측 모델 출력)" width="50%"  />
+<p class="caption">
+Figure 4.12: 스코어 얻기 (예측 모델 출력)
+</p>
+</div>
+<p>입력 변수는 잊어버리십시오… 랜덤 포레스트와 같은 예측 모델을 생성한 후, 우리가 관심을 갖는 것은 <strong>스코어(scores)</strong>입니다. 비록 우리의 최종 목표가 <code>예</code>/<code>아니오</code>로 예측된 변수를 전달하는 것이라 할지라도 말입니다.</p>
+<p>예를 들어, 다음 두 문장은 같은 것을 표현합니다: <em><code>예</code>일 가능성이 <code>0.8</code>이다</em> &lt;=&gt; <em><code>아니오</code>일 확률이 <code>0.2</code>이다</em></p>
+<p>이미 이해하셨겠지만 스코어는 대개 덜 대표적인 클래스인 <code>예</code>를 나타냅니다.</p>
+<hr />
+<p>✋ <strong>R 구문</strong> -<em>코드를 보고 싶지 않다면 건너뛰셔도 됩니다</em>-</p>
+<p>다음 구문은 스코어를 반환합니다:</p>
+<p><code>score = predict(randomForestModel, data, type = "prob")[, 2]</code></p>
+<p>다른 모델의 경우 이 구문이 약간 다를 수 있지만, 개념은 <strong>동일하게 유지</strong>된다는 점에 유의하십시오. 다른 언어에서도 마찬가지입니다.</p>
+<p>여기서 <code>prob</code>는 우리가 확률(또는 스코어)을 원한다는 것을 나타냅니다.</p>
+<p><code>predict</code> 함수에 <code>type="prob"</code> 매개변수를 더하면 15행 2열의 행렬을 반환합니다: 1열은 <code>아니오</code>일 가능성을 나타내고, 2열은 <code>예</code> 클래스에 대한 가능성을 보여줍니다.</p>
+<p>타겟 변수가 <code>아니오</code> 또는 <code>예</code>일 수 있으므로, <code>[, 2]</code>는 (<code>아니오</code> 가능성의 보수인) <code>예</code>일 가능성을 반환합니다.</p>
+<hr />
+<p><br></p>
+</div>
+<div id="모든-것은-절단점cut-point에-달려-있습니다" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> 모든 것은 절단점(cut point)에 달려 있습니다 📏<a href="model-performance.html#모든-것은-절단점cut-point에-달려-있습니다" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure"><span style="display:block;" id="fig:scoring-machine-learning-9"></span>
+<img src="scoring/tbl_example_3.png" alt="가장 높은 스코어순으로 정렬된 사례들" width="50%"  />
+<p class="caption">
+Figure 4.13: 가장 높은 스코어순으로 정렬된 사례들
+</p>
+</div>
+<p>이제 테이블이 스코어 내림차순으로 정렬되었습니다.</p>
+<p>이는 기본적으로 <code>0.5</code>인 절단점을 가졌을 때 최종 클래스를 어떻게 추출하는지 보여주기 위함입니다. 절단점을 미세하게 조정하면 더 나은 분류가 가능합니다.</p>
+<blockquote>
+<p>정확도 지표나 혼동 행렬은 항상 특정 절단점 값과 연결되어 있습니다.</p>
+</blockquote>
+<p><br></p>
+<p>절단점을 할당한 후, 다음과 같은 유명한 분류 결과를 볼 수 있습니다:</p>
+<ul>
+<li>✅ <strong>진양성 (True Positive, TP)</strong>: 분류가 <em>양성</em>인 것이 <em>참</em>인 경우, 즉 “모델이 양성(<code>예</code>) 클래스를 정확하게 맞춤”을 의미합니다.</li>
+<li>✅ <strong>진음성 (True Negative, TN)</strong>: 위와 동일하지만 음성 클래스(<code>아니오</code>)의 경우입니다.</li>
+<li>❌ <strong>가양성 (False Positive, FP)</strong>: 분류가 <em>양성</em>인 것이 <em>거짓</em>인 경우, 즉 “모델이 틀렸고 <code>예</code>라고 예측했지만 결과는 <code>아니오</code>임”을 의미합니다.</li>
+<li>❌ <strong>가음성 (False Negative, FN)</strong>: 위와 동일하지만 음성 클래스의 경우로, “모델이 음성이라고 예측했지만 결과는 양성이었음”, 즉 “모델이 <code>아니오</code>라고 예측했지만 클래스는 <code>예</code>였음”을 의미합니다.</li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:scoring-machine-learning-2"></span>
+<img src="scoring/tbl_example_4.png" alt="예측 라벨 할당 (cutoff=0.5)" width="100%"  />
+<p class="caption">
+Figure 4.14: 예측 라벨 할당 (cutoff=0.5)
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="최선과-최악의-시나리오" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> 최선과 최악의 시나리오<a href="model-performance.html#최선과-최악의-시나리오" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>선(Zen)이 가르치듯 극단을 분석하면 중간 지점을 찾는 데 도움이 됩니다.</p>
+<p>👍 최선의 시나리오는 <strong>TP</strong>와 <strong>TN</strong> 비율이 100%일 때입니다. 이는 모델이 모든 <code>예</code>와 모든 <code>아니오</code>를 정확하게 예측했음을 의미합니다. (결과적으로 <strong>FP</strong>와 <strong>FN</strong> 비율은 0%가 됩니다).</p>
+<p>하지만 잠깐만요 ✋! 완벽한 분류를 발견했다면, 그것은 아마도 과적합 때문일 것입니다!</p>
+<p>👎 최악의 시나리오 —이전 예시와 정반대— 는 <strong>FP</strong>와 <strong>FN</strong> 비율이 100%일 때입니다. 무작위성조차도 이토록 끔찍한 시나리오를 만들어낼 수는 없습니다.</p>
+<p><em>왜 그럴까요?</em> 클래스가 50/50으로 균형 잡혀 있다면 동전을 던져서 결과의 약 절반은 맞힐 것입니다. 이것이 모델이 무작위성보다 우수한지 테스트하는 일반적인 기준선입니다.</p>
+<p><br></p>
+<p>제공된 예제에서 클래스 분포는 <code>예</code>가 5개, <code>아니오</code>가 10개이므로 <code>예</code>는 33.3%(5/15)입니다.</p>
+<p><br></p>
+<hr />
+</div>
+<div id="분류기-비교" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> 분류기 비교<a href="model-performance.html#분류기-비교" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="분류-결과-비교" class="section level4 hasAnchor" number="4.4.5.1">
+<h4><span class="header-section-number">4.4.5.1</span> 분류 결과 비교<a href="model-performance.html#분류-결과-비교" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>❓ <strong>퀴즈</strong>: 이 33.3%를 정확하게 예측하는 모델(TP 비율=100%)은 좋은 모델인가요?</p>
+<p><em>정답</em>: 그것은 모델이 얼마나 많은 <code>예</code>를 예측했는지에 달려 있습니다.</p>
+<p><br>
+항상 <code>예</code>만 예측하는 분류기는 TP가 100%이지만, 실제로는 <code>아니오</code>인 많은 사례를 <code>예</code>로 분류하므로 전혀 쓸모가 없습니다. 실제로 이런 경우 FP 비율이 매우 높을 것입니다.</p>
+</div>
+<div id="스코어에-기반한-라벨-정렬-비교" class="section level4 hasAnchor" number="4.4.5.2">
+<h4><span class="header-section-number">4.4.5.2</span> 스코어에 기반한 라벨 정렬 비교<a href="model-performance.html#스코어에-기반한-라벨-정렬-비교" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>분류기는 신뢰할 수 있어야 하며, 이것이 바로 <strong>ROC</strong> 곡선이 TP 대 FP 비율을 도표로 나타낼 때 측정하는 것입니다. FP 대비 TP 비율이 높을수록 ROC 곡선 아래 면적(AUC)이 커집니다.</p>
+<p>ROC 곡선 뒤에 숨겨진 직관은 <strong>스코어</strong>와 관련하여 <strong>무결성 측정(sanity measure)</strong>을 하는 것입니다. 즉, 스코어가 라벨을 얼마나 잘 정렬하느냐 하는 것입니다. 이상적으로는 모든 양성 라벨이 상단에 있고 음성 라벨이 하단에 있어야 합니다.</p>
+<p><br></p>
+<div class="figure"><span style="display:block;" id="fig:scoring-machine-learning-3"></span>
+<img src="scoring/tbl_example_5.png" alt="두 예측 모델 스코어 비교" width="100%"  />
+<p class="caption">
+Figure 4.15: 두 예측 모델 스코어 비교
+</p>
+</div>
+<p><br></p>
+<p><code>모델 1</code>은 <code>모델 2</code>보다 더 높은 AUC를 가질 것입니다.</p>
+<p>위키피디아에 이에 대한 자세하고 유용한 기사가 있습니다: <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" class="uri">https://en.wikipedia.org/wiki/Receiver_operating_characteristic</a></p>
+<p>다음은 절단점이 0.5일 때 4개 모델을 비교한 것입니다:</p>
+<div class="figure"><span style="display:block;" id="fig:roc-curve-machine-learning"></span>
+<img src="scoring/4_models_roc.png" alt="4개 예측 모델 비교" width="100%"  />
+<p class="caption">
+Figure 4.16: 4개 예측 모델 비교
+</p>
+</div>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="r로-직접-해보기" class="section level3 hasAnchor" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> R로 직접 해보기!<a href="model-performance.html#r로-직접-해보기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>서로 다른 절단점에 따른 세 가지 시나리오를 분석해 보겠습니다.</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="model-performance.html#cb333-1" tabindex="-1"></a><span class="co"># install.packages(&quot;rpivotTable&quot;) </span></span>
+<span id="cb333-2"><a href="model-performance.html#cb333-2" tabindex="-1"></a><span class="co"># rpivotTable: 피벗 테이블을 동적으로 생성하며 플롯도 지원합니다. 더 많은 정보: https://github.com/smartinsightsfromdata/rpivotTable</span></span>
+<span id="cb333-3"><a href="model-performance.html#cb333-3" tabindex="-1"></a></span>
+<span id="cb333-4"><a href="model-performance.html#cb333-4" tabindex="-1"></a><span class="fu">library</span>(rpivotTable)</span>
+<span id="cb333-5"><a href="model-performance.html#cb333-5" tabindex="-1"></a></span>
+<span id="cb333-6"><a href="model-performance.html#cb333-6" tabindex="-1"></a><span class="do">## 데이터 읽기</span></span>
+<span id="cb333-7"><a href="model-performance.html#cb333-7" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">read.delim</span>(<span class="at">file=</span><span class="st">&quot;https://goo.gl/ac5AkG&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">header =</span> T, <span class="at">stringsAsFactors=</span>F)</span></code></pre></div>
+<div id="시나리오-1-절단점-0.5" class="section level4 hasAnchor" number="4.4.6.1">
+<h4><span class="header-section-number">4.4.6.1</span> 시나리오 1: 절단점 @ <code>0.5</code><a href="model-performance.html#시나리오-1-절단점-0.5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>실제 값 대비 예측 값의 교차점에 몇 개의 사례가 해당하는지 보여주는 고전적인 혼동 행렬:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="model-performance.html#cb334-1" tabindex="-1"></a>data<span class="sc">$</span>predicted_target<span class="ot">=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>score<span class="sc">&gt;=</span><span class="fl">0.5</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span>
+<span id="cb334-2"><a href="model-performance.html#cb334-2" tabindex="-1"></a></span>
+<span id="cb334-3"><a href="model-performance.html#cb334-3" tabindex="-1"></a><span class="fu">rpivotTable</span>(<span class="at">data =</span> data, <span class="at">rows =</span> <span class="st">&quot;predicted_target&quot;</span>, <span class="at">cols=</span><span class="st">&quot;target&quot;</span>, <span class="at">aggregatorName =</span> <span class="st">&quot;Count&quot;</span>, <span class="at">rendererName =</span> <span class="st">&quot;Table&quot;</span>, <span class="at">width=</span><span class="st">&quot;100%&quot;</span>, <span class="at">height=</span><span class="st">&quot;400px&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:Scoring-machine-learning-5"></span>
+<img src="scoring/count_1.png" alt="혼동 행렬 (지표: 개수)" width="85%"  />
+<p class="caption">
+Figure 4.17: 혼동 행렬 (지표: 개수)
+</p>
+</div>
+<p>다른 뷰입니다. 이번에는 각 열의 합이 <strong>100%</strong>입니다. 다음 질문에 답하기 좋습니다:</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="model-performance.html#cb335-1" tabindex="-1"></a><span class="fu">rpivotTable</span>(<span class="at">data =</span> data, <span class="at">rows =</span> <span class="st">&quot;predicted_target&quot;</span>, <span class="at">cols=</span><span class="st">&quot;target&quot;</span>, <span class="at">aggregatorName =</span> <span class="st">&quot;Count as Fraction of Columns&quot;</span>, <span class="at">rendererName =</span> <span class="st">&quot;Table&quot;</span>, <span class="at">width=</span><span class="st">&quot;100%&quot;</span>, <span class="at">height=</span><span class="st">&quot;400px&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:Scoring-machine-learning-6"></span>
+<img src="scoring/percentage_1.png" alt="혼동 행렬 (절단점 0.5)" width="85%"  />
+<p class="caption">
+Figure 4.18: 혼동 행렬 (절단점 0.5)
+</p>
+</div>
+<ul>
+<li><em>모델에 의해 포착된 실제 <code>예</code> 값의 비율은 얼마인가요? 정답: 80%</em> 이를 <strong>정밀도(Precision, PPV)</strong>라고도 합니다.</li>
+<li><em>모델에 의해 던져진 <code>예</code> 중 실제 확률은? 40%.</em></li>
+</ul>
+<p>따라서 마지막 두 문장으로부터:</p>
+<p><strong>모델은 10개의 예측 중 4개를 <code>예</code>라고 던지며, 이 세그먼트(<code>예</code>) 중에서 80%를 맞춥니다.</strong></p>
+<p><br></p>
+<p>또 다른 뷰: 모델은 10개의 <code>예</code> 예측에 대해 3건의 사례를 정확하게 맞춥니다 <em>(0.4/0.8=3.2, 내림하여 3)</em>.</p>
+<p>참고: 마지막 분석 방식은 연관 규칙(장바구니 분석) 및 의사결정 트리 모델을 구축할 때 찾아볼 수 있습니다.</p>
+<p><br></p>
+</div>
+<div id="시나리오-2-절단점-0.4" class="section level4 hasAnchor" number="4.4.6.2">
+<h4><span class="header-section-number">4.4.6.2</span> 시나리오 2: 절단점 @ <code>0.4</code><a href="model-performance.html#시나리오-2-절단점-0.4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>절단점을 <code>0.4</code>로 바꿀 때이므로, <code>예</code>의 양이 더 많아질 것입니다:</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="model-performance.html#cb336-1" tabindex="-1"></a>data<span class="sc">$</span>predicted_target<span class="ot">=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>score<span class="sc">&gt;=</span><span class="fl">0.4</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span>
+<span id="cb336-2"><a href="model-performance.html#cb336-2" tabindex="-1"></a></span>
+<span id="cb336-3"><a href="model-performance.html#cb336-3" tabindex="-1"></a><span class="fu">rpivotTable</span>(<span class="at">data =</span> data, <span class="at">rows =</span> <span class="st">&quot;predicted_target&quot;</span>, <span class="at">cols=</span><span class="st">&quot;target&quot;</span>, <span class="at">aggregatorName =</span> <span class="st">&quot;Count as Fraction of Columns&quot;</span>, <span class="at">rendererName =</span> <span class="st">&quot;Table&quot;</span>, <span class="at">width=</span><span class="st">&quot;100%&quot;</span>, <span class="at">height=</span><span class="st">&quot;400px&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:Scoring-machine-learning-7"></span>
+<img src="scoring/percentage_2.png" alt="혼동 행렬 (절단점 0.4)" width="85%"  />
+<p class="caption">
+Figure 4.19: 혼동 행렬 (절단점 0.4)
+</p>
+</div>
+<p>이제 모델은 <code>예</code>(TP)를 <code>100%</code> 포착하므로, 모델에 의해 생성된 총 <code>예</code>의 양은 <code>46.7%</code>로 증가했지만, <em>TN과 FP는 동일하게 유지</em> 되었으므로 아무런 비용이 들지 않았습니다 :thumbsup:.</p>
+<p><br></p>
+</div>
+<div id="시나리오-3-절단점-0.8" class="section level4 hasAnchor" number="4.4.6.3">
+<h4><span class="header-section-number">4.4.6.3</span> 시나리오 3: 절단점 @ <code>0.8</code><a href="model-performance.html#시나리오-3-절단점-0.8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>FP 비율을 줄이고 싶으신가요? 절단점을 더 높은 값으로 설정하십시오. 예를 들어 <code>0.8</code>로 설정하면 모델에 의해 생성된 <code>예</code>가 감소합니다:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="model-performance.html#cb337-1" tabindex="-1"></a>data<span class="sc">$</span>predicted_target<span class="ot">=</span><span class="fu">ifelse</span>(data<span class="sc">$</span>score<span class="sc">&gt;=</span><span class="fl">0.8</span>, <span class="st">&quot;yes&quot;</span>, <span class="st">&quot;no&quot;</span>)</span>
+<span id="cb337-2"><a href="model-performance.html#cb337-2" tabindex="-1"></a></span>
+<span id="cb337-3"><a href="model-performance.html#cb337-3" tabindex="-1"></a><span class="fu">rpivotTable</span>(<span class="at">data =</span> data, <span class="at">rows =</span> <span class="st">&quot;predicted_target&quot;</span>, <span class="at">cols=</span><span class="st">&quot;target&quot;</span>, <span class="at">aggregatorName =</span> <span class="st">&quot;Count as Fraction of Columns&quot;</span>, <span class="at">rendererName =</span> <span class="st">&quot;Table&quot;</span>, <span class="at">width=</span><span class="st">&quot;100%&quot;</span>, <span class="at">height=</span><span class="st">&quot;400px&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:scoring-machine-learning-8"></span>
+<img src="scoring/percentage_3.png" alt="혼동 행렬 (절단점 0.8)" width="85%"  />
+<p class="caption">
+Figure 4.20: 혼동 행렬 (절단점 0.8)
+</p>
+</div>
+<p><br></p>
+<p>이제 FP 비율이 <code>20%</code>에서 <code>10%</code>로 감소했으며, 모델은 여전히 절단점 <code>0.5</code>에서 얻은 것과 동일한 비율인 <code>80%</code>의 TP를 포착합니다 :thumbsup:.</p>
+<p><strong>절단점을 <code>0.8</code>로 높임으로써 비용 없이 모델을 개선했습니다.</strong></p>
+<p><br></p>
+</div>
+</div>
+<div id="결론-4" class="section level3 hasAnchor" number="4.4.7">
+<h3><span class="header-section-number">4.4.7</span> 결론<a href="model-performance.html#결론-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>이 장은 이진 변수를 예측하는 본질에 초점을 맞추었습니다: 타겟 변수를 <strong>정렬</strong>하는 스코어 또는 가능성 숫자를 생성하는 것입니다.</p></li>
+<li><p>예측 모델은 입력을 출력으로 매핑합니다.</p></li>
+<li><p>유일하고 최선인 <strong>절단점 값</strong>은 존재하지 않습니다. 그것은 프로젝트의 요구 사항에 따라 달라지며, 우리가 수용할 수 있는 <code>가양성(False Positive)</code>과 <code>가음성(False Negative)</code> 비율에 의해 제한됩니다.</p></li>
+</ul>
+<p>이 책은 <a href="model-performance.html#knowing_the_error">오차 알기</a> 장에서 모델 성능에 대한 전반적인 측면을 다룹니다.</p>
+<hr />
+<p><img src="introduction/spacer_bar.png" /><!-- --></p>
+<hr />
+
+</div>
+</div>
+</div>
+<h3>참고 문헌 (References)<a href="참고-문헌-references.html#참고-문헌-references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-more_data_or_better_algorithms" class="csl-entry">
+Amatriain, Xavier. 2015. <span>“In Machine Learning, What Is Better: More Data or Better Algorithms.”</span> <a href="http://www.kdnuggets.com/2015/06/machine-learning-more-data-better-algorithms.html">http://www.kdnuggets.com/2015/06/machine-learning-more-data-better-algorithms.html</a>.
+</div>
+<div id="ref-do_we_need_hundred_models" class="csl-entry">
+Fernandez-Delgado, Manuel. 2014. <span>“Do We Need Hundreds of Classifiers to Solve Real World Classification Problems?”</span> <a href="http://jmlr.csail.mit.edu/papers/volume15/delgado14a/delgado14a.pdf">http://jmlr.csail.mit.edu/papers/volume15/delgado14a/delgado14a.pdf</a>.
+</div>
+<div id="ref-bias_variance_tradeoff" class="csl-entry">
+Fortmann, Scott. 2012. <span>“Understanding the Bias-Variance Tradeoff.”</span> <a href="http://scott.fortmann-roe.com/docs/BiasVariance.html">http://scott.fortmann-roe.com/docs/BiasVariance.html</a>.
+</div>
+<div id="ref-why_cross_validation" class="csl-entry">
+Hyndman, Rob J. 2010. <span>“Why Every Statistician Should Know about Cross-Validation?”</span> <a href="https://robjhyndman.com/hyndsight/crossvalidation/">https://robjhyndman.com/hyndsight/crossvalidation/</a>.
+</div>
+<div id="ref-arima_modeling_in_r" class="csl-entry">
+———. 2017. <span>“ARIMA Modelling in r.”</span> <a href="https://www.otexts.org/fpp/8/">https://www.otexts.org/fpp/8/</a>.
+</div>
+<div id="ref-evaluate_model" class="csl-entry">
+Raschka, Sebastian. 2017. <span>“Machine Learning FAQ.”</span> <a href="http://sebastianraschka.com/faq/docs/evaluate-a-model.html">http://sebastianraschka.com/faq/docs/evaluate-a-model.html</a>.
+</div>
+<div id="ref-gbm_vs_random_forest" class="csl-entry">
+stats.stackexchange.com. 2015. <span>“Gradient Boosting Machine Vs Random Forest.”</span> <a href="https://stats.stackexchange.com/questions/173390/gradient-boosting-tree-vs-random-forest">https://stats.stackexchange.com/questions/173390/gradient-boosting-tree-vs-random-forest</a>.
+</div>
+<div id="ref-white_noise" class="csl-entry">
+———. 2017d. <span>“White Noise - Time Series Analysis and Regression.”</span> <a href="https://en.wikipedia.org/wiki/White_noise">https://en.wikipedia.org/wiki/White_noise</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="selecting_best_variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/pablo14/data-science-live-book/edit/master/04_assesing_model_performance.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
