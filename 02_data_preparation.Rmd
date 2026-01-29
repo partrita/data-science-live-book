@@ -75,7 +75,7 @@ library(dplyr) # 데이터 정제 라이브러리
 library(funModeling) # df_status 함수 포함
   
 # 범주형 변수 확인
-status=df_status(heart_disease, print_results = F)
+status=df_status(heart_disease)
 filter(status,  type %in% c("factor", "character")) %>% select(variable)
 
 # 모든 범주형 변수(팩터 및 문자열)를 수치형 변수로 변환합니다.
@@ -394,7 +394,7 @@ library(dplyr)
 예시를 하나 살펴보겠습니다. 먼저 현재 데이터 유형을 확인합니다.
 
 ```{r}
-df_status(heart_disease, print_results = F) %>% select(variable, type, unique, q_na) %>% arrange(type)
+df_status(heart_disease) %>% select(variable, type, unique, q_na) %>% arrange(type)
 ```
 
 팩터(factor), 정수(integer), 수치형(numeric) 변수들이 섞여 있습니다! 변환은 두 단계로 이루어집니다. 첫째, 각 세그먼트가 시작되는 절단값 또는 임계값을 가져옵니다. 둘째, 해당 임계값을 사용하여 변수를 범주형으로 변환합니다.
@@ -1474,10 +1474,10 @@ df_1$var_tukey=prep_outliers(df_1$var, type = "set_na", method = "tukey")
 
 ```{r}
 # 처리 전
-df_status(df_1$var, print_results = F) %>% select(variable, q_na, p_na)
+df_status(df_1$var) %>% select(variable, q_na, p_na)
 
 # 처리 후
-df_status(df_1$var_tukey, print_results = F) %>% select(variable, q_na, p_na)
+df_status(df_1$var_tukey) %>% select(variable, q_na, p_na)
 ```
 
 변환 전에는 0개의 `NA` 값이 있었으나, 변환 후에는 Tukey 테스트에 따라 120개의 값(약 12%)이 이상치로 판명되어 `NA`로 대체되었습니다.
@@ -1485,7 +1485,7 @@ df_status(df_1$var_tukey, print_results = F) %>% select(variable, q_na, p_na)
 전후 비교를 해볼 수 있습니다.
 
 ```{r}
-profiling_num(df_1, print_results = F) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
+profiling_num(df_1) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
 ```
 
 평균이 거의 3분의 1로 줄어들었으며 다른 모든 지표들도 감소했습니다.
@@ -1501,7 +1501,7 @@ df_1$var_hampel=prep_outliers(df_1$var, type = "set_na", method="hampel")
 확인 중...
 
 ```{r}
-df_status(df_1, print_results = F) %>% select(variable, q_na, p_na)
+df_status(df_1) %>% select(variable, q_na, p_na)
 ```
 
 마지막 방법은 이상치를 잡아내는 데 훨씬 더 가혹하여 36%의 값을 이상치로 식별했습니다. 이는 아마도 변수가 왼쪽으로 _상당히_ 치우쳐 있기 때문일 것입니다.
@@ -1525,8 +1525,8 @@ df_1$var_top2=prep_outliers(df_1$var, type = "set_na", method="bottom_top", top_
 정량적 비교를 위해 몇 가지 지표를 선택하겠습니다.
 
 ```{r}
-df_status(df_1, print_results = F) %>% select(variable, q_na, p_na)
-prof_num=profiling_num(df_1, print_results = F) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
+df_status(df_1) %>% select(variable, q_na, p_na)
+prof_num=profiling_num(df_1) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
 prof_num
 ```
 
@@ -1617,8 +1617,8 @@ df_2_tukey=prep_outliers(data = df_2, input = c("var1", "var2"), type='stop', me
 대치 전후의 몇 가지 지표를 확인해 봅니다.
 
 ```{r outliers-treatment-4,  fig.height=3, fig.width=4}
-profiling_num(df_2, print_results = F) %>% select(variable, mean, std_dev, variation_coef)
-profiling_num(df_2_tukey, print_results = F) %>% select(variable, mean, std_dev, variation_coef)
+profiling_num(df_2) %>% select(variable, mean, std_dev, variation_coef)
+profiling_num(df_2_tukey) %>% select(variable, mean, std_dev, variation_coef)
 ```
 
 Tukey 방법이 이번에는 완벽하게 작동하여 두 변수 모두에서 더 정확한 평균(`var1`은 1, `var2`는 0)을 보여주었습니다.
@@ -1688,7 +1688,7 @@ df_2$bot_top_var2=prep_outliers(data=df_2$var2, type='stop', method = "bottom_to
 df_2_b = df_2 %>% select(-var1)
 
 # 프로파일링
-profiling_num(df_2_b, print_results = F) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
+profiling_num(df_2_b) %>% select(variable, mean, std_dev, variation_coef, kurtosis, range_98)
 ```
 
 세 가지 방법 모두 이 데이터에서 매우 유사한 결과를 보여줍니다.
@@ -1840,7 +1840,7 @@ df_travel_3
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr) 
 library(funModeling) 
-df_status(heart_disease, print_results = F) %>% select(variable, q_na, p_na) %>% arrange(desc(q_na))
+df_status(heart_disease) %>% select(variable, q_na, p_na) %>% arrange(desc(q_na))
 ```
 
 `q_na`는 `NA` 값의 개수를 나타내고 `p_na`는 백분율입니다. `df_status`에 대한 전체 정보는 [프로파일링](#profiling) 장에서 찾을 수 있습니다.
@@ -1870,7 +1870,7 @@ nrow(heart_disease_clean) # 제외 후 행 수
 
 ```{r}
 # NA 값을 가진 변수 이름 가져오기
-vars_to_exclude = df_status(heart_disease, print_results = F) %>% 
+vars_to_exclude = df_status(heart_disease) %>% 
   filter(p_na > 0) %>% 
   pull(variable)
 

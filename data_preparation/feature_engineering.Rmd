@@ -120,7 +120,7 @@ library(dplyr) # data munging library
 library(funModeling) # df_status function
   
 ## Checking categorical variables
-status=df_status(heart_disease, print_results = F)
+status=df_status(heart_disease)
 filter(status,  type %in% c("factor", "character")) %>% select(variable)
 
 ## It converts all categorical variables (factor and character) into numerical
