@@ -24,6 +24,9 @@ Imports:
     corrplot,
     RColorBrewer,
     infotheo,
-    gbm
+    gbm,
+    randomForest,
+    tidyr,
+    rpivotTable
 Remotes: 
     rstudio/bookdown

@@ -2185,6 +2185,8 @@ df_imputed=imputation_res$ximp
 
 ```{r how-to-impute-missing-values, warning=FALSE, message=FALSE, fig.height=4, fig.width=5, fig.cap="대치 방법 비교 (수치형 변수)", out.extra=''}
 # randomForest 패키지의 na.roughfix를 기반으로 한 또 다른 대치 생성
+if(!requireNamespace("randomForest", quietly = TRUE)) install.packages("randomForest")
+library(randomForest)
 df_rough=na.roughfix(df_holly)
 
 # 대치 전후의 분포 비교
