@@ -287,10 +287,10 @@ cat(c(results, avg_improvement_text), sep="\n\n")
 ```
 
 ```
-## 'max_heart_rate' 기반 ROC 모델: 0.74.;
-##   'chest_pain' 기반: 0.76; 그리고 둘 다 기반: 0.82
+## 'max_heart_rate' 기반 ROC 모델: 0.73.;
+##   'chest_pain' 기반: 0.77; 그리고 둘 다 기반: 0.81
 ## 
-## 평균 개선율: 8.49%
+## 평균 개선율: 8.04%
 ```
 
 

@@ -1,7 +1,7 @@
 --- 
 title: "데이터 과학 라이브 북 (Data Science Live Book)"
 author: "Pablo Casas (번역: fkt)"
-date: "2026년 01월"
+date: "2026-01"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 classoption: oneside
