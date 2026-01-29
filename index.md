@@ -1,6 +1,6 @@
 --- 
 title: "데이터 과학 라이브 북 (Data Science Live Book)"
-author: "Pablo Casas (번역: fkt)"
+author: "Pablo Casas (번역: Taeyoon Kim with Gemini)"
 date: "2026-01-29"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
