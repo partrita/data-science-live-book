@@ -46,10 +46,10 @@ if (knitr:::is_html_output())
 
 ### 종이책 & 킨들 (Amazon) {-}
 
-이 책은 현재 아마존에서 구매 가능합니다. **[확인해 보세요!](https://www.amazon.com/dp/9874269049)** `r emo::ji("green_book")` `r emo::ji("rocket")`.
+이 책은 현재 아마존에서 구매 가능합니다. **[확인해 보세요!](https://www.amazon.com/dp/9874269049)** 📗 🚀.
 
 
-_흑백 버전 링크이며, 풀컬러 버전도 준비되어 있습니다. 100개국 이상으로 배송 가능합니다._ `r emo::ji("earth_americas")`
+_흑백 버전 링크이며, 풀컬러 버전도 준비되어 있습니다. 100개국 이상으로 배송 가능합니다._ 🌎
 
 <br>
 
@@ -109,7 +109,7 @@ my_fancy_model=randomForest(target ~ var_1 + var_2, my_complicated_data)
 
 <br>
 
-### 기계와 인공지능이 세상을 지배하게 될까요? `r emo::ji("scream")` {-}
+### 기계와 인공지능이 세상을 지배하게 될까요? 😱 {-}
 
 컴퓨팅 파워가 기하급수적으로 증가하고 있는 것은 사실이지만, 기계의 반란은 아직 요원한 일입니다.
 
@@ -129,7 +129,7 @@ _호르헤 드렉슬러 (뮤지션, 배우, 의사). "Guitarra y vos" 노래에�
 
 <br>
 
-어쩌면 이것이 **머신러닝(machine learning)**과 **데이터 과학(data science)**의 차이일까요? 학습하는 기계 대 데이터를 사용하여 과학을 하는 인간? `r emo::ji("thinking")`
+어쩌면 이것이 **머신러닝(machine learning)**과 **데이터 과학(data science)**의 차이일까요? 학습하는 기계 대 데이터를 사용하여 과학을 하는 인간? 🤔
 
 열린 질문입니다.
 
@@ -153,7 +153,7 @@ for(i in 1:length(used_packages))
 }
 ```
 
-`funModeling` 패키지는 이 책의 시작점이었습니다. 데이터 과학자가 일상적인 업무를 수행하는 데 도움을 주는 함수 모음으로 시작했으며, 이제 그 문서가 이 책으로 진화했습니다 `r emo::ji("heart")`!
+`funModeling` 패키지는 이 책의 시작점이었습니다. 데이터 과학자가 일상적인 업무를 수행하는 데 도움을 주는 함수 모음으로 시작했으며, 이제 그 문서가 이 책으로 진화했습니다 ❤️!
 
 필요한 패키지는 `install.packages("PACKAGE_NAME")` 명령어로 설치할 수 있습니다.
 
@@ -161,7 +161,7 @@ for(i in 1:length(used_packages))
 
 이 책(PDF 및 웹 버전 모두)은 Rstudio에서 놀라운 [Bookdown](https://bookdown.org/yihui/bookdown/)을 사용하여 제작되었습니다.
 
-Bookdown, R, Rstudio, 그리고 이 책까지 모두 자유롭게 사용할 수 있는 오픈 소스입니다 `r emo::ji("slightly_smiling_face")`.
+Bookdown, R, Rstudio, 그리고 이 책까지 모두 자유롭게 사용할 수 있는 오픈 소스입니다 🙂.
 
 이 책이 북다운에서 어떻게 생성되었는지, 그리고 아마존에 어떻게 발행했는지 뒷이야기를 확인하시려면 다음 글들을 참고하세요: [How to self-publish a book: A handy list of resources](https://blog.datascienceheroes.com/how-to-self-publish-a-book/) 및 [How to self publish a book: customizing Bookdown](https://blog.datascienceheroes.com/how-to-self-publish-a-book-customizing-bookdown/).
 
@@ -171,7 +171,7 @@ Bookdown, R, Rstudio, 그리고 이 책까지 모두 자유롭게 사용할 수 
 
 <br>
 
-### 연락은 어떻게 하나요? `r emo::ji("envelope_with_arrow")` {-}
+### 연락은 어떻게 하나요? 📩 {-}
 
 인사를 건네거나, 설명이 부족한 부분을 알려주거나, 새로운 주제를 제안하거나, 배운 개념을 적용한 경험을 공유하고 싶다면 언제든지 이메일을 보내주세요:
 
@@ -194,9 +194,9 @@ pcasas.biz (at) gmail.com. 저는 끊임없이 배우고 있으므로 다른 동
 
 이 데이터 세계의 멘토인 Miguel Spindiak과 Marcelo Ferreyra에게 특별한 감사를 전합니다.
 
-기술 리뷰어: [Pablo Seibelt (aka The Sicarul)](https://www.linkedin.com/in/pabloseibelt) `r emo::ji("hammer_and_wrench")`. 진심 어린 헌신적인 도움에 감사드립니다.
+기술 리뷰어: [Pablo Seibelt (aka The Sicarul)](https://www.linkedin.com/in/pabloseibelt) 🛠️. 진심 어린 헌신적인 도움에 감사드립니다.
 
-표지 아트 제작: [Bárbara Muñoz](https://www.linkedin.com/in/barbaramercedes/)`r emo::ji("art")`.
+표지 아트 제작: [Bárbara Muñoz](https://www.linkedin.com/in/barbaramercedes/)🎨.
 
 이 책을 에두아르도 갈레아노의 단편 소설 _[The Nobodies](https://holywaters.wordpress.com/2011/12/08/los-nadiesthe-nobodies-by-eduardo-galeano)_에 헌정합니다.
 

@@ -295,7 +295,7 @@ detach("package:caret")
 
 ### 작은 사례 (정보 이론 기반)
 
-4개의 행, 2개의 입력 변수(`var_1`, `var_2`), 그리고 하나의 결과(`target`)를 가진 다음과 같은 _빅 데이터_ 테이블 `r emo::ji("stuck_out_tongue_winking_eye")`을 보십시오.
+4개의 행, 2개의 입력 변수(`var_1`, `var_2`), 그리고 하나의 결과(`target`)를 가진 다음과 같은 _빅 데이터_ 테이블 😜을 보십시오.
 
 ```{r variables-work-in-groups-2, echo=FALSE, out.width="200px", fig.cap="뭉쳐야 산다: 변수 결합", out.extra=""}
 knitr::include_graphics("selecting_best_variables/variables_work_in_gropus.png")
@@ -309,7 +309,7 @@ knitr::include_graphics("selecting_best_variables/variables_work_in_gropus.png")
 _`var_2`에 대해서도 동일한 분석이 적용됩니다._
 
 동일한 입력이 서로 다른 결과와 관련이 있을 때 이를 **노이즈(noise)**라고 정의합니다. 이것은 한 사람이 _"어이, 내일 비가 올 거야!"_라고 말하고, 다른 사람이 _"내일은 절대 비가 오지 않을 거야"_라고 말하는 것과 같은 직관입니다.
-우리는 ... _"세상에! 우산이 필요한 거야 아니야 `r emo::ji("scream")`?"_라고 생각할 것입니다.
+우리는 ... _"세상에! 우산이 필요한 거야 아니야 😱?"_라고 생각할 것입니다.
 
 다시 예제로 돌아가서, 두 변수를 동시에 고려하면 입력과 출력 사이의 일대일 대응이 명확해집니다: "`var_1='a'`이고 `var_2='x'`이면 `target='red'`일 확률은 100%입니다." 다른 조합들도 시도해 볼 수 있습니다.
 

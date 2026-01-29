@@ -318,7 +318,7 @@ library(funModeling)
 df_status(heart_disease)
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#dataset-health-status)]
+[🔎 [**여기서 더 읽어보기**](#dataset-health-status)]
 
 <br>
 
@@ -336,7 +336,7 @@ Notes:
 * `bins`: 구간(bin)의 개수를 설정합니다(기본값은 10).
 * `path_out`: 경로 디렉토리를 나타냅니다. 값이 있으면 플롯이 jpeg로 내보내집니다. 현재 디렉토리에 저장하려면 점(".")을 사용합니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#plotting-numerical-variable)]
+[🔎 [**여기서 더 읽어보기**](#plotting-numerical-variable)]
 
 
 <br>
@@ -353,7 +353,7 @@ Note:
 
 * `plot_num`과 `profiling_num`은 수치가 아닌 변수를 자동으로 제외합니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#numerical-profiling-in-r)]
+[🔎 [**여기서 더 읽어보기**](#numerical-profiling-in-r)]
 
 <br>
 
@@ -378,7 +378,7 @@ Notes:
 * `path_out`은 경로 디렉토리를 나타냅니다. 값이 있으면 플롯이 jpeg로 내보내집니다. 현재 디렉토리에 저장하려면 점(".")을 사용합니다.
 * `na.rm`은 `NA` 값을 제외할지 여부를 나타냅니다(기본값은 `FALSE`).
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#profiling-categorical-variables)]
+[🔎 [**여기서 더 읽어보기**](#profiling-categorical-variables)]
 
 
 <br>
@@ -398,7 +398,7 @@ Notes:
 * 수치 변수만 분석됩니다. 타겟 변수는 반드시 수치형이어야 합니다.
 * 타겟이 범주형인 경우 수치형으로 변환됩니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#linear-correlation)]
+[🔎 [**여기서 더 읽어보기**](#linear-correlation)]
 
 
 <br>
@@ -414,7 +414,7 @@ var_rank_info(heart_disease, "has_heart_disease")
 참고: 수치 및 범주형 변수를 분석합니다. 또한 `discretize_df`와 같이 이전에 사용된 수치 이산화 방법과 함께 사용됩니다.
 
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#select_features_var_rank_info)]
+[🔎 [**여기서 더 읽어보기**](#select_features_var_rank_info)]
 
 
 
@@ -436,7 +436,7 @@ Notes:
 * `input`은 수치형 또는 범주형일 수 있으며, `target`은 반드시 이진(두 개의 클래스) 변수여야 합니다.
 * `input`이 비어 있으면 모든 변수에 대해 실행됩니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#profiling_target_cross_plot)]
+[🔎 [**여기서 더 읽어보기**](#profiling_target_cross_plot)]
 
 <br>
 
@@ -450,7 +450,7 @@ Notes:
 plotar(data = heart_disease, input = c("age", "oldpeak"), target = "has_heart_disease", plot_type = "boxplot")
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#target-profiling-using-boxplots)]
+[🔎 [**여기서 더 읽어보기**](#target-profiling-using-boxplots)]
 
 <br>
 
@@ -460,7 +460,7 @@ plotar(data = heart_disease, input = c("age", "oldpeak"), target = "has_heart_di
 plotar(data = mtcars, input = "gear", target = "cyl", plot_type = "histdens")
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#target-profiling-using-density-histograms)]
+[🔎 [**여기서 더 읽어보기**](#target-profiling-using-density-histograms)]
 
 Notes:
 
@@ -488,7 +488,7 @@ Note:
 
 이 함수는 예측 모델링에서 변수의 카디널리티(cardinality)를 줄여야 할 때 데이터를 분석하는 데 사용됩니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#high_cardinality_predictive_modeling)]
+[🔎 [**여기서 더 읽어보기**](#high_cardinality_predictive_modeling)]
 
 
 
@@ -530,7 +530,7 @@ Notes:
 * 각 구간의 최소값과 최대값은 각각 `-Inf`와 `Inf`가 됩니다.
 * 최신 `funModeling` 릴리스(1.6.7)에서 수정된 사항으로 인해 특정 시나리오에서 출력이 변경될 수 있습니다. 버전 1.6.6을 사용하고 있었다면 결과를 확인하십시오. 이 변경 사항에 대한 자세한 정보는 [여기](https://s3.amazonaws.com/datascienceheroes.com/img/blog/changes_discretize_df.png)를 참조하십시오.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#data-discretization)]
+[🔎 [**여기서 더 읽어보기**](#data-discretization)]
 
 
 <br>
@@ -558,7 +558,7 @@ new_age = equal_freq(heart_disease$age, n_bins = 5)
 Hmisc::describe(new_age)
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#equal-frequency-binning)]
+[🔎 [**여기서 더 읽어보기**](#equal-frequency-binning)]
 
 Notes:
 
@@ -593,7 +593,7 @@ summary(age_scaled)
 tukey_outlier(heart_disease$resting_blood_pressure)
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#detecting-outliers-using-tukey-method)]
+[🔎 [**여기서 더 읽어보기**](#detecting-outliers-using-tukey-method)]
 
 <br>
 
@@ -603,7 +603,7 @@ tukey_outlier(heart_disease$resting_blood_pressure)
 hampel_outlier(heart_disease$resting_blood_pressure)
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#detecting-outliers-using-hampel-method)]
+[🔎 [**여기서 더 읽어보기**](#detecting-outliers-using-hampel-method)]
 
 
 <br>
@@ -643,7 +643,7 @@ sprintf("변환 후 -> 최소값: %s; 최대값: %s", min(data_prep$max_heart_ra
 * `method`는 `bottom_top`, `tukey` 또는 `hampel`이 될 수 있습니다.
 * `type`은 `stop` 또는 `set_na`가 될 수 있습니다. `stop` 인 경우 이상치로 플래그가 지정된 모든 값이 임계값으로 설정됩니다. `set_na` 인 경우 플래그가 지정된 값은 `NA`로 설정됩니다.
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#how_to_deal_with_outliers_in_r)]
+[🔎 [**여기서 더 읽어보기**](#how_to_deal_with_outliers_in_r)]
 
 
 <br>
@@ -664,7 +664,7 @@ gain_lift(data = heart_disease, score = 'score', target = 'has_heart_disease')
 
 ```
 
-[`r emo::ji("mag_right")` [**여기서 더 읽어보기**](#gain_and_lift)]
+[🔎 [**여기서 더 읽어보기**](#gain_and_lift)]
 
 <br>
 
